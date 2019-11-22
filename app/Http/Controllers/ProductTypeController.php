@@ -12,7 +12,7 @@ class ProductTypeController extends Controller
             'smartphone' => new Smartphone()
         ];
 
-        $products = $productTypes[$productType]::all()->toArray();
+        $products = $productTypes[$productType]::where('category', '=', 'smartphone')->paginate(6);
         return view('layouts.products', [
             'productType' => $productType,
             'products' => $products

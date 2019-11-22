@@ -17,13 +17,13 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="{{ explode(',', $product['image'])[0] }}" class="d-block w-100 h-100" style="max-height:490px;max-width:500px;" alt="">
+                                <img src="{{ explode(',', $product['image'])[0] }}" class="d-block w-100" style="max-height:490px;max-width:400px;" alt="">
                             </div>
                             <div class="carousel-item">
-                                <img src="{{ explode(',', $product['image'])[1] }}" class="d-block w-100" style="max-height:490px;max-width:500px;" alt="">
+                                <img src="{{ explode(',', $product['image'])[1] }}" class="d-block w-100" style="max-height:490px;max-width:400px;" alt="">
                             </div>
                             <div class="carousel-item">
-                               <img src="{{ explode(',', $product['image'])[2] }}" class="d-block w-100"  style="max-height:490px;max-width:500px;" alt="">
+                               <img src="{{ explode(',', $product['image'])[2] }}" class="d-block w-100"  style="max-height:490px;max-width:400px;" alt="">
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

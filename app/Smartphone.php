@@ -13,12 +13,13 @@ class Smartphone extends Model
 
 $product->category = 'smartphone';
 $product->brand = 'samsung';
-$product->model = 'Galaxy Note10';
-$product->price = 399890;
-$product->colour = 'Black';
+$product->model = 'Galaxy A80';
+$product->price = 249890;
+$product->colour = 'Gold';
 $product->ram = '8Gb';
-$product->capacity = '256Gb';
-$product->image = 'https://images-na.ssl-images-amazon.com/images/I/71QIWoR7EZL._SX569_.jpg, https://cdn.movertix.com/media/catalog/product/cache/image/1200x/s/a/samsung-galaxy-note-10-plus-dual-sim-en-negro-de-256gb-y-12gb-ram-sm-n975f-ds-detras.jpg, https://i1.rozetka.ua/goods/13272060/samsung_galaxy_note_10_plus_12_256_gb_black_sm_n975fzkdsek_images_13272060466.jpg';
-$product->description = 'Разрешение дисплея1080x2280, Диагональ дисплея, дюйм6.3, Операционная системаAndroid 9.0 (Pie), Количество SIM-карт2, Стандарт связи4G (LTE), 2G, 3G (WCDMA/UMTS), Стандарт защиты от пыли и влагиIP68';
+$product->capacity = '128Gb';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/7/9/7982170c433465b378f1169ea2ab844e62d638dc_14944344473630.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/d/2/d21a718d12c9b6e50f9340ebaea6d6f033796690_14944346046494.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/d/a/daafd74877e92493713578c5c364367794ea2386_14944347095070.jpg';
+$product->description = 'Разрешение дисплея 1080x2400, Диагональ дисплея, дюйм6.7, Операционная системаAndroid 9.0 (Pie), Количество SIM-карт2, Стандарт связи4G (LTE), 2G, 3G (WCDMA/UMTS), Стандарт защиты от пыли и влагиIP68';
+$product->onsale = 'no';
 
 $product->save();*/

@@ -141,6 +141,9 @@ a{
   align-items: center;
 }
 .productCard{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
   width: 70%;
   height: 500px;
 }

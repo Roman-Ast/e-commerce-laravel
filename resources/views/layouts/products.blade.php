@@ -263,7 +263,7 @@
             @foreach($products as $product)
                 <div class="col-md-3">
                     <div class="card mb-3 shadow-sm card-scale">
-                        <img src="{{ explode(',', $product['image'])[0] }}" style="max-height:150px;width:80%;align-self:center;" class="d-block">
+                        <img src="{{ explode(',', $product['image'])[0] }}" style="max-height:150px;max-width:250px;align-self:center;" class="d-block">
                             <div class="card-body">
                                 <div class="card-brand" style="text-align:center;">
                                     <h5>{{ strtoupper($product['brand']) }}</h5>
@@ -277,7 +277,11 @@
                         </div>
                     </div>
                 </div>
-            @endforeach     
+            @endforeach   
+
+            <div class="links">
+            {{ $products->links() }}
+            </div> 
             </div>
                 
         </div>

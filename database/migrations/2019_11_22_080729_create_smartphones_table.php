@@ -22,8 +22,9 @@ class CreateSmartphonesTable extends Migration
             $table->string('colour');
             $table->string('ram');
             $table->string('capacity');
-            $table->string('image');
+            $table->text('image');
             $table->text('description');
+            $table->string('onsale');
             $table->timestamps();
         });
     }
