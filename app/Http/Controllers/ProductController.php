@@ -3,19 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Smartphone;
+use App\TV;
 
 class ProductController extends Controller
 {
     public function show($productType, $id)
     {
         $productTypes = [
-            'smartphone' => new Smartphone()
+            'smartphone' => new Smartphone(),
+            'tv' => new TV()
         ];
 
         $product = $productTypes[$productType]::find($id)->toArray();
 
+        $productOptions = [];
+        foreach ($product as $option => $value) {
+           if (
+                $option != 'model' && $option != 'price' && 
+                $option != 'brand' && $option != 'category' &&
+                $option != 'image' && $option != 'id' &&
+                $option != 'onsale' && $option != 'category' &&
+                $option != 'created_at' && $option != 'updated_at'
+            ) {
+               $productOptions[$option] = $value;
+           }
+        }
         return view('layouts.product', [
-            'product' => $product
+            'product' => $product,
+            'productOptions' => $productOptions
         ]);
     }
 }

@@ -44,14 +44,24 @@ $('#priceToValue').on('input', function (params) {
 $('.useFilter').on('click',function (e) {
     e.preventDefault();
 
-    const reqObject = {
-        
-    }
-    console.log($('#priceValue').val());
+    const reqObject = {};
+    
     $('#accordion input[type=checkbox]').each(function() {
         if ($(this).is(":checked")) {
-            console.log($(this).attr('name'));
+            //console.log($(this).parent().parent().parent().attr('name'));
+            //console.log($(this).attr('name'));
+            reqObject[$(this).parent().parent().parent().attr('name')] = $(this).attr('name');
         }
      });
+
+     $.ajax({
+        type: 'POST',
+        data: JSON.stringify(reqObject),
+        contentType: 'application/json',
+        url: '/showProducts'
+      }).done(function(response) {
+          console.log(response);
+      });
+      //console.log($(this).parent().parent());
     
 });

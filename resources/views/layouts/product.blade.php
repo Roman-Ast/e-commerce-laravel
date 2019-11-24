@@ -34,18 +34,18 @@
                             <span class="carousel-control-next-icon" aria-hidden="false"></span>
                             <span class="sr-only">Next</span>
                         </a>
-                        </div>
+                    </div>
                     
                 </div>
                 <div class="col-md-6">
                 <div class="card-body">
+                
                     <h3 class="card-title">{{ strtoupper($product['brand']) }} {{ $product['model'] }}</h3>
                     <h2 class="card-title" style="color:#9f07a9;">{{ $product['price'] }}</h2>
                     <ul class="short-techs">
-                        <li>Цвет: {{ $product['colour'] }}</li>
-                        <li>Оперативная память: {{ $product['ram'] }}</li>
-                        <li>Встроенная память: {{ $product['capacity'] }}</li>
-                        <li>Краткое описание: <br><p style="margin-left:10px;">{{ $product['description'] }}</p></li>
+                        @foreach($productOptions as $option => $value)
+                        <li>{{ $option }}: {{ $value }}</li>
+                        @endforeach
                     </ul>
                     <button class="btn btn-warning">Добавить в корзину</button>
                 </div>

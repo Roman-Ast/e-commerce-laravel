@@ -30,8 +30,8 @@
                     Каталог товаров
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/showProducts/smartphone">Смартфоны</a>
-                    <a class="dropdown-item" href="/showProducts/tv">Телевизоры</a>
+                    <a class="dropdown-item" href="/showProducts/smartphones">Смартфоны</a>
+                    <a class="dropdown-item" href="/showProducts/t_v_s">Телевизоры</a>
                     <a class="dropdown-item" href="/showProducts/forPlayers">Все для геймеров</a>
                     <a class="dropdown-item" href="/showProducts/LHA">Крупная бытовая техника</a>
                     <a class="dropdown-item" href="/showProducts/SHA">Мелкая бытовая техника</a>
@@ -376,5 +376,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/main.js') }}"></script>
+        <script src="{{ URL::asset('js/jquery_min.js') }}"></script>
     </body>
 </html>

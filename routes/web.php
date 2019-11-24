@@ -15,5 +15,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/showProducts/{productType}', 'ProductTypeController@show');
+
+Route::get('/showProducts/{productType}', 'ProductsController@show');
 Route::get('/showProducts/{productType}/{id}', 'ProductController@show');
+Route::post('/showProducts', 'ProductsController@filter');
+
+
+

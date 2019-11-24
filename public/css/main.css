@@ -24,19 +24,19 @@ a{
     height: 450px;
 }
 .containerForProducts{
+  width: 95%;
   margin: 20px auto;
-  height: 200%;
   display: flex;
   flex-wrap: nowrap;
   position: relative;
   justify-content: space-between;
+  min-height: 80vh;
 }
 .filter{
   width: 20%;
 }
 .products{
-  height: 1000px;
-  width: 78%;
+  width: 78%; 
 }
 .news{
   display: flex;
@@ -112,7 +112,7 @@ a{
 }
 .imagesWrapper{
   height: 500px;
-  width: 100%;
+  width: 85%;
   height: 100%;
   margin: 20px auto;
   display: flex;
@@ -143,11 +143,11 @@ a{
 .productCard{
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-evenly;
+  justify-content: center;
   width: 70%;
-  height: 500px;
+  height: 500px;  
 }
 .options{
-  width: 90%;
+  width: 83%;
   margin: 0 auto;
 }
