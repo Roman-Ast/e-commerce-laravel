@@ -13,7 +13,7 @@ class CreateTVSTable extends Migration
      */
     public function up()
     {
-        Schema::create('tvs', function (Blueprint $table) {
+        Schema::create('t_v_s', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('category');
             $table->string('brand');
@@ -38,6 +38,6 @@ class CreateTVSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_v_s');
+        Schema::dropIfExists('tvs');
     }
 }

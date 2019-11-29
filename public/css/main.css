@@ -37,6 +37,7 @@ a{
 }
 .products{
   width: 78%; 
+  justify-content: space-between;
 }
 .news{
   display: flex;
@@ -91,13 +92,14 @@ a{
   background-color: #ccc;
   border-radius:5px;
   display: flex;
+  flex-direction: column;
   align-items: flex-end;
-  justify-content: center;
-  min-height: 80px;
+  min-height: 70px;
   z-index: 10;
-  left: 5%;
+  left: 6.5%;
   bottom: 5%;
   background-color: #ffbe00;
+  display: none;
 }
 .collapseCardWraper{
   display: flex;
@@ -150,4 +152,22 @@ a{
 .options{
   width: 83%;
   margin: 0 auto;
+}
+.sortContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+#priceFromValue{
+  font-size: 18px;
+  min-height: 40px;
+}
+#priceToValue{
+  font-size: 18px;
+  min-height: 40px;
+}
+#cart{
+  width: 15%;
 }

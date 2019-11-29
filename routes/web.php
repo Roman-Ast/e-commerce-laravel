@@ -11,14 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+/*Route::get('/', function () {
+    return view('home');
+});*/
 
-
+Route::post('/showProducts/{productType}', 'ProductsController@filter');
 Route::get('/showProducts/{productType}', 'ProductsController@show');
 Route::get('/showProducts/{productType}/{id}', 'ProductController@show');
-Route::post('/showProducts', 'ProductsController@filter');
 
 
 
+
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');

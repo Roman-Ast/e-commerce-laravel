@@ -3,6 +3,10 @@
 <!-- Секция, содержимое которой обычный текст. -->
 @section('title', 'Салон бытовой техники')
 
+@section('cart')
+    
+@show
+
 @section('main')
 <div class="containerForProducts">
     <div class="filter">
@@ -10,67 +14,93 @@
             <img src="/images/filter.png">
             <h5>Фильтр</h5>
         </div>
-        <form id="accordion" class="filter-accordion" action="/showProducts" method="POST" >
-
-            <div class="card filter-item">
-                <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                    <div class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <div class="checkedCheckboxes" style="display:none;">
+            @if (isset($checkedCheckboxes))
+                @foreach($checkedCheckboxes as $checkedCheckbox)
+                    <span name="{{ $checkedCheckbox }}"></span>
+                @endforeach
+            @endif
+        </div>
+        {!! Form::Open(['url' => "/showProducts/$productType", 'id' => 'accordion', 'class' => 'filter-accordion']) !!}
+        
+        <div class="card filter-item">
+            <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <div class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     Цена
                 </div>
-                </h5>
-                </div>
+            </h5>
+            </div>
 
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                     <div class="collapseCardWraper">
-                        <div class="card-body">
-                            <label for="customRange1">От</label>
-                            <input type="range" class="custom-range" id="priceFromRange" min="0" max="1000000" value="0">
-                            <input class="form-control" type="text" id="priceFromValue">
-                        </div>
-                        <div class="card-body">
-                                <label for="customRange1">До</label>
-                                <input type="range" class="custom-range" id="priceToRange" min="0" max="1000000" value="100000">
-                                <input class="form-control" type="text" id="priceToValue">
-                        </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="collapseCardWraper">
+                    <div class="card-body">
+                        {!! Form::label('customRange1', 'От') !!}
+                        {!! Form::range('', null, ['class' => 'custom-range', 'id' => 'priceFromRange', 'min' => '0', 'max' => '300000', 'value' => '0']) !!}
+                        {!! Form::text('from', null, ['class' => 'form-control', 'id' => 'priceFromValue', 'value' => 0, 'size' => '20']) !!}
+                        
+                    </div>
+                    <div class="card-body">
+                        {!! Form::label('customRange1', 'До') !!}
+                        {!! Form::range('', null, ['class' => 'custom-range', 'id' => 'priceToRange', 'min' => '0', 'max' => '3000000', 'value' => '3000000']) !!}
+                        {!! Form::text('to', null, ['class' => 'form-control', 'id' => 'priceToValue', 'size' => '30']) !!}
+                            
                     </div>
                 </div>
             </div>
-            
-                @foreach($options as $option)
-                <div class="card">
-                    <div class="card-header" id="heading{{ $option }}">
-                    <h5 class="mb-0">
-                        <div class="btn" data-toggle="collapse" data-target="#collapse{{ $option }}" aria-expanded="true" aria-controls="collapse{{ $option }}">
+        </div>
+        @foreach($options as $option)
+            <div class="card">
+                <div class="card-header" id="heading{{ $option }}">
+                <h5 class="mb-0">
+                    <div class="btn" data-toggle="collapse" data-target="#collapse{{ $option }}" aria-expanded="true" aria-controls="collapse{{ $option }}">
                         {{ $option }}
-                        </div>
-                    </h5>
                     </div>
-
-                    <div name="{{ $option }}" id="collapse{{ $option }}" class="collapse" aria-labelledby="heading{{ $option }}" data-parent="#accordion">
-                    <div class="card-body">
-                        @foreach($optionsItems[$option] as $optionItem)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="{{ $optionItem }}">
-                            <label class="form-check-label" for="defaultCheck1">
-                                {{ $optionItem }}
-                            </label>
-                        </div>
-                        @endforeach
-                    </div>
-                    </div>
+                </h5>
                 </div>
-               @endforeach
-                
-                <input type="submit" class="btn useFilter" style="background-color:#9f07a9;color:#fff" value="Показать" name="{{ $productType }}">
-                
-            </form>
-        
+
+                <div name="{{ $option }}" id="collapse{{ $option }}" class="collapse" aria-labelledby="heading{{ $option }}" data-parent="#accordion">
+                <div class="card-body">
+                    @foreach($optionsItems[$option] as $optionItem)
+                    <div class="form-check">
+                        {!! Form::checkbox($option .':'. $optionItem, null, ['class' => 'filterCheckbox']) !!}
+                        {!! Form::label($optionItem, $optionItem) !!}
+                        
+                    </div>
+                    @endforeach
+                </div>
+                </div>
+            </div>
+            @endforeach
+            <div class="useFilterBtnContainer" tabindex="-1" role="dialog">
+                <button type="button" class="close" data-dismiss="useFilterBtnContainer" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {!! Form::submit('Показать', ['class' => 'btn btn-light useFiltera', 'style' => 'color:#fff;align-self:center;background-color: #9f07a9;'])!!}
+            </div>
         </div>
         
         <div class="products">
-              
+
+            <div class="sortContainer">
+                <div style="width:3000px;text-decoration:underline;">{{ strtoupper($productType[0]) . substr($productType, 1) }}</div>
+                @if (isset($inputSort))
+                {!! Form::label('selectSort', 'Сортировать ') !!}
+                {!! Form::select('sort', array('byDefault' => 'по умолчанию', 
+                'byIncreasePrise' => 'по возрастанию цены',
+                'byDescPrise' => 'по убыванию цены'),
+                $inputSort, ['class' => 'form-control selectSort']) !!}
+                @endif
+                @if (!isset($inputSort))
+                {!! Form::label('selectSort', 'Сортировать ') !!}
+                {!! Form::select('sort', array('byDefault' => 'по умолчанию', 
+                'byIncreasePrise' => 'по возрастанию цены',
+                'byDescPrise' => 'по убыванию цены'),
+                'byDefault', ['class' => 'form-control selectSort']) !!}
+                @endif
+            </div>
             <div class="row">
+            {!! Form::Close() !!}
             @foreach($products as $product)
                 <div class="col-md-3">
                     <div class="card mb-3 shadow-sm card-scale">
@@ -90,13 +120,12 @@
             </div>
             @endforeach   
 
-            
-            </div>
-            <div class="links" style="display:flex;align-self:baseline">
-            {{ $products->links() }}
-            </div>  
         </div>
+        <div class="links" style="display:flex;align-self:baseline">
+            {{ $products->links() }}
+        </div>  
     </div>
+</div>
 @endsection
 
 @section('submain-header')

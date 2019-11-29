@@ -8,6 +8,35 @@ $(function() {
   
 });
 
+$('#priceFromRange').val(0);
+$('#priceToRange').val(3000000);
+$('input[type=checkbox]').prop('checked', false);
+$('.carousel-inner').children().first().addClass('active');
+$('#accordion').on('change', function() {
+    $('.useFilterBtnContainer').css({'display':'flex'});
+});
+
+$('.close').on('click', function () {
+    $('.useFilterBtnContainer').fadeOut(400);
+});
+
+$('.selectSort').on('change', function () {
+    $('.useFiltera').click();
+})
+
+const arrOfCheckedCheckboxes = [];
+$('.checkedCheckboxes').children().each(function() {
+    arrOfCheckedCheckboxes.push($(this).attr('name'));
+});
+
+$('input[type=checkbox').each(function () {
+    if (arrOfCheckedCheckboxes.includes($(this).attr('name'))) {
+        $(this).parent().parent().parent().addClass('show');
+        $(this).prop('checked', true);
+        $('.useFilterBtnContainer').css({'display': 'flex'});
+    }
+});
+
 $('.dropdown-toggle').on('click', function() {
     $('.dropdown-menu').toggle();
 });
