@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
+@yield('navbar')
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="register-form">
+    <div class="row" style="width:100%">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header login-header">
+                    <div class="form-register-close" style="display:flex;justify-content:flex-end;">&times;</div>
+                    <div style="display:flex;justify-content:center;width:100%;">{{ __('Войти') }}</div>
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

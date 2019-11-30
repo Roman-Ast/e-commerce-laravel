@@ -8,6 +8,9 @@ $(function() {
   
 });
 
+$('.form-register-close').on('click', function() {
+    $('.register-form').slideUp();
+});
 $('#priceFromRange').val(0);
 $('#priceToRange').val(3000000);
 $('input[type=checkbox]').prop('checked', false);
@@ -68,6 +71,51 @@ $('#priceToRange').on('input', function (params) {
 $('#priceToValue').on('input', function (params) {
     $('#priceToRange').val($(this).val());
 });
+
+$('.show-more-reviews').children().first().on('click', function () {
+    if ($(this).attr('src') === '/images/arrow-down.png') {
+        $('#reviews').animate({ "height": 500 }, 500 );
+        $(this).attr('src', '/images/arrow-up.png');
+    } else {
+        $('#reviews').animate({ "height": 200 }, 500 );
+        $(this).attr('src', '/images/arrow-down.png');
+    }
+});
+
+$('#reviews-tab').on('click', function () {
+    $('.show-more-reviews').fadeIn().css('display', 'flex');
+})
+
+$('#contact-tab, #home-tab').on('click', function () {
+    $('.show-more-reviews').css('display', 'none');
+});
+
+$('.show-form-edit').on('click', function (e) {
+    e.preventDefault();
+    if ($('.form-review-edit').height() > 0) {
+        $('.form-review-edit').animate({'height': 0}, 200, function() {
+            $(this).css({'display': 'none'});
+        });
+    } else {
+        $('.form-review-edit').animate({'height': 200}, 200);
+        $('.form-review-edit').css({'display': 'flex'});
+    }
+});
+
+$('.review-delete').on('click', function (e) {
+    e.preventDefault();
+    $('.modal').show();
+});
+$('.close-modal').on('click', function () {
+    $('.modal').hide();
+})
+
+
+
+
+
+
+
 
 
 $('.useFilter').on('click',function (e) {

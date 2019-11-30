@@ -15,15 +15,18 @@
     return view('home');
 });*/
 
+
+Route::post('/review/create', 'ReviewController@create');
+Route::post('/review/{id}/update', 'ReviewController@update');
+Route::post('/review/{id}/delete', 'ReviewController@destroy');
+
 Route::post('/showProducts/{productType}', 'ProductsController@filter');
 Route::get('/showProducts/{productType}', 'ProductsController@show');
 Route::get('/showProducts/{productType}/{id}', 'ProductController@show');
-
-
-
 
 
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+
