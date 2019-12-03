@@ -111,6 +111,16 @@
                                     <div class="card-model">{{ $product['model'] }}</div>
                                 </div>
                                 <div class="card-model" style="text-align:center;color:#9f07a9;"><h4><b>{{ $product['price'] }}</b></h4></div>
+                                <div class="product-review">
+                                <small style="display:flex;justify-content:space-between;">
+                                @if ($product['reviews_count'] == 0)
+                                <div>Отзывов: -</div><div>Оценка: -</div> 
+                                @endif
+                                @if ($product['reviews_count'] != 0)
+                                <div>Отзывов: {{ $product['reviews_count'] }}</div><div>Оценка: {{ $product['rating'] }}/5</div>
+                                @endif
+                                </small>
+                                </div>
                                 <div class="d-flex justify-content-center align-items-center">
                                     <button type="button" class="btn btn-sm btn-outline-primary"><a style="text-decoration:none;" href="{{ $product['category'] }}/{{ $product['id'] }}">Подробнее...</a></button>
                                     <button type="button" class="btn btn-sm btn-outline-success">В корзину</button>

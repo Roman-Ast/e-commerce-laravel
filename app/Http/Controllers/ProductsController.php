@@ -9,14 +9,19 @@ use Request;
 
 class ProductsController extends Controller
 {
+    protected $products = [];
+
     public function show(string $productType)
     {
+        $input = Request::all();
+        
         $productTypes = [
             'smartphones' => new Smartphone(),
             't_v_s' => new TV()
         ];
 
         $products = $productTypes[$productType]::paginate(8);
+
         $options = DB::select(
             "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='$productType'"
         );
@@ -30,7 +35,8 @@ class ProductsController extends Controller
                     $var != 'id' && $var != 'category' && 
                     $var != 'model' && $var != 'price' &&
                     $var != 'image' && $var != 'description' &&
-                    $var != 'onsale' && $var != 'created_at' && 
+                    $var != 'onsale' && $var != 'created_at' &&
+                    $var != 'reviews_count' && $var != 'rating' &&
                     $var != 'updated_at'
                 ) {
                     $optionsForDisplay[] = $var;
@@ -43,12 +49,15 @@ class ProductsController extends Controller
             $optionsItems[$option] = $productTypes[$productType]::select($option)->distinct()->pluck($option)->toArray();
         }
 
+        
+        
         return view('layouts.products', [
-            'productType' => $productType,
-            'products' => $products,
-            'options' => $optionsForDisplay,
-            'optionsItems' => $optionsItems
+                'productType' => $productType,
+                'products' => $products,
+                'options' => $optionsForDisplay,
+                'optionsItems' => $optionsItems
         ]);
+        
     }
 
     public function filter(string $productType)

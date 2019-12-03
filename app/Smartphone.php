@@ -12,14 +12,14 @@ class Smartphone extends Model
 /*$product = new Smartphone();
 
 $product->category = 'smartphone';
-$product->brand = strtolower('Apple');
-$product->model = 'iPhone 11';
-$product->price = 394890;
-$product->colour = strtolower('желтый');
-$product->ram = '4Gb';
-$product->capacity = '64Gb';
-$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/c/8/c8794044e0741398e5144b6cb145871b488376f3_16556833439774.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/b/1/b120528fd3ac7aa1f30a1f7b72ef25cc7c69be97_16556834652190.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/2/1/21f0a9aac03a996ffe74f8ad14c9c9f2dad01b27_16556835766302.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/b/f/bf6181ab36694cb172b2a25170db5b03c2a0865b_16556834127902.jpg';
-$product->description = 'Шестилинзовый объектив, Пятилинзовый объектив, Ночной режим, Панорама, Контроль экспозиции, Эффект боке, Режим серийной съемки, Цифровой зум 5x, Устранение эффекта красных глаз, Портретный режим, Геотегинг, Оптический зум 2x';
+$product->brand = strtolower('samsung');
+$product->model = 'Galaxy Note 10+';
+$product->price = 499990;
+$product->colour = strtolower('aura');
+$product->ram = '12Gb';
+$product->capacity = '512Gb';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/9/f/9fedf451d4391f0af1693755b3cedb728dbaa653_16845202128926.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/2/4/248da03e727cc70466787c056fd1b301379b6947_16845213106206.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/c/b/cb7b5688b078a5b44aa72958bcd25fbb581cd44a_16845221167134.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/9/7/97210615e3ac03492fbb232761e7eb70c51797d9_16845214285854.jpg';
+$product->description = 'NFC, Тройная камера, Смартфон с двумя SIM-картами, Смартфон с 4G, Смартфон с большим аккумулятором';
 $product->onsale = 'no';
 
 $product->save();*/

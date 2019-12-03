@@ -12,10 +12,10 @@ class TV extends Model
 /*$product = new TV();
 
 $product->category = 'tv';
-$product->brand = 'Panasonic';
+$product->brand = strtolower('Panasonic');
 $product->model = 'TX-65GXR700A';
 $product->price = 499990;
-$product->colour = 'Black';
+$product->colour = strtolower('черный');
 $product->diagonal = '165см';
 $product->screen = 'LED';
 $product->resolution = '3840x2160UltraHD';

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Review;
 use Request;
+use App\Smartphone;
+use App\TV;
 
 class ReviewController extends Controller
 {
@@ -25,14 +27,32 @@ class ReviewController extends Controller
     public function create()
     {
         $input = Request::all();
+
+        $productTypes = [
+            'smartphone' => Smartphone::findOrFail($input['product_id']),
+            'tv' => Tv::findOrFail($input['product_id'])
+        ];
+
         $review = new Review;
         $review->product_id = $input['product_id'];
         $review->author_id = $input['author_id'];
         $review->author_name = $input['author_name'];
         $review->body = $input['body'];
+        $review->rating = $input['rating'];
+
         $review->save();
-        //return $input;
-        return redirect("showProducts/{$input['productType']}/{$input['product_id']}");
+
+        $averageRating = Review::where('product_id', '=', $input['product_id'])->avg('rating');
+        $reviewsCount = Review::where('product_id', '=', $input['product_id'])->count();
+        
+        $product = $productTypes[$input['productType']];
+
+        $product->reviews_count = $reviewsCount;
+        $product->rating = round($averageRating, 1);
+        $product->save();
+
+        return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
+            ->with('message', 'Спасибо, Ваш отзыв успешно добавлен!')->with('class', 'alert-success');
     }
 
     /**
@@ -79,11 +99,26 @@ class ReviewController extends Controller
     {
         $input = Request::all();
 
+        $productTypes = [
+            'smartphone' => Smartphone::findOrFail($input['product_id']),
+            'tv' => Tv::findOrFail($input['product_id'])
+        ];
+
         $review = Review::find($id);
         $review->body = $input['body'];
+        $review->rating = $input['rating'];
         $review->save();
         
-        return redirect("showProducts/{$input['productType']}/{$input['product_id']}");
+        $averageRating = Review::where('product_id', '=', $input['product_id'])->avg('rating');
+        $reviewsCount = Review::where('product_id', '=', $input['product_id'])->count();
+        
+        $product = $productTypes[$input['productType']];
+
+        $product->reviews_count = $reviewsCount;
+        $product->rating = $averageRating;
+
+        return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
+            ->with('message', 'Спасибо, Ваш отзыв успешно обновлен!')->with('class', 'alert-success');;
     }
 
     /**
@@ -96,9 +131,23 @@ class ReviewController extends Controller
     {
         $input = Request::all();
 
+        $productTypes = [
+            'smartphone' => Smartphone::findOrFail($input['product_id']),
+            'tv' => Tv::findOrFail($input['product_id'])
+        ];
+
+        $averageRating = Review::where('product_id', '=', $input['product_id'])->avg('rating');
+        $reviewsCount = Review::where('product_id', '=', $input['product_id'])->count();
+        
+        $product = $productTypes[$input['productType']];
+
+        $product->reviews_count = $reviewsCount;
+        $product->rating = $averageRating;
+
         $review = Review::find($id);
         $review->forceDelete();
 
-        return redirect("showProducts/{$input['productType']}/{$input['product_id']}");
+        return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
+            ->with('message', 'Спасибо, Ваш отзыв успешно удален!')->with('class', 'alert-danger');;
     }
 }

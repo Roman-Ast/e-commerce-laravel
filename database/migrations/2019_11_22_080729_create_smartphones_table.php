@@ -24,6 +24,8 @@ class CreateSmartphonesTable extends Migration
             $table->string('capacity');
             $table->text('image');
             $table->text('description');
+            $table->integer('reviews_count');
+            $table->string('rating');
             $table->string('onsale');
             $table->timestamps();
         });

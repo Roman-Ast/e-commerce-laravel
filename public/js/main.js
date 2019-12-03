@@ -1,5 +1,4 @@
 $(function() {
-        
     $('.list-group-item').on('click', function() {
       $('.glyphicon', this)
         .toggleClass('glyphicon-chevron-right')
@@ -24,7 +23,7 @@ $('.close').on('click', function () {
 });
 
 $('.selectSort').on('change', function () {
-    $('.useFiltera').click();
+    $('.useFilterBtnContainer').fadeIn(400);
 })
 
 const arrOfCheckedCheckboxes = [];
@@ -86,7 +85,7 @@ $('#reviews-tab').on('click', function () {
     $('.show-more-reviews').fadeIn().css('display', 'flex');
 })
 
-$('#contact-tab, #home-tab').on('click', function () {
+$('#contact-tab, #home-tab, #add-review-tab').on('click', function () {
     $('.show-more-reviews').css('display', 'none');
 });
 
@@ -109,7 +108,9 @@ $('.review-delete').on('click', function (e) {
 $('.close-modal').on('click', function () {
     $('.modal').hide();
 })
-
+$('.close-flash').on('click', function () {
+    $('.alert').slideUp(400);
+});
 
 
 
