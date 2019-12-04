@@ -36,14 +36,14 @@
                 <div class="collapseCardWraper">
                     <div class="card-body">
                         {!! Form::label('customRange1', 'От') !!}
-                        {!! Form::range('', null, ['class' => 'custom-range', 'id' => 'priceFromRange', 'min' => '0', 'max' => '300000', 'value' => '0']) !!}
-                        {!! Form::text('from', null, ['class' => 'form-control', 'id' => 'priceFromValue', 'value' => 0, 'size' => '20']) !!}
+                        {!! Form::range('', $from, ['class' => 'custom-range', 'id' => 'priceFromRange', 'min' => '0', 'max' => '3000000', 'value' => $from]) !!}
+                        {!! Form::text('from', $from, ['class' => 'form-control', 'id' => 'priceFromValue', 'value' => $from, 'size' => '20']) !!}
                         
                     </div>
                     <div class="card-body">
                         {!! Form::label('customRange1', 'До') !!}
-                        {!! Form::range('', null, ['class' => 'custom-range', 'id' => 'priceToRange', 'min' => '0', 'max' => '3000000', 'value' => '3000000']) !!}
-                        {!! Form::text('to', null, ['class' => 'form-control', 'id' => 'priceToValue', 'size' => '30']) !!}
+                        {!! Form::range('', $to, ['class' => 'custom-range', 'id' => 'priceToRange', 'min' => '0', 'max' => '3000000', 'value' => $to]) !!}
+                        {!! Form::text('to', "{$to}", ['class' => 'form-control', 'id' => 'priceToValue', 'size' => '30', 'value' => "{$to}"]) !!}
                             
                     </div>
                 </div>
@@ -64,8 +64,8 @@
                     @foreach($optionsItems[$option] as $optionItem)
                     <div class="form-check">
                         {!! Form::checkbox($option .':'. $optionItem, null, ['class' => 'filterCheckbox']) !!}
-                        {!! Form::label($optionItem, $optionItem) !!}
-                        
+                        {!! Form::label($optionItem, strtoupper($optionItem[0])) . substr($optionItem, 1) !!}
+                
                     </div>
                     @endforeach
                 </div>

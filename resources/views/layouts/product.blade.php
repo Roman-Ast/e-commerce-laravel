@@ -155,7 +155,7 @@
                         
                         <div style="display:flex;justify-content:flex-start;margin-top:5px;">
                             <button class="btn btn-link show-form-edit">Редактировать</button>
-                            {!! Form::open(['url' => "/review/{$review['id']}/delete"]) !!}
+                            {!! Form::open(['url' => "/reviews/{$review['id']}/delete", 'method' =>  'PATCH']) !!}
                             <div class="modal" tabindex="-1" role="dialog">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -182,7 +182,7 @@
                         </div>
                         
                         <div class="form-review-edit" style="display:none;flex-direction:column;justify-content:center;">
-                            {!! Form::open(['url' => "/review/{$review['id']}/update"]) !!}
+                            {!! Form::open(['url' => "/reviews/{$review['id']}/update", 'method' =>  'PATCH']) !!}
                             <div class="add-product-rating" style="margin: 0;justify-content:flex-start;">
                                 Поставить оценку:
                                 <div class="form-check form-check-inline" style="margin-left:10px;">
@@ -206,7 +206,7 @@
                                     <input class="form-check-input" type="radio" name="rating" id="inlineRadio5" value=5 checked>
                                 </div>
                             </div>
-                            {!! Form::textarea('body',null, ['rows' => '6']) !!}
+                            {!! Form::textarea('body', $review['body'], ['rows' => '6']) !!}
                             {!! Form::hidden('product_id', $product['id']) !!}
                             {!! Form::hidden('productType', $product['category']) !!}
                             <div style="display:flex;justify-content:flex-start;">
@@ -240,7 +240,8 @@
         
         <div style="display:flex;flex-direction:column;align-items:center;">
             <div>
-            {!! Form::open(['url' => "/review/create", 'class' => 'row', 'style' => 'display:flex;flex-direction:column']) !!}
+            {!! Form::open(['url' => url('reviews/create'), 'class' => 'row', 'style' => 'display:flex;flex-direction:column']) !!}
+
             <div class="add-product-rating">
                 Поставить оценку:
                 <div class="form-check form-check-inline" style="margin-left:10px;">
@@ -272,9 +273,11 @@
             </div>
             <div style="display:flex;justify-content:flex-start;">
                 {!! Form::submit('Оставить отзыв', ['class' => 'btn btn-primary'])!!}
+                {!! Form::close()!!}
             </div>
+            
         </div>
-        {!! Form::close()!!}
+        
         @endif
   </div>
 </div>

@@ -16,7 +16,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        return view('reviews.create');
+        return 'her';
     }
 
     /**
@@ -25,6 +25,17 @@ class ReviewController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $input = Request::all();
 
@@ -39,31 +50,18 @@ class ReviewController extends Controller
         $review->author_name = $input['author_name'];
         $review->body = $input['body'];
         $review->rating = $input['rating'];
-
         $review->save();
 
-        $averageRating = Review::where('product_id', '=', $input['product_id'])->avg('rating');
-        $reviewsCount = Review::where('product_id', '=', $input['product_id'])->count();
+        $averageRating = Review::where('product_id', $input['product_id'])->avg('rating');
+        $reviewsCount = Review::where('product_id', $input['product_id'])->count();
         
         $product = $productTypes[$input['productType']];
-
         $product->reviews_count = $reviewsCount;
-        $product->rating = round($averageRating, 1);
+        $product->rating = round($averageRating, 2);
         $product->save();
-
+        return $input;
         return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
             ->with('message', 'Спасибо, Ваш отзыв успешно добавлен!')->with('class', 'alert-success');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -74,7 +72,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        
+        //
     }
 
     /**
@@ -104,19 +102,19 @@ class ReviewController extends Controller
             'tv' => Tv::findOrFail($input['product_id'])
         ];
 
-        $review = Review::find($id);
+        $review = Review::findOrFail($id);
         $review->body = $input['body'];
         $review->rating = $input['rating'];
         $review->save();
         
-        $averageRating = Review::where('product_id', '=', $input['product_id'])->avg('rating');
-        $reviewsCount = Review::where('product_id', '=', $input['product_id'])->count();
+        $averageRating = Review::where('product_id', $input['product_id'])->avg('rating');
+        $reviewsCount = Review::where('product_id', $input['product_id'])->count();
         
         $product = $productTypes[$input['productType']];
-
         $product->reviews_count = $reviewsCount;
-        $product->rating = $averageRating;
-
+        $product->rating = round($averageRating, 2);
+        $product->save();
+        return $input;
         return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
             ->with('message', 'Спасибо, Ваш отзыв успешно обновлен!')->with('class', 'alert-success');;
     }
@@ -136,17 +134,17 @@ class ReviewController extends Controller
             'tv' => Tv::findOrFail($input['product_id'])
         ];
 
-        $averageRating = Review::where('product_id', '=', $input['product_id'])->avg('rating');
-        $reviewsCount = Review::where('product_id', '=', $input['product_id'])->count();
-        
-        $product = $productTypes[$input['productType']];
-
-        $product->reviews_count = $reviewsCount;
-        $product->rating = $averageRating;
-
-        $review = Review::find($id);
+        $review = Review::findOrFail($id);
         $review->forceDelete();
 
+        $averageRating = Review::where('product_id', '=', $input['product_id'])->avg('rating');
+        $reviewsCount = Review::where('product_id', '=', $input['product_id'])->count();
+
+        $product = $productTypes[$input['productType']];
+        $product->reviews_count = $reviewsCount;
+        $product->rating = round($averageRating, 2);
+        $product->save();
+        return $input;
         return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
             ->with('message', 'Спасибо, Ваш отзыв успешно удален!')->with('class', 'alert-danger');;
     }

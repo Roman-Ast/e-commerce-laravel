@@ -10,8 +10,8 @@ $(function() {
 $('.form-register-close').on('click', function() {
     $('.register-form').slideUp();
 });
-$('#priceFromRange').val(0);
-$('#priceToRange').val(3000000);
+/*$('#priceFromRange').val(0);
+$('#priceToRange').val(3000000);*/
 $('input[type=checkbox]').prop('checked', false);
 $('.carousel-inner').children().first().addClass('active');
 $('#accordion').on('change', function() {
@@ -24,6 +24,8 @@ $('.close').on('click', function () {
 
 $('.selectSort').on('change', function () {
     $('.useFilterBtnContainer').fadeIn(400);
+    $('.useFilterBtnContainer').css({'display': 'flex'});
+    $('.useFiltera').click();
 })
 
 const arrOfCheckedCheckboxes = [];
@@ -110,36 +112,4 @@ $('.close-modal').on('click', function () {
 })
 $('.close-flash').on('click', function () {
     $('.alert').slideUp(400);
-});
-
-
-
-
-
-
-
-
-$('.useFilter').on('click',function (e) {
-    e.preventDefault();
-
-    const reqObject = {};
-    
-    $('#accordion input[type=checkbox]').each(function() {
-        if ($(this).is(":checked")) {
-            //console.log($(this).parent().parent().parent().attr('name'));
-            //console.log($(this).attr('name'));
-            reqObject[$(this).parent().parent().parent().attr('name')] = $(this).attr('name');
-        }
-     });
-
-     $.ajax({
-        type: 'POST',
-        data: JSON.stringify(reqObject),
-        contentType: 'application/json',
-        url: '/showProducts'
-      }).done(function(response) {
-          console.log(response);
-      });
-      //console.log($(this).parent().parent());
-    
 });

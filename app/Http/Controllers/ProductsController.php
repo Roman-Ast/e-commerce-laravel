@@ -49,19 +49,21 @@ class ProductsController extends Controller
             $optionsItems[$option] = $productTypes[$productType]::select($option)->distinct()->pluck($option)->toArray();
         }
 
-        
-        
         return view('layouts.products', [
-                'productType' => $productType,
-                'products' => $products,
-                'options' => $optionsForDisplay,
-                'optionsItems' => $optionsItems
+            'from' => 0,
+            'to' => 3000000,
+            'productType' => $productType,
+            'products' => $products,
+            'options' => $optionsForDisplay,
+            'optionsItems' => $optionsItems
         ]);
         
     }
 
     public function filter(string $productType)
     {
+        $input = Request::all();
+
         $productTypes = [
             'smartphones' => new Smartphone(),
             't_v_s' => new TV()
@@ -91,7 +93,7 @@ class ProductsController extends Controller
         );
 
         foreach ($input as $key => $value) {
-            if ($key !== '_token' && $key !== 'php_echo_e($productType);_?>' && $key !== 'sort') {
+            if ($key !== '_token' && $key !== 'php_echo_e($productType);_?>' && $key !== 'sort' && $key !== 'page') {
                 if($key === 'from' || $key === 'to' || $key === 'productType') {
                     $arrForRequestFromDb[$key] = $value;
                 } else {
@@ -126,6 +128,7 @@ class ProductsController extends Controller
             }
         })->$sortOptionsMethod($sortOptionsValue)->paginate(8);
         
+        
         foreach ($options as $option) {
             foreach (get_object_vars($option) as $var) {
                 if (
@@ -133,7 +136,8 @@ class ProductsController extends Controller
                     $var != 'model' && $var != 'price' &&
                     $var != 'image' && $var != 'description' &&
                     $var != 'onsale' && $var != 'created_at' && 
-                    $var != 'updated_at'
+                    $var != 'updated_at' && $var != 'reviews_count' &&
+                    $var != 'rating'
                 ) {
                     $optionsForDisplay[] = $var;
                 }
@@ -143,14 +147,23 @@ class ProductsController extends Controller
         foreach ($optionsForDisplay as $option) {
             $optionsItems[$option] = $productTypes[$productType]::select($option)->distinct()->pluck($option)->toArray();
         }
-        
-        return view('layouts.products', [
+
+        $finalArr = [
+            'from' => $input['from'],
+            'to' => $input['to'],
             'productType' => $productType,
             'products' => $products,
             'options' => $optionsForDisplay,
             'optionsItems' => $optionsItems,
             'checkedCheckboxes' => $checkedCheckboxes,
             'inputSort' => $input["sort"]
-        ]);
+        ];
+
+        if (!in_array('filter', explode('/', url()->current()))) {
+            $products->withPath("filter/{$productType}");
+        }
+        $products->appends($input);
+
+        return view('layouts.products', $finalArr);
     }
 }
