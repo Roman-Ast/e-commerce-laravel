@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Review;
 use App\Smartphone;
 use App\TV;
 use Illuminate\Support\Facades\DB;
@@ -25,10 +26,19 @@ class ProductsController extends Controller
         $options = DB::select(
             "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='$productType'"
         );
+        $min = $productTypes[$productType]::min('price');
+        $max = $productTypes[$productType]::max('price');
         
-
         $optionsForDisplay = [];
 
+        $productsID = Review::select('product_id')->distinct()->pluck('product_id')->toArray();
+        
+
+        foreach ($productsID as $id) {
+            $reviewsCount[$id] = Review::where('product_id', $id)->count();
+            $averageRating[$id] = round(Review::where('product_id', $id)->avg('rating'), 2);
+        }
+        
         foreach ($options as $option) {
             foreach (get_object_vars($option) as $var) {
                 if (
@@ -47,11 +57,16 @@ class ProductsController extends Controller
         $optionsItems = [];
         foreach ($optionsForDisplay as $option) {
             $optionsItems[$option] = $productTypes[$productType]::select($option)->distinct()->pluck($option)->toArray();
+            uasort($optionsItems[$option], function($a, $b) {
+                return $a <=> $b;
+            });
         }
 
         return view('layouts.products', [
-            'from' => 0,
-            'to' => 3000000,
+            'reviewsCount' => $reviewsCount,
+            'averageRating' => $averageRating,
+            'from' => $min,
+            'to' => $max,
             'productType' => $productType,
             'products' => $products,
             'options' => $optionsForDisplay,
@@ -59,7 +74,7 @@ class ProductsController extends Controller
         ]);
         
     }
-
+    
     public function filter(string $productType)
     {
         $input = Request::all();
@@ -86,7 +101,7 @@ class ProductsController extends Controller
         $optionsForDisplay = [];
         $sortOptionsMethod = $sortOptionsMethods[$input['sort']];
         $sortOptionsValue = $sortOptionsValues[$input['sort']];
-    
+        $max = $productTypes[$productType]::max('price');
 
         $options = DB::select(
             "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='$productType'"
@@ -128,6 +143,12 @@ class ProductsController extends Controller
             }
         })->$sortOptionsMethod($sortOptionsValue)->paginate(8);
         
+        $productsID = Review::select('product_id')->distinct()->pluck('product_id')->toArray();
+        
+        foreach ($productsID as $id) {
+            $reviewsCount[$id] = Review::where('product_id', $id)->count();
+            $averageRating[$id] = round(Review::where('product_id', $id)->avg('rating'), 2);
+        }
         
         foreach ($options as $option) {
             foreach (get_object_vars($option) as $var) {
@@ -149,8 +170,10 @@ class ProductsController extends Controller
         }
 
         $finalArr = [
+            'reviewsCount' => $reviewsCount,
+            'averageRating' => $averageRating,
             'from' => $input['from'],
-            'to' => $input['to'],
+            'to' => $max,
             'productType' => $productType,
             'products' => $products,
             'options' => $optionsForDisplay,

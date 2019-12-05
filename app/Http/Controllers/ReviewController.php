@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Review;
-use Request;
+use Illuminate\Http\Request;
 use App\Smartphone;
 use App\TV;
+use Request as StaticallyRequest;
 
 class ReviewController extends Controller
 {
@@ -16,7 +17,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        return 'her';
+        //
     }
 
     /**
@@ -37,29 +38,17 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Request::all();
-
-        $productTypes = [
-            'smartphone' => Smartphone::findOrFail($input['product_id']),
-            'tv' => Tv::findOrFail($input['product_id'])
-        ];
-
+        $input = $request->all();
+        
         $review = new Review;
         $review->product_id = $input['product_id'];
         $review->author_id = $input['author_id'];
         $review->author_name = $input['author_name'];
         $review->body = $input['body'];
-        $review->rating = $input['rating'];
-        $review->save();
-
-        $averageRating = Review::where('product_id', $input['product_id'])->avg('rating');
-        $reviewsCount = Review::where('product_id', $input['product_id'])->count();
+        $review->rating = (integer)$input['rating'];
         
-        $product = $productTypes[$input['productType']];
-        $product->reviews_count = $reviewsCount;
-        $product->rating = round($averageRating, 2);
-        $product->save();
-        return $input;
+        $review->save();
+        
         return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
             ->with('message', 'Спасибо, Ваш отзыв успешно добавлен!')->with('class', 'alert-success');
     }
@@ -93,30 +82,17 @@ class ReviewController extends Controller
      * @param  \App\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(string $id, Request $request, Review $review)
+    public function update(Request $request, Review $review)
     {
-        $input = Request::all();
-
-        $productTypes = [
-            'smartphone' => Smartphone::findOrFail($input['product_id']),
-            'tv' => Tv::findOrFail($input['product_id'])
-        ];
-
-        $review = Review::findOrFail($id);
-        $review->body = $input['body'];
-        $review->rating = $input['rating'];
-        $review->save();
+        $input = $request->all();
         
-        $averageRating = Review::where('product_id', $input['product_id'])->avg('rating');
-        $reviewsCount = Review::where('product_id', $input['product_id'])->count();
-        
-        $product = $productTypes[$input['productType']];
-        $product->reviews_count = $reviewsCount;
-        $product->rating = round($averageRating, 2);
-        $product->save();
-        return $input;
+        $reviewFromDB = Review::findOrFail($review['id']);
+        $reviewFromDB->body = $input['body'];
+        $reviewFromDB->rating = $input['rating'];
+        $reviewFromDB->save();
+        //return $input;
         return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
-            ->with('message', 'Спасибо, Ваш отзыв успешно обновлен!')->with('class', 'alert-success');;
+            ->with('message', 'Спасибо, Ваш отзыв успешно обновлен!')->with('class', 'alert-success');
     }
 
     /**
@@ -125,27 +101,14 @@ class ReviewController extends Controller
      * @param  \App\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(string $id, Review $review)
+    public function destroy(Review $review)
     {
-        $input = Request::all();
+        $input = StaticallyRequest::all();
+        
+        $reviewFromDB = Review::findOrFail($review['id']);
+        $reviewFromDB->delete();
 
-        $productTypes = [
-            'smartphone' => Smartphone::findOrFail($input['product_id']),
-            'tv' => Tv::findOrFail($input['product_id'])
-        ];
-
-        $review = Review::findOrFail($id);
-        $review->forceDelete();
-
-        $averageRating = Review::where('product_id', '=', $input['product_id'])->avg('rating');
-        $reviewsCount = Review::where('product_id', '=', $input['product_id'])->count();
-
-        $product = $productTypes[$input['productType']];
-        $product->reviews_count = $reviewsCount;
-        $product->rating = round($averageRating, 2);
-        $product->save();
-        return $input;
         return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
-            ->with('message', 'Спасибо, Ваш отзыв успешно удален!')->with('class', 'alert-danger');;
+            ->with('message', 'Спасибо, Ваш отзыв успешно удален!')->with('class', 'alert-danger');
     }
 }

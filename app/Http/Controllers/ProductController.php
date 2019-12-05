@@ -15,7 +15,7 @@ class ProductController extends Controller
             'tv' => new TV()
         ];
 
-        $product = $productTypes[$productType]::find($id)->toArray();
+        $product = $productTypes[$productType]::findOrFail($id)->toArray();
 
         $productOptions = [];
         foreach ($product as $option => $value) {
@@ -23,17 +23,17 @@ class ProductController extends Controller
                 $option != 'model' && $option != 'price' && 
                 $option != 'brand' && $option != 'category' &&
                 $option != 'image' && $option != 'id' &&
-                $option != 'onsale' && $option != 'category' &&
-                $option != 'created_at' && $option != 'updated_at' &&
+                $option != 'onsale' && $option != 'created_at' && 
+                $option != 'updated_at' &&
                 $option != 'reviews_count' && $option != 'rating'
             ) {
                $productOptions[$option] = $value;
            }
         }
-
-        $reviews = Review::where('product_id', '=', $id)->latest()->get()->toArray();
+        
+        $reviews = Review::where('product_id', '=', $id)->latest()->get();
         $rating = Review::where('product_id', '=', $id)->avg('rating');
-
+        
         return view('layouts.product', [
             'rating' => round($rating, 1),
             'reviews' => $reviews,

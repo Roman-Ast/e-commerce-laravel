@@ -30,12 +30,12 @@
                     Каталог товаров
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/showProducts/smartphones">Смартфоны</a>
-                    <a class="dropdown-item" href="/showProducts/t_v_s">Телевизоры</a>
-                    <a class="dropdown-item" href="/showProducts/forPlayers">Все для геймеров</a>
-                    <a class="dropdown-item" href="/showProducts/LHA">Крупная бытовая техника</a>
-                    <a class="dropdown-item" href="/showProducts/SHA">Мелкая бытовая техника</a>
-                    <a class="dropdown-item" href="/showProducts/electricTransport">Электротранспорт</a>
+                    <a class="dropdown-item" href="{{ url('/showProducts/smartphones') }}">Смартфоны</a>
+                    <a class="dropdown-item" href="{{ url('/showProducts/t_v_s') }}">Телевизоры</a>
+                    <a class="dropdown-item" href="{{ url('/showProducts/forPlayers') }}">Все для геймеров</a>
+                    <a class="dropdown-item" href="{{ url('/showProducts/LHA') }}">Крупная бытовая техника</a>
+                    <a class="dropdown-item" href="{{ url('/showProducts/SHA') }}">Мелкая бытовая техника</a>
+                    <a class="dropdown-item" href="{{ url('/showProducts/electricTransport') }}">Электротранспорт</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Не нашли? Есть поиск...</a>
                     </div>

@@ -27,8 +27,6 @@ class CreateTVSTable extends Migration
             $table->text('image');
             $table->text('description');
             $table->string('onsale');
-            $table->integer('reviews_count');
-            $table->string('rating');
             $table->timestamps();
         });
     }
