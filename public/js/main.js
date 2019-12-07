@@ -10,8 +10,7 @@ $(function() {
 $('.form-register-close').on('click', function() {
     $('.register-form').slideUp();
 });
-/*$('#priceFromRange').val(0);
-$('#priceToRange').val(3000000);*/
+
 $('input[type=checkbox]').prop('checked', false);
 $('.carousel-inner').children().first().addClass('active');
 $('#accordion').on('change', function() {
@@ -113,3 +112,14 @@ $('.close-modal').on('click', function () {
 $('.close-flash').on('click', function () {
     $('.alert').slideUp(400);
 });
+
+
+for (let i = 0; i < $('.hidden-review-rating').length; i++) {
+    //console.log($('.hidden-review-rating')[i].value);
+    for (let k = 0; k < $('.star-rating__wrap-nonDynamic')[i].children.length; k++) {
+        if ($('.hidden-review-rating')[i].value == $('.star-rating__wrap-nonDynamic')[i].children[k].value) {
+            $('.star-rating__wrap-nonDynamic')[i].children[k].checked = true;
+        }
+    }
+}
+

@@ -114,7 +114,9 @@
 
                             @if (!array_key_exists($product['id'], $reviewsCount) && !array_key_exists($product['id'], $averageRating))
                                 <small>Отзывы: -</small>
-                                <small>Рэйтинг: -</small>
+                                <div class="rating">
+                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </div>
                             @endif
                         </div>
                         <div class="d-flex justify-content-center align-items-center">

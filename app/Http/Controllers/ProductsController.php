@@ -47,7 +47,7 @@ class ProductsController extends Controller
                     $var != 'image' && $var != 'description' &&
                     $var != 'onsale' && $var != 'created_at' &&
                     $var != 'reviews_count' && $var != 'rating' &&
-                    $var != 'updated_at'
+                    $var != 'updated_at' && $var != 'discount_percentage'
                 ) {
                     $optionsForDisplay[] = $var;
                 }
@@ -158,7 +158,7 @@ class ProductsController extends Controller
                     $var != 'image' && $var != 'description' &&
                     $var != 'onsale' && $var != 'created_at' && 
                     $var != 'updated_at' && $var != 'reviews_count' &&
-                    $var != 'rating'
+                    $var != 'rating' && $var != 'discount_percentage'
                 ) {
                     $optionsForDisplay[] = $var;
                 }

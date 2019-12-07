@@ -205,44 +205,37 @@
                         <div class="card-header" id="headingOne" style="display:flex;justify-content:flex-end;">
                             <h5 class="mb-0">
                             <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Добавить отзыв
+                                Написать отзыв
                             </button>
                             </h5>
                         </div>
                             
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            @if (Auth::user())
                             <div class="card-body">
                                 {!! Form::open(['url' => route('reviews.store'), 'style' => 'display: flex;flex-direction:column;'])!!}
                                 {!! Form::hidden('productType', $product['category']) !!}
                                 {!! Form::hidden('product_id', $product['id']) !!}
                                 {!! Form::hidden('author_id', Auth::user()->id) !!}
                                 {!! Form::hidden('author_name', Auth::user()->name) !!}
-                                <div class="rating-radio-container" style="display: flex;flex-wrap:nowrap;justify-content:center;">
-                                    <div class="form-check form-check-inline" style="margin-left:10px;">
-                                        {!! Form::label('inlineRadio1','1', ['class' => 'form-check-label']) !!}
-                                        {!! Form::radio('rating', 1, ['id' => 'inlineRadio1']) !!}
+                                <div class="star-rating">
+                                    <div style="display:flex;align-items:flex-end;margin-right:10px;">Оценить товар:</div>
+                                    <div class="star-rating__wrap">
+                                        <input class="star-rating__input fa" id="star-rating-5" type="radio" name="rating" value="5" title="Отлично!">
+                                        <input class="star-rating__input fa" id="star-rating-4" type="radio" name="rating" value="4" title="Хорошо">
+                                        <input class="star-rating__input fa" id="star-rating-3" type="radio" name="rating" value="3" title="Так себе">
+                                        <input class="star-rating__input fa" id="star-rating-2" type="radio" name="rating" value="2" title="Плохо">
+                                        <input class="star-rating__input fa" id="star-rating-1" type="radio" name="rating" value="1" title="Ужас!">
                                     </div>
-                                    <div class="form-check form-check-inline" style="margin-left:10px;">
-                                        {!! Form::label('inlineRadio2','2', ['class' => 'form-check-label']) !!}
-                                        {!! Form::radio('rating', 2, ['id' => 'inlineRadio2']) !!}
-                                    </div>
-                                    <div class="form-check form-check-inline" style="margin-left:10px;">
-                                        {!! Form::label('inlineRadio3','3', ['class' => 'form-check-label']) !!}
-                                        {!! Form::radio('rating', 3, ['id' => 'inlineRadio3']) !!}
-                                    </div>
-                                    <div class="form-check form-check-inline" style="margin-left:10px;">
-                                        {!! Form::label('inlineRadio4','4', ['class' => 'form-check-label']) !!}
-                                        {!! Form::radio('rating', 4, ['id' => 'inlineRadio4']) !!}
-                                    </div>
-                                    <div class="form-check form-check-inline" style="margin-left:10px;">
-                                        {!! Form::label('inlineRadio5','5', ['class' => 'form-check-label']) !!}
-                                        {!! Form::radio('rating', 5, ['id' => 'inlineRadio5']) !!}
-                                    </div>    
                                 </div> 
                                 {!! Form::textarea('body', null, ['rows' => 4, 'cols' => 20]) !!}
                                 {!! Form::submit('Добавить отзыв', ['class' => 'btn btn-primary', 'style' => 'width:200px;align-self:center;']) !!}
                                 {!! Form::close() !!}
                             </div>
+                            @endif
+                            @if (!Auth::user())
+                                <p> Чтобы добавить отзыв <a href="/login">войдите</a> или <a href="/register">зарегестрируйтесь.</a></p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -268,6 +261,10 @@
                                 <div style="font-style:italic"><strong>{{ $review['author_name'] }}</strong></div>
                             @endif
                             
+                            <div class="star-rating-nonDynamic">
+                                <input type="hidden" class="hidden-review-rating" value="{{ $review['rating'] }}">
+                                
+                            </div>
                             <small style="font-size:11px;">Добавлено: {{ $review['created_at'] }}</small>
                         </div>
 

@@ -10,6 +10,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('css/main.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     </head>
     <body>
           
@@ -60,12 +61,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     
-                    <ul class="navbar-nav mr-auto">
 
-                    </ul>
-
-                     
                     <ul class="navbar-nav ml-auto">
                          
                         @guest
@@ -78,22 +74,18 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <div class="user-session">
-                                    <a id="navbarDropdown" class="nav-link" href="#">
-                                        {{ Auth::user()->name }} <span class="caret"></span>
-                                    </a>
-
+                            <li>
+                                <div class="user-session" style="display:flex;flex-wrap:nowrap;justify-content:space-between;width:200px;">
+                                    <div class="user-cart" style="display:flex;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:center;">
+                                    <a href="{{ route('cart.index') }}"><img src="/images/cart36.png"><div>0</div></a>
+                                    </div>
+                                    <div style="display:flex;align-items:center;">{{ Auth::user()->name }}</div>
+                                    <div>
+                                        {!! Form::open(['url' => route('logout')]) !!}
+                                        {!! Form::submit('Выйти', ['class' => 'btn btn-link'])!!}
+                                        {!! Form::close() !!}
+                                    </div>
                                     
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                        {{ __('Выйти') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                    </form>
                                 </div>
                             </li>
                         @endguest

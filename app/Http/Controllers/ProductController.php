@@ -24,7 +24,7 @@ class ProductController extends Controller
                 $option != 'brand' && $option != 'category' &&
                 $option != 'image' && $option != 'id' &&
                 $option != 'onsale' && $option != 'created_at' && 
-                $option != 'updated_at' &&
+                $option != 'updated_at' && $option != 'discount_percentage' &&
                 $option != 'reviews_count' && $option != 'rating'
             ) {
                $productOptions[$option] = $value;

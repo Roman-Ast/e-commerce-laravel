@@ -25,6 +25,7 @@ class CreateSmartphonesTable extends Migration
             $table->text('image');
             $table->text('description');
             $table->string('onsale');
+            $table->integer('discount_persentage');
             $table->timestamps();
         });
     }
