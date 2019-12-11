@@ -38,18 +38,24 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        
+        $this->validate($request, [
+            'product_id' => 'required',
+            'author_id' => 'required|numeric',
+            'author_name' => 'required',
+            'body' => 'required|min:10',
+            'rating' => 'required|numeric'
+        ]);
+
         $review = new Review;
-        $review->product_id = $input['product_id'];
-        $review->author_id = $input['author_id'];
-        $review->author_name = $input['author_name'];
-        $review->body = $input['body'];
-        $review->rating = (integer)$input['rating'];
+        $review->product_id = $request['product_id'];
+        $review->author_id = $request['author_id'];
+        $review->author_name = $request['author_name'];
+        $review->body = $request['body'];
+        $review->rating = (integer)$request['rating'];
         
         $review->save();
         
-        return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
+        return redirect("/products/{$request['product_id']}")
             ->with('message', 'Спасибо, Ваш отзыв успешно добавлен!')->with('class', 'alert-success');
     }
 
@@ -91,7 +97,7 @@ class ReviewController extends Controller
         $reviewFromDB->rating = $input['rating'];
         $reviewFromDB->save();
         //return $input;
-        return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
+        return redirect("/products/{$input['product_id']}")
             ->with('message', 'Спасибо, Ваш отзыв успешно обновлен!')->with('class', 'alert-success');
     }
 
@@ -108,7 +114,7 @@ class ReviewController extends Controller
         $reviewFromDB = Review::findOrFail($review['id']);
         $reviewFromDB->delete();
 
-        return redirect("showProducts/{$input['productType']}/{$input['product_id']}")
+        return redirect("/products/{$input['product_id']}")
             ->with('message', 'Спасибо, Ваш отзыв успешно удален!')->with('class', 'alert-danger');
     }
 }

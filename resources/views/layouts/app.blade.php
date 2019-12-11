@@ -13,10 +13,11 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     </head>
     <body>
-          
     @section('navbar')    
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #9f07a9;">
-            <a class="navbar-brand" href="#">Ваш Брэнд</a>
+            <a class="navbar-brand" href="{{ url('/') }}">
+                {{ config('laravel', 'Интернет магазин') }}
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -49,52 +50,54 @@
             </div>
         </nav>
         @show
-
         @section('navbar-mini')
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('lll', 'Интернет магазин') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                    <ul class="navbar-nav ml-auto">
-                         
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li>
-                                <div class="user-session" style="display:flex;flex-wrap:nowrap;justify-content:space-between;width:200px;">
-                                    <div class="user-cart" style="display:flex;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:center;">
-                                    <a href="{{ route('cart.index') }}"><img src="/images/cart36.png"><div>0</div></a>
-                                    </div>
-                                    <div style="display:flex;align-items:center;">{{ Auth::user()->name }}</div>
-                                    <div>
-                                        {!! Form::open(['url' => route('logout')]) !!}
-                                        {!! Form::submit('Выйти', ['class' => 'btn btn-link'])!!}
-                                        {!! Form::close() !!}
-                                    </div>
-                                    
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+        <div style="max-height:60px;" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+            <div class="my-0 mr-md-auto font-weight-normal">
+                <nav class="my-2 my-md-0 mr-md-3">
+                    <a class="p-2 text-dark" href="#">Блог</a>
+                    <a class="p-2 text-dark" href="#">Новости</a>
+                    <a class="p-2 text-dark" href="#">Support</a>
+                    <a class="p-2 text-dark" href="#">Pricing</a>
+                </nav>
             </div>
-        </nav>
-        @show
+            
+            @guest
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a>
+                <div class="user-cart" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:flex-end;">
+                    <a href="{{ route('cart.index') }}"><img src="/images/cart24.png"></a>
 
+                        @if (count(Cart::getContent()) > 0)
+                            <div style="height:22px;color:#fff;text-align:center;width:20px;border-radius:50%;background-color:#ffa500">
+                            {{ count(Cart::getContent()) }}
+                            </div>
+                        @endif
+                    
+                </div>
+                @if (Route::has('register'))
+                    <a class="p-2 text-dark" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                @endif
+                @else
+                <div class="user-session" style="display:flex;flex-wrap:nowrap;justify-content:space-between;width:200px;">
+                    <div class="user-cart" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:flex-end;">
+                        <a href="{{ route('cart.index') }}"><img src="/images/cart24.png"></a>
+
+                            @if (count(Cart::session(Auth::user()->id)->getContent()) > 0)
+                                <div style="height:22px;color:#fff;text-align:center;width:20px;border-radius:50%;background-color:#ffa500">
+                                {{ count(Cart::session(Auth::user()->id)->getContent()) }}
+                                </div>
+                            @endif
+                        
+                    </div>
+                        <div style="display:flex;align-items:flex-end;">{{ Auth::user()->name }}</div>
+                        {!! Form::open(['url' => route('logout')]) !!}
+                            {!! Form::submit('Выйти', ['class' => 'btn btn-sm btn-link']) !!}
+                        {!! Form::close() !!} 
+                    </div>
+                
+                @endguest
+        </div>
+        @show
+       
         <div class="register-form-container">
         @yield('content')
         </div>

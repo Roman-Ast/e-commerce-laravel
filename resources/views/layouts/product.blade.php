@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 <!-- Секция, содержимое которой обычный текст. -->
-@section('title', 'Салон бытовой техники') @if (Session::has('message'))
+@section('title', 'Салон бытовой техники') 
+
+@if (Session::has('message'))
+
 <div class="alert {{ Session::get('class') }}" style="align-text:center;">
     <div style="display:flex;justify-content:flex-end;" class="close-flash">
         &times;
@@ -9,7 +12,9 @@
     {{ Session::get('message') }}
 </div>
 
-@endif @section('main')
+@endif 
+
+@section('main')
 <div class="imagesWrapper">
     <div class="card mb-3 productCard">
         <div class="row no-gutters">
@@ -96,7 +101,22 @@
                             Средняя оценка: {{ $rating }}/5
                         </div>
                     @endif
-                    <button class="btn btn-warning">Добавить в корзину</button>
+                    @if ($errors->any())
+                        <div>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    {!! Form::open(['url' => route('cart.store')]) !!}
+                        {!! Form::hidden('id', $product['id']) !!}
+                        {!! Form::hidden('name', $product['model']) !!}
+                        {!! Form::hidden('quantity', 1) !!}
+                        {!! Form::hidden('price', $product['price']) !!}
+                        {!! Form::submit('Добавить в корзину', ['class' => 'btn btn-success']) !!}
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

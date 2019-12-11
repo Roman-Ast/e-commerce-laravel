@@ -2,6 +2,25 @@
 
 <!-- Секция, содержимое которой обычный текст. -->
 @section('title', 'Салон бытовой техники') @section('cart') @show
+@if ($errors->any())
+    <div>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@if (Session::has('message'))
+
+<div class="alert {{ Session::get('class') }}" style="align-text:center;">
+    <div style="display:flex;justify-content:flex-end;" class="close-flash">
+        &times;
+    </div>
+    {{ Session::get('message') }}
+</div>
+
+@endif 
 @section('main')
 <div class="containerForProducts">
     <div class="filter">
@@ -89,11 +108,11 @@
             'form-control selectSort']) !!} @endif
         </div>
         <div class="row">
-            {!! Form::Close() !!} @foreach($products as $product)
+            {!! Form::Close() !!} 
+            @foreach($products as $product)
             <div class="col-md-3">
                 <div class="card mb-3 shadow-sm card-scale">
-                    <img src="{{ explode(',', $product['image'])[0] }}"
-                        style="max-height:150px;max-width:250px;align-self:center;" class="d-block" />
+                    <img src="{{ explode(',', $product['image'])[0] }} "style="max-height:150px;max-width:250px;align-self:center;" class="d-block" />
                     <div class="card-body">
                         <div class="card-brand" style="text-align:center;">
                             <h5>{{ strtoupper($product["brand"]) }}</h5>
@@ -114,20 +133,21 @@
 
                             @if (!array_key_exists($product['id'], $reviewsCount) && !array_key_exists($product['id'], $averageRating))
                                 <small>Отзывы: -</small>
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
+                                <small>Рэйтинг: -</small>
                             @endif
                         </div>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <button type="button" class="btn btn-sm btn-outline-primary">
-                                <a style="text-decoration:none;" href="{{ $product['category'] }}/{{
-                                        $product['id']
-                                    }}">Подробнее...</a>
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-success">
-                                В корзину
-                            </button>
+                        <div style="display:flex;flex-wrap:nowrap;justify-content:space-between;">
+                            {!! Form::open(['url' => route('products.show', $product), 'method' => 'GET']) !!}
+                                {!! Form::submit('Подробнее', ['class' => 'btn btn-sm btn-outline-primary']) !!}
+                            {!! Form::close() !!}
+                            
+                            {!! Form::open(['url' => route('cart.store')]) !!}
+                                {!! Form::hidden('id', $product['id']) !!}
+                                {!! Form::hidden('name', $product['model']) !!}
+                                {!! Form::hidden('quantity', 1) !!}
+                                {!! Form::hidden('price', $product['price']) !!}
+                                {!! Form::submit('В корзину', ['class' => 'btn btn-sm btn-outline-success']) !!}
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>

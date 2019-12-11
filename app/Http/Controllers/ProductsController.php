@@ -3,37 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Review;
-use App\Smartphone;
-use App\TV;
+use App\Product;
 use Illuminate\Support\Facades\DB;
 use Request;
 
 class ProductsController extends Controller
 {
-    protected $products = [];
-
     public function show(string $productType)
     {
         $input = Request::all();
         
-        $productTypes = [
-            'smartphones' => new Smartphone(),
-            't_v_s' => new TV()
-        ];
-
-        $products = $productTypes[$productType]::paginate(8);
+        $products = Product::where('category', $productType)->paginate(8);
 
         $options = DB::select(
-            "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='$productType'"
+            "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='products'"
         );
-        $min = $productTypes[$productType]::min('price');
-        $max = $productTypes[$productType]::max('price');
+        $min = Product::where('category', $productType)->min('price');
+        $max = Product::where('category', $productType)->max('price');
         
         $optionsForDisplay = [];
 
         $productsID = Review::select('product_id')->distinct()->pluck('product_id')->toArray();
         
-
+        $reviewsCount = [];
+        $averageRating = [];
         foreach ($productsID as $id) {
             $reviewsCount[$id] = Review::where('product_id', $id)->count();
             $averageRating[$id] = round(Review::where('product_id', $id)->avg('rating'), 2);
@@ -56,12 +49,12 @@ class ProductsController extends Controller
         
         $optionsItems = [];
         foreach ($optionsForDisplay as $option) {
-            $optionsItems[$option] = $productTypes[$productType]::select($option)->distinct()->pluck($option)->toArray();
+            $optionsItems[$option] = Product::select($option)->distinct()->pluck($option)->toArray();
             uasort($optionsItems[$option], function($a, $b) {
                 return $a <=> $b;
             });
         }
-
+        
         return view('layouts.products', [
             'reviewsCount' => $reviewsCount,
             'averageRating' => $averageRating,
@@ -79,10 +72,6 @@ class ProductsController extends Controller
     {
         $input = Request::all();
 
-        $productTypes = [
-            'smartphones' => new Smartphone(),
-            't_v_s' => new TV()
-        ];
         $sortOptionsMethods = [
             'byDefault' => "orderBy",
             'byIncreasePrise' => "orderBy",
@@ -101,10 +90,10 @@ class ProductsController extends Controller
         $optionsForDisplay = [];
         $sortOptionsMethod = $sortOptionsMethods[$input['sort']];
         $sortOptionsValue = $sortOptionsValues[$input['sort']];
-        $max = $productTypes[$productType]::max('price');
+        $max = Product::where('category', $productType)->max('price');
 
         $options = DB::select(
-            "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='$productType'"
+            "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='products'"
         );
 
         foreach ($input as $key => $value) {
@@ -129,7 +118,7 @@ class ProductsController extends Controller
             }
         }
         
-        $products = $productTypes[$productType]::where(function ($query) use ($arrForRequestFromDb) {
+        $products = Product::where(function ($query) use ($arrForRequestFromDb) {
             foreach ($arrForRequestFromDb as $key => $value) {
                 if ($key !== 'productType') {
                     if ($key === 'from') {
@@ -145,6 +134,8 @@ class ProductsController extends Controller
         
         $productsID = Review::select('product_id')->distinct()->pluck('product_id')->toArray();
         
+        $reviewsCount = [];
+        $averageRating = [];
         foreach ($productsID as $id) {
             $reviewsCount[$id] = Review::where('product_id', $id)->count();
             $averageRating[$id] = round(Review::where('product_id', $id)->avg('rating'), 2);
@@ -166,7 +157,7 @@ class ProductsController extends Controller
         }
         
         foreach ($optionsForDisplay as $option) {
-            $optionsItems[$option] = $productTypes[$productType]::select($option)->distinct()->pluck($option)->toArray();
+            $optionsItems[$option] = Product::select($option)->distinct()->pluck($option)->toArray();
         }
 
         $finalArr = [

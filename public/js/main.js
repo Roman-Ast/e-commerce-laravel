@@ -113,13 +113,39 @@ $('.close-flash').on('click', function () {
     $('.alert').slideUp(400);
 });
 
+setTimeout(function () {
+    $('.alert').slideUp(400);
+}, 5000);
 
-for (let i = 0; i < $('.hidden-review-rating').length; i++) {
-    //console.log($('.hidden-review-rating')[i].value);
-    for (let k = 0; k < $('.star-rating__wrap-nonDynamic')[i].children.length; k++) {
-        if ($('.hidden-review-rating')[i].value == $('.star-rating__wrap-nonDynamic')[i].children[k].value) {
-            $('.star-rating__wrap-nonDynamic')[i].children[k].checked = true;
-        }
-    }
-}
+$('.quantity').on('input', function () {
+    $(this).parent().next().children().last().html($(this).val() * $(this).parent().next().children().first().html());
+    let cartTotalDynamic = 0;
+    $('.cart-item-sum').each(function () {
+        cartTotalDynamic += Number($(this).html());
+    })
+    $('.cart-sum').html(cartTotalDynamic);
+});
+let cartTotal = 0;
+$('.cart-item-sum').each(function () {
+    cartTotal += Number($(this).html());
+})
+$('.cart-sum').html(cartTotal);
+
+$('#cartItemQuantity').on('change', function () {
+    const id = $(this).prev().val();
+
+    $.ajax({
+        url: `/cart/update/${id}`,
+        type: 'POST',
+        data: $(this).val(),
+        contentType: 'application/json',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+    }).done(res => {
+        console.log(res);
+    });
+});
+
+
 

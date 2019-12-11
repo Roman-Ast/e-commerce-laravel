@@ -10,15 +10,26 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+/*Route::post('/cart/update/{id}', function(Request $request, Response $response) {
+    $userId = \Auth::user()->id;
+    \Cart::session($userId)->update($id, array('quantity' => 3));
+    return response()->json($request); 
+});*/
+Route::resource('/products', 'ProductController');
 Route::resource('/reviews', 'ReviewController');
 Route::resource('/cart', 'CartController');
+Route::resource('/wishlist', 'WishListController');
 Route::get('/showProducts/{productType}', 'ProductsController@show');
+
+Route::get('/wishlistclear', 'WishListController@clear')->name('wishlist.clear');
+Route::get('/cartclear', 'CartController@clear')->name('cart.clear');
+Route::post('/cart/switchToSaveForLater/{id}', 'CartController@switchToSaveForLater')
+    ->name('cart.switchToSaveForLater');
+
 Route::post('/showProducts/{productType}', 'ProductsController@filter');
 
 
-Route::get('/showProducts/filter/{productType}', 'ProductsController@filter');
-Route::get('/showProducts/{productType}/{id}', 'ProductController@show');
-Route::get('/showProducts/filter/{productType}/{id}', 'ProductController@show');
+//4yTlTDKu3oJOfzD
 
 
 
