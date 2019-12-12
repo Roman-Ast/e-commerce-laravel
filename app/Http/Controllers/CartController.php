@@ -25,11 +25,12 @@ class CartController extends Controller
             foreach ($cartContent as $cartItem) {
                 $itemsInCart[] = Product::findOrFail($cartItem['id'])->toArray(8);
             }
-            
+            $sorteditemsInCart = collect($itemsInCart)->sortBy('brand')->all();
+
             if (!Session::has('wishList')) {
 
                 return view('layouts.cart',[
-                    'itemsInCart' => $itemsInCart,
+                    'itemsInCart' => $sorteditemsInCart,
                     'cartContent' => $cartContent,
                     'wishList' => null
                 ]);
@@ -41,11 +42,12 @@ class CartController extends Controller
             foreach ($wishList->getContent() as $object) {
                 $wishListForDisplay[] = $object['item']->toArray();
             }
-
+            
             return view('layouts.cart',[
-                'itemsInCart' => $itemsInCart,
+                'itemsInCart' => $sorteditemsInCart,
                 'cartContent' => $cartContent,
-                'wishList' => $wishListForDisplay
+                'wishList' => $wishListForDisplay,
+                'cartTotalPrice' => \Cart::session($userId)->getTotal()
             ]);
         } else {
             /*$cart = Session::get('cart');
@@ -171,13 +173,19 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, $cart)
     {
-        return $response->json('aaa');
+        //return $request;
         if (Auth::user()) {
             $userId = \Auth::user()->id;
             \Cart::session($userId)
-                ->update($request['id'], array('quantity' => $request['quantity']));
+                ->update($request['id'], array(
+                    'quantity' => array(
+                        'relative' => false,
+                        'value' => $request['quantity']
+                        )
+                    )
+                );
             
             return redirect()->route('cart.index');
         }

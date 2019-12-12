@@ -25,7 +25,7 @@ $('.selectSort').on('change', function () {
     $('.useFilterBtnContainer').fadeIn(400);
     $('.useFilterBtnContainer').css({'display': 'flex'});
     $('.useFiltera').click();
-})
+});
 
 const arrOfCheckedCheckboxes = [];
 $('.checkedCheckboxes').children().each(function() {
@@ -84,7 +84,7 @@ $('.show-more-reviews').children().first().on('click', function () {
 
 $('#reviews-tab').on('click', function () {
     $('.show-more-reviews').fadeIn().css('display', 'flex');
-})
+});
 
 $('#contact-tab, #home-tab, #add-review-tab').on('click', function () {
     $('.show-more-reviews').css('display', 'none');
@@ -108,7 +108,7 @@ $('.review-delete').on('click', function (e) {
 });
 $('.close-modal').on('click', function () {
     $('.modal').hide();
-})
+});
 $('.close-flash').on('click', function () {
     $('.alert').slideUp(400);
 });
@@ -117,35 +117,12 @@ setTimeout(function () {
     $('.alert').slideUp(400);
 }, 5000);
 
-$('.quantity').on('input', function () {
-    $(this).parent().next().children().last().html($(this).val() * $(this).parent().next().children().first().html());
-    let cartTotalDynamic = 0;
-    $('.cart-item-sum').each(function () {
-        cartTotalDynamic += Number($(this).html());
-    })
-    $('.cart-sum').html(cartTotalDynamic);
-});
-let cartTotal = 0;
-$('.cart-item-sum').each(function () {
-    cartTotal += Number($(this).html());
-})
-$('.cart-sum').html(cartTotal);
+$('.quantity').on('change', function() {
+    $(this).next().click();
+}); 
 
-$('#cartItemQuantity').on('change', function () {
-    const id = $(this).prev().val();
 
-    $.ajax({
-        url: `/cart/update/${id}`,
-        type: 'POST',
-        data: $(this).val(),
-        contentType: 'application/json',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-    }).done(res => {
-        console.log(res);
-    });
-});
+
 
 
 

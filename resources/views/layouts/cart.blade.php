@@ -52,11 +52,14 @@
                         </div>
                         <div class ="cartItemControl-totals">
                             <div style="border:display:flex;justify-content:center;margin-top:10px;margin-left:10px;">
-                                {!! Form::hidden('product_id', $cartItem['id']) !!}
-                                <input type="number" style="width:40px" value="{{ $cartContent[$cartItem['id']]['quantity'] }}" min="1" class="quantity" id="cartItemQuantity" name="quantity">
+                                {!! Form::model($cartItem, ['url' => route('cart.update', $cartItem['id']), 'method' => 'PATCH']) !!}
+                                    {!! Form::hidden('id', $cartItem['id']) !!}
+                                    <input type="number" style="width:40px" value="{{ $cartContent[$cartItem['id']]['quantity'] }}" min="1" class="quantity" name="quantity">
+                                    {!! Form::submit('обновить', ['id' => 'updateCartItemQuantity']) !!}
+                                {!! Form::close() !!}
                             </div>
                             <div class="cart-item-total">
-                                <div class="cart-item-price" style="font-size:14px;font-style:italic;text-align:right">{{ $cartItem['price'] }}</div>
+                                <div class="cart-item-price" style="font-size:14px;font-style:italic;text-align:right"></div>
                                 <div class="cart-item-sum" style="font-size:17px;font-weight:600;">{{ $cartItem['price'] }}</div>
                             </div>
                         </div>
@@ -66,6 +69,14 @@
         </div>
 
         @endforeach
+
+        <div class="cart-total">
+            {!! Form::open(['url' => route('cart.clear'), 'method' => 'GET']) !!}
+            {!! Form::submit('Очистить корзину', ['class' => 'btn btn-sm btn-link', 'style' => 'font-size:15px;']) !!}
+            {!! Form::close() !!}
+            <div class="cart-sum">{{ $cartTotalPrice }}</div>
+        </div>
+        
         @else
         <div class="cartItemsContainer" >
             <h5>Корзина пуста</h5>
@@ -73,12 +84,7 @@
         @endif
         
     </div>
-    <div class="cart-total">
-        {!! Form::open(['url' => route('cart.clear'), 'method' => 'GET']) !!}
-        {!! Form::submit('Очистить корзину', ['class' => 'btn btn-sm btn-link', 'style' => 'font-size:15px;']) !!}
-        {!! Form::close() !!}
-        <div class="cart-sum"></div>
-    </div>
+    
 
 
     @if (Session::has('wishList') && count($wishList) > 0)

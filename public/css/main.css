@@ -287,8 +287,6 @@ input[type="number"] {
   opacity: 1;
 }
 .cart-total{
-  width:60%;
-  margin:20px auto;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -302,7 +300,9 @@ input[type="number"] {
   font-size:20px;
   font-weight: 800;
 }
-
+#updateCartItemQuantity{
+  display: none;
+}
 
 
 

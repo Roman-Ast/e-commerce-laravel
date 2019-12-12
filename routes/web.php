@@ -10,11 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*Route::post('/cart/update/{id}', function(Request $request, Response $response) {
-    $userId = \Auth::user()->id;
-    \Cart::session($userId)->update($id, array('quantity' => 3));
-    return response()->json($request); 
-});*/
+
 Route::resource('/products', 'ProductController');
 Route::resource('/reviews', 'ReviewController');
 Route::resource('/cart', 'CartController');
