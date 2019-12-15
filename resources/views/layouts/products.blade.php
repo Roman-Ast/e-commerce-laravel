@@ -11,9 +11,11 @@
         </ul>
     </div>
 @endif
+
+@section('main')
 @if (Session::has('message'))
 
-<div class="alert {{ Session::get('class') }}" style="align-text:center;">
+<div class="alert {{ Session::get('class') }}" style="align-text:center;margin-top:-15px;">
     <div style="display:flex;justify-content:flex-end;" class="close-flash">
         &times;
     </div>
@@ -21,8 +23,8 @@
 </div>
 
 @endif 
-@section('main')
 <div class="containerForProducts">
+    
     <div class="filter">
         <div class="filter-header">
             <img src="/images/filter.png" />
@@ -97,15 +99,22 @@
             <div style="width:3000px;text-decoration:underline;">
                 {{ strtoupper($productType[0]).substr($productType, 1) }}
             </div>
-            @if (isset($inputSort)) {!! Form::label('selectSort', 'Сортировать
-            ') !!} {!! Form::select('sort', array('byDefault' => 'по умолчанию',
-            'byIncreasePrise' => 'по возрастанию цены', 'byDescPrise' => 'по
-            убыванию цены'), $inputSort, ['class' => 'form-control selectSort'])
-            !!} @endif @if (!isset($inputSort)) {!! Form::label('selectSort',
-            'Сортировать ') !!} {!! Form::select('sort', array('byDefault' =>
-            'по умолчанию', 'byIncreasePrise' => 'по возрастанию цены',
-            'byDescPrise' => 'по убыванию цены'), 'byDefault', ['class' =>
-            'form-control selectSort']) !!} @endif
+            @if (isset($inputSort)) 
+            {!! Form::label('selectSort', 'Сортировать') !!} 
+            {!! Form::select('sort', array(
+                'byDefault' => 'по умолчанию',
+                'byIncreasePrise' => 'по возрастанию цены', 
+                'byDescPrise' => 'по убыванию цены'), 
+                $inputSort, ['class' => 'form-control selectSort'])
+            !!} 
+            @else
+            {!! Form::label('selectSort','Сортировать ') !!} 
+            {!! Form::select('sort', array(
+                'byDefault' => 'по умолчанию',
+                'byIncreasePrise' => 'по возрастанию цены',
+                'byDescPrise' => 'по убыванию цены'), 
+                'byDefault', ['class' =>'form-control selectSort']) !!} 
+            @endif
         </div>
         <div class="row">
             {!! Form::Close() !!} 

@@ -23,7 +23,7 @@ class CartController extends Controller
             
             $itemsInCart = [];
             foreach ($cartContent as $cartItem) {
-                $itemsInCart[] = Product::findOrFail($cartItem['id'])->toArray(8);
+                $itemsInCart[] = Product::findOrFail($cartItem['id'])->toArray();
             }
             $sorteditemsInCart = collect($itemsInCart)->sortBy('brand')->all();
 
@@ -32,12 +32,13 @@ class CartController extends Controller
                 return view('layouts.cart',[
                     'itemsInCart' => $sorteditemsInCart,
                     'cartContent' => $cartContent,
-                    'wishList' => null
+                    'wishList' => null,
+                    'cartTotalPrice' => \Cart::session($userId)->getTotal()
                 ]);
             }
             $oldWishlist = Session::get('wishList');
             $wishList = new WishList($oldWishlist);
-
+            
             $wishListForDisplay = [];
             foreach ($wishList->getContent() as $object) {
                 $wishListForDisplay[] = $object['item']->toArray();
@@ -84,21 +85,22 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        
-        if (\Auth::user()) {
+        if (Auth::user()) {
             if (Session::has('wishList')) {
                 $wishList = Session::get('wishList');
                 $wishList->remove($request['id']);
             }
             $userId = \Auth::user()->id;
-    
-            $duplicates = \Cart::session($userId)->get($request['id']);;
+            
+            $duplicates = \Cart::session($userId)->get($request['id']);
+            
+            //dd($duplicates);
             if ($duplicates) {
-                return redirect()->back()
+                return back()
                 ->with('message', 'Товар уже у Вас в корзине, если Вы хотите добавить еще один, то перейдите в корзину!')
                 ->with('class', 'alert-warning');
             }
-        
+            
             $this->validate($request, [
                 'id' => 'required',
                 'price' => 'required|numeric',

@@ -11,12 +11,14 @@
 |
 */
 
+Route::resource('/checkout', 'CheckoutController');
 Route::resource('/products', 'ProductController');
 Route::resource('/reviews', 'ReviewController');
 Route::resource('/cart', 'CartController');
 Route::resource('/wishlist', 'WishListController');
 Route::get('/showProducts/{productType}', 'ProductsController@show');
 
+Route::get('/thankyou', 'PaymentConfirmationController@index')->name('paymentconfirmation.index');
 Route::get('/wishlistclear', 'WishListController@clear')->name('wishlist.clear');
 Route::get('/cartclear', 'CartController@clear')->name('cart.clear');
 Route::post('/cart/switchToSaveForLater/{id}', 'CartController@switchToSaveForLater')

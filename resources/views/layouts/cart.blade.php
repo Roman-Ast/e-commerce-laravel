@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+
+
+@section('main')
 @if (Session::has('message'))
 
 <div class="alert {{ Session::get('class') }}" style="align-text:center;">
@@ -10,8 +13,6 @@
 </div>
 
 @endif 
-
-@section('main')
 <div style="font-style:italic;margin-bottom:10px;width:60%;margin:0 auto;">
         <strong>
         @if (count($itemsInCart) === 1)
@@ -39,6 +40,7 @@
                     <div class="cart-item-description">
                         <h4 class="card-title"><a href="{{ route("products.show", $cartItem['id']) }}">{{ $cartItem['model'] }}</a></h4>
                         <div class="card-text text-muted">{{ $cartItem['ram'] }}, {{ $cartItem['capacity'] }}, {{ $cartItem['colour'] }}</div>
+                        <div class="card-text text-muted itemPrice"><strong>{{ $cartItem['price'] }}</strong></div>
                     </div>
                     <div class="cartItemControl">
                         <div class ="cartItemControl-buttons">
@@ -59,8 +61,7 @@
                                 {!! Form::close() !!}
                             </div>
                             <div class="cart-item-total">
-                                <div class="cart-item-price" style="font-size:14px;font-style:italic;text-align:right"></div>
-                                <div class="cart-item-sum" style="font-size:17px;font-weight:600;">{{ $cartItem['price'] }}</div>
+                                <div class="cart-item-sum" style="font-size:17px;font-weight:600;">{{ $cartItem['price'] * $cartContent[$cartItem['id']]['quantity']}}</div>
                             </div>
                         </div>
                     </div>
@@ -132,7 +133,7 @@
                         <div class ="cartItemControl-totals">
                             <div style="border:display:flex;justify-content:center;margin-top:10px;margin-left:10px;"></div>
                             <div class="cart-item-total">
-                                <div class="cart-item-price" style="font-size:14px;font-style:italic;text-align:right">{{ $wishListItem['price'] }}</div>
+                                <div class="cart-item-price" style="font-size:14px;font-style:italic;text-align:right"></div>
                                 <div class="cart-item-sum" style="font-size:17px;font-weight:600;">{{ $wishListItem['price'] }}</div>
                             </div>
                         </div>
@@ -143,21 +144,28 @@
 
         @endforeach
 
-        <div class="wishList-total">
-            {!! Form::open(['url' => route('wishlist.clear'), 'method' => 'GET']) !!}
-            {!! Form::submit('Очистить список', ['class' => 'btn btn-sm btn-link', 'style' => 'font-size:15px;']) !!}
-            {!! Form::close() !!}
-        </div>
-
         @else
         <div class="cartItemsContainer" >
             <h5>Список желаемого пуст</h5>
         </div>
         
         @endif
+    </div>
+    <div class="goToCheckout">
+        
+        @if (Auth::user())
+            @if (\Cart::session(Auth::user()->id)->getTotalQuantity() > 0)
+            {!! Form::open(['url' => route('checkout.index'), 'method' => 'GET']) !!}
+                {!! Form::submit('Перейти к оплате', ['class' => 'btn btn-outline-success']) !!}
+            {!! Form::close() !!} 
+            @else
+            {!! Form::open(['url' => route('checkout.index'), 'method' => 'GET']) !!}
+                {!! Form::submit('Перейти к оплате', ['class' => 'btn btn-outline-success', 'disabled' =>true]) !!}
+            {!! Form::close() !!} 
+            @endif
+        @endif
         
     </div>
-    
 @endsection
 
 @section('submain-header')

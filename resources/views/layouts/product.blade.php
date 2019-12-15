@@ -3,6 +3,8 @@
 <!-- Секция, содержимое которой обычный текст. -->
 @section('title', 'Салон бытовой техники') 
 
+
+@section('main')
 @if (Session::has('message'))
 
 <div class="alert {{ Session::get('class') }}" style="align-text:center;">
@@ -13,8 +15,6 @@
 </div>
 
 @endif 
-
-@section('main')
 <div class="imagesWrapper">
     <div class="card mb-3 productCard">
         <div class="row no-gutters">
@@ -115,7 +115,7 @@
                         {!! Form::hidden('name', $product['model']) !!}
                         {!! Form::hidden('quantity', 1) !!}
                         {!! Form::hidden('price', $product['price']) !!}
-                        {!! Form::submit('Добавить в корзину', ['class' => 'btn btn-success']) !!}
+                        {!! Form::submit('Добавить в корзину', ['class' => 'btn btn-outline-success']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -331,28 +331,16 @@
                                 <div class="form-review-edit" style="display:none;flex-direction:column;justify-content:center;">
                                     
                                     {!! Form::model($review, ['url' => route('reviews.update', $review), 'method' => 'PATCH']) !!}
-                                    <div class="rating-radio-container" style="display: flex;flex-wrap:nowrap;justify-content:center;">
-                                            <div class="form-check form-check-inline" style="margin-left:10px;">
-                                                {!! Form::label('inlineRadio1','1', ['class' => 'form-check-label']) !!}
-                                                {!! Form::radio('rating', 1, ['id' => 'inlineRadio1']) !!}
-                                            </div>
-                                            <div class="form-check form-check-inline" style="margin-left:10px;">
-                                                {!! Form::label('inlineRadio2','2', ['class' => 'form-check-label']) !!}
-                                                {!! Form::radio('rating', 2, ['id' => 'inlineRadio2']) !!}
-                                            </div>
-                                            <div class="form-check form-check-inline" style="margin-left:10px;">
-                                                {!! Form::label('inlineRadio3','3', ['class' => 'form-check-label']) !!}
-                                                {!! Form::radio('rating', 3, ['id' => 'inlineRadio3']) !!}
-                                            </div>
-                                            <div class="form-check form-check-inline" style="margin-left:10px;">
-                                                {!! Form::label('inlineRadio4','4', ['class' => 'form-check-label']) !!}
-                                                {!! Form::radio('rating', 4, ['id' => 'inlineRadio4']) !!}
-                                            </div>
-                                            <div class="form-check form-check-inline" style="margin-left:10px;">
-                                                {!! Form::label('inlineRadio5','5', ['class' => 'form-check-label']) !!}
-                                                {!! Form::radio('rating', 5, ['id' => 'inlineRadio5']) !!}
-                                            </div>    
-                                        </div> 
+                                    <div class="star-rating">
+                                        <div style="display:flex;align-items:flex-end;margin-right:10px;">Оценить товар:</div>
+                                        <div class="star-rating__wrap">
+                                            <input class="star-rating__input fa" id="star-rating-5" type="radio" name="rating" value="5" title="Отлично!">
+                                            <input class="star-rating__input fa" id="star-rating-4" type="radio" name="rating" value="4" title="Хорошо">
+                                            <input class="star-rating__input fa" id="star-rating-3" type="radio" name="rating" value="3" title="Так себе">
+                                            <input class="star-rating__input fa" id="star-rating-2" type="radio" name="rating" value="2" title="Плохо">
+                                            <input class="star-rating__input fa" id="star-rating-1" type="radio" name="rating" value="1" title="Ужас!">
+                                        </div>
+                                    </div>
                                     {!! Form::textarea('body', $review['body'], ['rows' => '6']) !!}
                                     {!! Form::hidden('product_id', $product['id']) !!}
                                     {!! Form::hidden('productType', $product['category']) !!}
