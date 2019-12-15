@@ -133,36 +133,20 @@
          
 @endsection
 
-@section('submain-header')
-    
-@endsection
+@section('submain-header')@endsection
 
-@section('submain')
-    
-@endsection
+@section('submain')@endsection
 
-@section('sales-header')
-    
-@endsection
+@section('sales-header')@endsection
 
-@section('sales')
-    
-@endsection
+@section('sales')@endsection
 
-@section('news-header')
-    
-@endsection
+@section('news-header')@endsection
 
-@section('news')
-    
-@endsection
+@section('news')@endsection
 
-@section('about-header')
-    
-@endsection
-@section('about')
-    
-@endsection
-@section('about-header')
-    
-@endsection
+@section('about-header')@endsection
+
+@section('about')@endsection
+
+@section('about-header')@endsection

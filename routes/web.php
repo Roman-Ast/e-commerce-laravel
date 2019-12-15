@@ -11,6 +11,7 @@
 |
 */
 
+Route::resource('/articles', 'ArticleController');
 Route::resource('/checkout', 'CheckoutController');
 Route::resource('/products', 'ProductController');
 Route::resource('/reviews', 'ReviewController');
