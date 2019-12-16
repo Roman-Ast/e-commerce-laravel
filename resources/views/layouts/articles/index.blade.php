@@ -19,8 +19,15 @@
         <h1>Блог</h1>
     @endif
 
-    <div style="width: 100%;display:flex;justify-content:flex-end;" >
-        <a href="{{ route('articles.create') }}" class="btn btn-light">Добавить статью в блог</a>
+    <div style="width: 100%;display:flex;justify-content:flex-end;margin-bottom:10px;" >
+        @if (Auth::user())
+            <a href="{{ route('articles.create') }}" class="btn btn-outline-secondary">Добавить статью в блог</a>
+        @else
+            <button type="button" class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Чтобы написать в блог, войдите или зарегестрируйтесь.">
+                    Добавить статью в блог
+              </button>
+        @endif
+        
     </div>
     @foreach ($articles as $article)
         @if (isset($article->image))
@@ -51,7 +58,7 @@
                         <div style="display:flex;flex-direction:row;justify-content:space-between;">
                             <p class="card-text">Автор: <i>{{ $article->author_name }}</i></p>
                             @if (Route::getCurrentRoute()->uri == 'myarticles')
-                                <p><small class="text-muted">cтатус {{ $article->status }}</small></p>
+                                <p><small class="text-muted">Статус: {{ $article->status }}</small></p>
                             @endif
                             <p class="card-text">
                                 @if (isset($timeExpired[$article->id]))

@@ -5,7 +5,7 @@
     {!! Form::open(['url' => route('articles.store')]) !!}
         {!! Form::hidden('author_id', Auth::user()->id, ['id' => 'author_id']) !!}
         {!! Form::hidden('author_name', Auth::user()->name, ['id' => 'author_name']) !!}
-        {!! Form::hidden('status', 'article', ['id' => 'status']) !!}
+        {!! Form::hidden('status', 'опубликованная статья', ['id' => 'status']) !!}
         {!! Form::label('title', "Заголовок") !!}
         {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'article-title']) !!}
         {!! Form::label('title', 'Текст статьи') !!}

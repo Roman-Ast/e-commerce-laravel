@@ -313,7 +313,17 @@ input[type="number"] {
 .card-errors{
   color: red;
 }
-
+.article-title{
+  font-family: "Roboto";
+  margin-bottom: 10px;
+}
+.article-body{
+  width: 100%;
+  min-height: 200px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
 
 
 

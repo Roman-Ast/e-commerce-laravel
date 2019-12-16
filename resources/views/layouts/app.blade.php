@@ -64,7 +64,7 @@
                     <div class="user-cart" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:flex-end;">
                         <a href="{{ route('cart.index') }}"><img src="/images/cart24.png"></a>
                         
-                        @if (count(Cart::session(Auth::user()->id)->getContent()) > 0)
+                        @if (count(Cart::getContent()) > 0)
                             <div style="height:22px;color:#fff;text-align:center;width:20px;border-radius:50%;background-color:#ffa500">
                                 {{ \Cart::session(Auth::user()->id)->getTotalQuantity() }}
                             </div>
@@ -448,7 +448,7 @@
                 const data = {
                     author_id: $('#author_id').val(),
                     author_name: $('#author_name').val(),
-                    status: 'draft',
+                    status: 'черновик',
                     title: $('#article-title').val(),
                     body: $('#article-body').val(),
                 };
@@ -466,7 +466,7 @@
                         );
                         console.log(data);
                         setTimeout(() => {
-                            $(location).attr('href', '/articles');
+                            $(location).attr('href', '/myarticles');
                         }, 3000);
                     },
                     error: function (data) {
@@ -483,14 +483,14 @@
                     article_id: $('#article_id').val(),
                     author_id: $('#author_id').val(),
                     author_name: $('#author_name').val(),
-                    status: 'draft',
+                    status: 'черновик',
                     title: $('#article-title').val(),
                     body: $('#article-body').val(),
                 };
                 
                 $.ajax({
                     data: data,
-                    url: "{{ route('articles.updateDraft', $article->id) }}",
+                    url: `{{ route('articles.updateDraft', $article->id ?? '') }}`,
                     type: "PATCH",
                     dataType: 'json',
                     success: function (data) {

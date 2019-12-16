@@ -108,7 +108,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = DB::table('articles')->where('status', 'article')->latest()->paginate(8);
+        $articles = DB::table('articles')->where('status', 'опубликованная статья')->latest()->paginate(8);
         
         $timeExpired = $this->getTimeStamps($articles);
 
@@ -146,7 +146,7 @@ class ArticleController extends Controller
 
         $article->save();
 
-        return redirect()->route('articles.index')
+        return redirect()->route('articles.myarticles')
             ->with('success_message', 'Статья успешно опубликована')
             ->with('class', 'alert-success');
     }
@@ -191,7 +191,7 @@ class ArticleController extends Controller
         $article->status = $request['status'];
         $article->save();
 
-        return redirect()->route('articles.index')
+        return redirect()->route('articles.myarticles')
             ->with('success_message', 'Статья успешно изменена!')
             ->with('class', 'alert-success');
     }
@@ -207,7 +207,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($article->id);
         $article->destroy($article->id);
 
-        return redirect()->route('articles.index')
+        return redirect()->route('articles.myarticles')
             ->with('success_message', 'Статья успешно удалена!')
             ->with('class', 'alert-success');
     }
