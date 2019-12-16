@@ -7,6 +7,7 @@
         <meta name="csrf-param" content="_token" />
         <title>{{ config('app.name', 'Интернет магазин') }}</title>
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('css/main.css') }}" rel="stylesheet">
@@ -60,34 +61,37 @@
             
             @guest
                 <a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a>
-                <div class="user-cart" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:flex-end;">
-                    <a href="{{ route('cart.index') }}"><img src="/images/cart24.png"></a>
-
-                        @if (count(Cart::getContent()) > 0)
+                    <div class="user-cart" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:flex-end;">
+                        <a href="{{ route('cart.index') }}"><img src="/images/cart24.png"></a>
+                        
+                        @if (count(Cart::session(Auth::user()->id)->getContent()) > 0)
                             <div style="height:22px;color:#fff;text-align:center;width:20px;border-radius:50%;background-color:#ffa500">
-                            {{ \Cart::session(Auth::user()->id)->getTotalQuantity() }}
+                                {{ \Cart::session(Auth::user()->id)->getTotalQuantity() }}
                             </div>
                         @endif
-                    
-                </div>
+                        
+                    </div>
                 @if (Route::has('register'))
                     <a class="p-2 text-dark" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
                 @endif
                 @else
-                <div class="user-session" style="display:flex;flex-wrap:nowrap;justify-content:space-between;width:200px;">
-                    <div class="user-cart" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:flex-end;">
-                        <a href="{{ route('cart.index') }}"><img src="/images/cart24.png"></a>
-
-                            @if (count(Cart::session(Auth::user()->id)->getContent()) > 0)
+                <div class="user-session" style="display:flex;flex-wrap:nowrap;justify-content:space-between;width:250px;align-items:center;align-self:baseline">
+                    @if (stristr(Route::getCurrentRoute()->uri, 'article'))
+                        <a href="{{ route('articles.myarticles') }}">Мои статьи</a>
+                    @else
+                        <div class="user-cart" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:flex-end;">
+                            <a href="{{ route('cart.index') }}"><img src="/images/cart24.png"></a>
+                            @if (Cart::session(Auth::user()->id)->getTotalQuantity() > 0)
                                 <div style="height:22px;color:#fff;text-align:center;width:20px;border-radius:50%;background-color:#ffa500">
-                                {{ \Cart::session(Auth::user()->id)->getTotalQuantity() }}
+                                    {{ Cart::session(Auth::user()->id)->getTotalQuantity() }}
                                 </div>
                             @endif
-                        
-                    </div>
+                            
+                        </div>
+                    @endif
                         <div style="display:flex;align-items:flex-end;">{{ Auth::user()->name }}</div>
                         {!! Form::open(['url' => route('logout')]) !!}
-                            {!! Form::submit('Выйти', ['class' => 'btn btn-sm btn-link']) !!}
+                            {!! Form::submit('Выйти', ['class' => 'btn btn-sm btn-link', 'style' => 'align-self:baseline;']) !!}
                         {!! Form::close() !!} 
                     </div>
                 
@@ -429,5 +433,84 @@
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/main.js') }}"></script>
         <script src="{{ URL::asset('js/jquery_min.js') }}"></script>
+        <script type="text/javascript">
+            $(function () {
+     
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $('#save-as-draft').on('click', function(e) {
+                e.preventDefault();
+                
+                const data = {
+                    author_id: $('#author_id').val(),
+                    author_name: $('#author_name').val(),
+                    status: 'draft',
+                    title: $('#article-title').val(),
+                    body: $('#article-body').val(),
+                };
+                
+                $.ajax({
+                    data: data,
+                    url: "{{ route('articles.saveAsDraft') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function (data) {
+                        $('.container').prepend(
+                            `<div class="alert alert-success">
+                                Статья сохранена как черновик.
+                            </div>`
+                        );
+                        console.log(data);
+                        setTimeout(() => {
+                            $(location).attr('href', '/articles');
+                        }, 3000);
+                    },
+                    error: function (data) {
+                        console.log('error');
+                        console.log(data);
+                    }
+                });
+              });
+
+              $('#update-draft').on('click', function(e) {
+                e.preventDefault();
+                
+                const data = {
+                    article_id: $('#article_id').val(),
+                    author_id: $('#author_id').val(),
+                    author_name: $('#author_name').val(),
+                    status: 'draft',
+                    title: $('#article-title').val(),
+                    body: $('#article-body').val(),
+                };
+                
+                $.ajax({
+                    data: data,
+                    url: "{{ route('articles.updateDraft', $article->id) }}",
+                    type: "PATCH",
+                    dataType: 'json',
+                    success: function (data) {
+                        $('.container').prepend(
+                            `<div class="alert alert-success">
+                                Черновик обновлен.
+                            </div>`
+                        );
+                        console.log(data);
+                        setTimeout(() => {
+                            $(location).attr('href', '/myarticles');
+                        }, 3000);
+                    },
+                    error: function (data) {
+                        console.log('error');
+                        console.log(data);
+                    }
+                });
+              });
+            });
+        </script>
     </body>
 </html>

@@ -11,6 +11,9 @@
 |
 */
 
+Route::post('/saveAsDraft', 'ArticleController@saveAsDraft')->name('articles.saveAsDraft');
+Route::patch('/updateDraft', 'ArticleController@updateDraft')->name('articles.updateDraft');
+Route::get('/myarticles', 'ArticleController@myArticles')->name('articles.myarticles');
 Route::resource('/articles', 'ArticleController');
 Route::resource('/checkout', 'CheckoutController');
 Route::resource('/products', 'ProductController');
