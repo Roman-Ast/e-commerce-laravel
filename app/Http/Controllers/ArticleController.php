@@ -136,13 +136,15 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        $path = $request->file('image')->store('uploads', 'public');
+        
         $article = new Article();
         $article->author_id = $request['author_id'];
         $article->author_name = $request['author_name'];
         $article->title = $request['title'];
         $article->body = $request['body'];
         $article->status = $request['status'];
-        //return $request;
+        $article->image = $path;
 
         $article->save();
 

@@ -14,8 +14,17 @@
         @endif 
 
         <div class="container">
-            <div class="article-title"><h1>{{ $article->title }}</h1></div>
-            <div class="article-body"><p> {{ $article->body }}</p></div>
+            @if (isset($article->image))
+                <div class="" style="width:100%;">
+                    <img src="{{ asset("/storage/{$article->image}") }}" style="width:100%;">
+                </div>
+            @endif
+            <div class="article-title">
+                <h1>{{ $article->title }}</h1>
+            </div>
+            <div class="article-body">
+                <p> {{ $article->body }}</p>
+            </div>
         
 
         @if (Auth::user()->name === $article->author_name)
