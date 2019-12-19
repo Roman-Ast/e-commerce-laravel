@@ -499,10 +499,50 @@
                                 Черновик обновлен.
                             </div>`
                         );
-                        console.log(data);
+                        
                         setTimeout(() => {
                             $(location).attr('href', '/myarticles');
                         }, 3000);
+                    },
+                    error: function (data) {
+                        $('.container').prepend(
+                            `<div class="alert alert-danger">
+                                Упс, что-то пошло не так! Попробуйте еще...
+                            </div>`
+                        );
+                    }
+                });
+              });
+
+              $('#to-like').on('click', function(e) {
+                e.preventDefault();
+                const thisBtn = $(this);
+                const data = {
+                    article_id: $('#article_id').val(),
+                    user_id: $('#user_id').val(),
+                };
+                
+                $.ajax({
+                    data: data,
+                    url: `{{ route('article.like', $article->id ?? '') }}`,
+                    type: "PATCH",
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.likesCountOfArticle == 0) {
+                            $('#dynamicLikesCount').html('');
+                            $('#to-like').children().last().hide(100);
+                                $('#to-like').children().first().show(100);
+                        } else {
+                            if (data.likedByMe) {
+                                $('#to-like').children().last().show(100);
+                                $('#to-like').children().first().hide(100);
+                            } else {
+                                $('#to-like').children().last().hide(100);
+                                $('#to-like').children().first().show(100);
+                            }
+                            $('#dynamicLikesCount').html(data.likesCountOfArticle);
+                        }
+                        console.log(data);
                     },
                     error: function (data) {
                         console.log('error');

@@ -38,16 +38,9 @@
                     </div>
                   <div class="col-md-10">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $article->title }}</h5>
-                        <p class="card-text">{{ Str::limit($article->body, 200) }}
-                            <a href="{{ route('articles.show', $article->id) }}">далее</a>
-                        </p>
-                        <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                        <div style="display:flex;justify-content:space-between;">
                             <p class="card-text">Автор: <i>{{ $article->author_name }}</i></p>
-                            @if (Route::getCurrentRoute()->uri == 'myarticles')
-                                <p><small class="text-muted">Статус: {{ $article->status }}</small></p>
-                            @endif
-                            <p class="card-text">
+                             <p class="card-text">
                                 @if (isset($timeExpired[$article->id]))
                                     @foreach ($timeExpired[$article->id] as $key => $value)
                                         <small class="text-muted">
@@ -59,8 +52,24 @@
                                         Обновлено только что
                                     </small>
                                 @endif
-                                
                             </p>
+                        </div>
+                        <h5 class="card-title">{{ $article->title }}</h5>
+                        <p class="card-text">{{ Str::limit($article->body, 200) }}
+                            <a href="{{ route('articles.show', $article->id) }}">далее</a>
+                        </p>
+                        <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                            <div style="font-style:italic;margin-right:10px;">Комментарии: -</div>
+                            
+
+                            @if (array_key_exists($article->id, $likes))
+                                <div><img src="/images/like.png"> {{ $likes[$article->id]}}</div>
+                            @endif
+
+                            @if (Route::getCurrentRoute()->uri == 'myarticles')
+                                <p><small class="text-muted">Статус: {{ $article->status }}</small></p>
+                            @endif
+
                         </div>
                     </div>
                   </div>
@@ -71,16 +80,8 @@
                 <div class="row no-gutters">
                   <div class="col-md-12">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $article->title }}</h5>
-                        <p class="card-text">
-                            {{ Str::limit($article->body, 300) }}
-                            <a href="{{ route('articles.show', $article->id) }}">далее</a>
-                        </p>
-                        <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                        <div style="display:flex;justify-content:space-between;">
                             <p class="card-text">Автор: <i>{{ $article->author_name }}</i></p>
-                            @if (Route::getCurrentRoute()->uri == 'myarticles')
-                                <p><small class="text-muted">Статус: {{ $article->status }}</small></p>
-                            @endif
                             <p class="card-text">
                                 @if (isset($timeExpired[$article->id]))
                                     @foreach ($timeExpired[$article->id] as $key => $value)
@@ -93,8 +94,23 @@
                                         Обновлено только что
                                     </small>
                                 @endif
-                                
                             </p>
+                        </div>
+                        <h5 class="card-title">{{ $article->title }}</h5>
+                        <p class="card-text">
+                            {{ Str::limit($article->body, 300) }}
+                            <a href="{{ route('articles.show', $article->id) }}">далее</a>
+                        </p>
+                        <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                            <div style="font-style:italic;margin-right:10px;">Комментарии: -</div>
+                            @if (array_key_exists($article->id, $likes))
+                                <div><img src="/images/like.png"> {{ $likes[$article->id]}}</div>
+                            @endif
+
+                            @if (Route::getCurrentRoute()->uri == 'myarticles')
+                                <p><small class="text-muted">Статус: {{ $article->status }}</small></p>
+                            @endif
+
                         </div>
                     </div>
                   </div>

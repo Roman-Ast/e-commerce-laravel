@@ -14,6 +14,22 @@
         @endif 
 
         <div class="container">
+            <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                Автор: {{ $article->author_name }}
+                <p class="card-text">
+                    @if (isset($timeExpired[$article->id]))
+                        @foreach ($timeExpired[$article->id] as $key => $value)
+                            <small class="text-muted">
+                                Обновлено {{ $value }} {{ $key }}
+                             </small>
+                        @endforeach
+                    @else
+                        <small class="text-muted">
+                            Обновлено только что
+                        </small>
+                    @endif
+                </p>
+            </div>
             @if (isset($article->image))
                 <div class="" style="width:100%;">
                     <img src="{{ asset("/storage/{$article->image}") }}" style="width:100%;">
@@ -25,7 +41,30 @@
             <div class="article-body">
                 <p> {{ $article->body }}</p>
             </div>
-        
+            
+            <div class="like-article">
+                    {!! Form::hidden('article_id', $article->id, ['id' => 'article_id']) !!}
+                    {!! Form::hidden('user_id', Auth::user()->id, ['id' => 'user_id']) !!}
+                @if (Auth::user())
+                    {!! Form::hidden('user_id', Auth::user()->id) !!}
+                @endif
+                
+                <div id="to-like">
+                    @if ($likedByMe)
+                        <img src="/images/like-inactive.png" style="display:none;">
+                        <img src="/images/like.png">
+                    @else
+                        <img src="/images/like-inactive.png">
+                        <img src="/images/like.png" style="display:none;">
+                    @endif
+                </div>
+                <div id="dynamicLikesCount">
+                    @if ($likes > 0)
+                        {{ $likes }}
+                    @endif
+                </div>
+            </div>
+            
 
         @if (Auth::user()->name === $article->author_name)
         <div style="display:flex;flex-direction:row;justify-content:flex-start;">

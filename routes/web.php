@@ -13,6 +13,7 @@
 
 Route::post('/saveAsDraft', 'ArticleController@saveAsDraft')->name('articles.saveAsDraft');
 Route::patch('/updateDraft', 'ArticleController@updateDraft')->name('articles.updateDraft');
+Route::patch('/article/like', 'ArticleController@like')->name('article.like');
 Route::get('/myarticles', 'ArticleController@myArticles')->name('articles.myarticles');
 Route::resource('/articles', 'ArticleController');
 Route::resource('/checkout', 'CheckoutController');

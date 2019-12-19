@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Like;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
@@ -101,6 +102,48 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function like(Request $request)
+    {
+        
+        $like = DB::table('likes')
+            ->where('article_id', '=', $request['article_id'])
+            ->where('user_id', '=', $request['user_id'])
+            ->get();
+        
+        
+        if (!empty($like->toArray())) {
+            
+            DB::table('likes')
+            ->where('article_id', '=', $request['article_id'])
+            ->where('user_id', '=', $request['user_id'])
+            ->delete();
+            
+            $likesCountOfArticle = $like = DB::table('likes')
+                ->where('article_id', '=', $request['article_id'])
+                ->get()
+                ->count();
+            
+            return json_encode([
+                'likesCountOfArticle' => $likesCountOfArticle,
+                'likedByMe' => false
+            ]);
+        }
+
+        $like = new Like();
+        $like->article_id = $request['article_id'];
+        $like->user_id = $request['user_id'];
+        $like->save();
+
+        $likesCountOfArticle = $like = DB::table('likes')
+            ->where('article_id', '=', $request['article_id'])
+            ->get()
+            ->count();
+        
+        return json_encode([
+            'likesCountOfArticle' => $likesCountOfArticle,
+            'likedByMe' => true
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -108,13 +151,26 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = DB::table('articles')->where('status', 'опубликованная статья')->latest()->paginate(8);
-        
+        $articles = DB::table('articles')
+            ->where('status', 'опубликованная статья')
+            ->latest()
+            ->paginate(8);
         $timeExpired = $this->getTimeStamps($articles);
-
+        $rawlikes = DB::table('likes')->get()->toArray();
+        
+        $likes = [];
+        foreach ($rawlikes as $key => $object) {
+            if (array_key_exists($object->article_id, $likes)) {
+                $likes[$object->article_id] += 1;
+            } else {
+                $likes[$object->article_id] = 1;
+            }
+        }
+        
         return view('layouts.articles.index', [
             'articles' => $articles,
-            'timeExpired' => $timeExpired
+            'timeExpired' => $timeExpired,
+            'likes' => $likes
         ]);
     }
 
@@ -162,7 +218,20 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $article = Article::findOrFail($article->id);
-        return view('layouts.articles.show', ['article' => $article]);
+        $likes = DB::table('likes')->where('article_id', $article->id)->get()->count();
+        $likedByMe = DB::table('likes')
+            ->where('user_id', \Auth::user()->id)
+            ->where('article_id', $article->id)
+            ->exists();
+        $articles = DB::table('articles')->get();
+        $timeExpired = $this->getTimeStamps($articles);
+        
+        return view('layouts.articles.show', [
+            'likedByMe' => $likedByMe,
+            'article' => $article,
+            'likes' => $likes,
+            'timeExpired' => $timeExpired
+        ]);
     }
 
     /**

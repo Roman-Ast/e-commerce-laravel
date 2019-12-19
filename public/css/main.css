@@ -324,8 +324,20 @@ input[type="number"] {
   border-bottom: 1px solid #ddd;
   margin-bottom: 10px;
 }
+.like-article{
+  display: flex;
+  justify-content: flex-end;
+}
 
-
+#to-like:hover{
+  cursor: pointer;
+}
+#dynamicLikesCount{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+}
 
 
 
