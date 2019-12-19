@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Comment;
 use App\Like;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 use Route;
+use Session;
 
 class ArticleController extends Controller
 {
@@ -69,7 +71,6 @@ class ArticleController extends Controller
         $article->title = $request['title'];
         $article->body = $request['body'];
         $article->status = $request['status'];
-
         $article->save();
 
         return $request;
@@ -98,13 +99,13 @@ class ArticleController extends Controller
 
         return view('layouts.articles.index', [
             'articles' => $articles,
-            'timeExpired' => $timeExpired
+            'timeExpired' => $timeExpired,
+            'likes' => array()
         ]);
     }
 
     public function like(Request $request)
     {
-        
         $like = DB::table('likes')
             ->where('article_id', '=', $request['article_id'])
             ->where('user_id', '=', $request['user_id'])
@@ -156,10 +157,20 @@ class ArticleController extends Controller
             ->latest()
             ->paginate(8);
         $timeExpired = $this->getTimeStamps($articles);
-        $rawlikes = DB::table('likes')->get()->toArray();
+        $rawLikes = DB::table('likes')->get()->toArray();
+        $rawComments = Comment::all()->toArray();
+        
+        $comments = [];
+        foreach ($rawComments as $comment) {
+            if (array_key_exists($comment['article_id'], $comments)) {
+                $comments[$comment['article_id']] += 1;
+            } else {
+                $comments[$comment['article_id']] = 1;
+            }
+        }
         
         $likes = [];
-        foreach ($rawlikes as $key => $object) {
+        foreach ($rawLikes as $key => $object) {
             if (array_key_exists($object->article_id, $likes)) {
                 $likes[$object->article_id] += 1;
             } else {
@@ -170,7 +181,8 @@ class ArticleController extends Controller
         return view('layouts.articles.index', [
             'articles' => $articles,
             'timeExpired' => $timeExpired,
-            'likes' => $likes
+            'likes' => $likes,
+            'comments' => $comments
         ]);
     }
 
@@ -191,7 +203,7 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {return $request->file('image');
         $path = $request->file('image')->store('uploads', 'public');
         
         $article = new Article();
@@ -215,22 +227,26 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Request $request, Article $article)
     {
         $article = Article::findOrFail($article->id);
         $likes = DB::table('likes')->where('article_id', $article->id)->get()->count();
         $likedByMe = DB::table('likes')
-            ->where('user_id', \Auth::user()->id)
+            ->where('user_id', \Auth::user()->id ?? '')
             ->where('article_id', $article->id)
             ->exists();
         $articles = DB::table('articles')->get();
         $timeExpired = $this->getTimeStamps($articles);
+        $rawComments = Article::find($article->id)->comments;
+        $comments = collect($rawComments)
+            ->sortByDesc('updated_at');
         
         return view('layouts.articles.show', [
             'likedByMe' => $likedByMe,
             'article' => $article,
             'likes' => $likes,
-            'timeExpired' => $timeExpired
+            'timeExpired' => $timeExpired,
+            'comments' => $comments
         ]);
     }
 
@@ -257,9 +273,14 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($article->id);
 
+        if ($path = $request->file('image')) {
+            $path = $request->file('image')->store('uploads', 'public');
+            $article->image = $path;
+        }
+        
         $article->title = $request['title'];
         $article->body = $request['body'];
-        $article->status = $request['status'];
+        $article->status = $request['status'];  
         $article->save();
 
         return redirect()->route('articles.myarticles')

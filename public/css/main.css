@@ -338,6 +338,17 @@ input[type="number"] {
   display: flex;
   justify-content: center;
 }
+textarea:focus, input:focus{
+  outline: none;
+}
+.accordion-comment{
+  display: none;
+}
+  
+
+
+
+
 
 
 

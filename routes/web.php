@@ -16,6 +16,7 @@ Route::patch('/updateDraft', 'ArticleController@updateDraft')->name('articles.up
 Route::patch('/article/like', 'ArticleController@like')->name('article.like');
 Route::get('/myarticles', 'ArticleController@myArticles')->name('articles.myarticles');
 Route::resource('/articles', 'ArticleController');
+Route::resource('/comments', 'CommentController');
 Route::resource('/checkout', 'CheckoutController');
 Route::resource('/products', 'ProductController');
 Route::resource('/reviews', 'ReviewController');

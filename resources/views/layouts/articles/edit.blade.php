@@ -2,13 +2,16 @@
 
 @section('main')
     <div class="container">
-    {!! Form::model($article, ['url' => route('articles.update', $article->id), 'method' => 'PATCH']) !!}
+    {!! Form::model($article, ['url' => route('articles.update', $article->id), 'method' => 'PATCH', 'enctype' => 'multipart/form-data']) !!}
         {!! Form::hidden('author_id', Auth::user()->id, ['id' => 'author_id']) !!}
         {!! Form::hidden('article_id', $article->id, ['id' => 'article_id']) !!}
         {!! Form::hidden('author_name', Auth::user()->name, ['id' => 'author_name']) !!}
         {!! Form::hidden('status', 'опубликованная статья', ['id' => 'status']) !!}
         {!! Form::label('title', "Заголовок") !!}
-        {!! Form::text('title', $article->title, ['class' => 'form-control', 'id' => 'article-title']) !!}
+        <div>
+            {!! Form::text('title', null, ['class' => 'form-control', 'maxlength' => 100, 'id' => 'article-title', 'required' => true]) !!}
+            <input type="file" name="image" id="image">
+        </div>
         {!! Form::label('title', 'Текст статьи') !!}
         {!! Form::textarea('body', $article->body, ['class' => 'form-control', 'id' => 'article-body']) !!}
         {!! Form::submit('Опубликовать', ['class' => 'btn btn-outline-primary']) !!}

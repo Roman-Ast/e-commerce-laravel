@@ -120,8 +120,25 @@ setTimeout(function () {
 $('.quantity').on('change', function() {
     $(this).next().click();
 }); 
-
-
+$('.comment-container').on('mouseenter', function () {
+    console.log($(this).find('.accordion-comment'));
+    const obj = $(this).find('.accordion-comment');
+    $(obj).slideDown();
+    
+});
+$('.comment-container').on('mouseleave', function () {
+    const obj = $(this).find('.accordion-comment');
+    $(obj).slideUp();
+});
+$('#cancel-comment').on('click', function (e) {
+    e.preventDefault();
+    $('#send-comment').hide();
+    $(this).hide();
+});
+$('#comment-body').on('focus', function () {
+    $('#send-comment').show();
+    $('#cancel-comment').show();
+});
 
 
 

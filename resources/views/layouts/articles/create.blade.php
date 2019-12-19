@@ -9,7 +9,7 @@
         {!! Form::label('title', "Заголовок") !!}
         <div>
             {!! Form::text('title', null, ['class' => 'form-control', 'maxlength' => 100, 'id' => 'article-title', 'required' => true]) !!}
-            <input type="file" name="image">
+            <input type="file" name="image" id="image">
         </div>
         {!! Form::label('title', 'Текст статьи') !!}
         {!! Form::textarea('body', null, ['class' => 'form-control', 'id' => 'article-body', 'required' => true]) !!}
