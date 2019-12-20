@@ -203,7 +203,7 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {return $request->file('image');
+    {
         $path = $request->file('image')->store('uploads', 'public');
         
         $article = new Article();
@@ -238,15 +238,28 @@ class ArticleController extends Controller
         $articles = DB::table('articles')->get();
         $timeExpired = $this->getTimeStamps($articles);
         $rawComments = Article::find($article->id)->comments;
-        $comments = collect($rawComments)
-            ->sortByDesc('updated_at');
+        $comments = collect($rawComments)->sortByDesc('updated_at');
+        
+        $isSubCommentsEmpty = true;
+        $subComments = [];
+        foreach ($rawComments as $rawComment) {
+            $subComments[$rawComment->id] = $rawComment->subcomments()->get()->toArray();
+        }
+        foreach ($subComments as $key => $value) {
+            if (!empty($value)) {
+                $isSubCommentsEmpty = false;
+                break;
+            }
+        }
         
         return view('layouts.articles.show', [
             'likedByMe' => $likedByMe,
             'article' => $article,
             'likes' => $likes,
             'timeExpired' => $timeExpired,
-            'comments' => $comments
+            'comments' => $comments,
+            'subComments' => $subComments,
+            'isSubCommentsEmpty' => $isSubCommentsEmpty
         ]);
     }
 

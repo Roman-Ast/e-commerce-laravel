@@ -120,15 +120,11 @@ setTimeout(function () {
 $('.quantity').on('change', function() {
     $(this).next().click();
 }); 
-$('.comment-container').on('mouseenter', function () {
-    console.log($(this).find('.accordion-comment'));
-    const obj = $(this).find('.accordion-comment');
-    $(obj).slideDown();
+$('.refactor-form-show').on('click', function () {
     
-});
-$('.comment-container').on('mouseleave', function () {
-    const obj = $(this).find('.accordion-comment');
-    $(obj).slideUp();
+    const obj = $(this).parent().parent().parent().find('.edit-comment');
+    $(obj).slideToggle();
+    console.log(obj);
 });
 $('#cancel-comment').on('click', function (e) {
     e.preventDefault();
@@ -140,11 +136,34 @@ $('#comment-body').on('focus', function () {
     $('#cancel-comment').show();
 });
 
+$('.sub-comment-cancel').on('click', function (e) {
+    e.preventDefault();
+    
 
+})
 
-
-
-
+$('.comment-reply-form-show').on('click', function () {
+    const obj = $(this).parent().parent().find('.comment-reply-form');
+    $(obj).slideToggle();
+});
+$('.comment-replies-show').on('click', function () {
+    $(this).next().slideToggle();
+})
+$('.comment-menu-show').on('click', function () {
+    $(this).next().slideToggle();
+});
+$('.comment-delete').on('click', function () {
+    $('#form-comment-delete').show();
+});
+$('.form-comment-delete-close').on('click', function () {
+    $('#form-comment-delete').hide();
+});
+$('.subcomment-delete').on('click', function () {
+    $(this).next().show();
+});
+$('.form-subcomment-delete-close').on('click', function () {
+    $(this).parent().parent().parent().parent().hide();
+});
 
 
 

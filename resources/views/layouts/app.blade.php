@@ -441,7 +441,11 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
+            $('.thumbsUp').on('click', function (e) {
+                e.preventDefault();
+
+                
+            })
             $('#save-as-draft').on('click', function(e) {
                 e.preventDefault();
                 

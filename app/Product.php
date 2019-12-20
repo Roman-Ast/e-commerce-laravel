@@ -27,4 +27,133 @@ $product->description = 'HDR, Режим замедленной съёмки, Р
 $product->onsale = 'no';
 $product->discount_persentage = 0;
 
+$product->save();
+
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Apple';
+$product->model = 'Apple iPhone 11 Pro Max';
+$product->price = 614890;
+$product->colour = 'Space Gray';
+$product->ram = '4GB';
+$product->capacity = '64GB';
+$product->diagonal = '6.5';
+$product->screen = 'OLED';
+$product->resolution = '2688x1242';
+$product->os = 'iOS 13';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/7/9/792fc4963417bcb86eaf04f01fcb437fd4f35e2f_16493424902174.jpg';
+$product->description = 'Шестилинзовый объектив, Ночной режим, Эффект боке, Режим таймера, Режим серийной съемки, Контроль экспозиции, Режим замедленной съёмки, HDR, Портретный режим, Тач-фокус, Оптический зум 2x, Пятилинзовый объектив, Цифровой зум 10x, Геотегинг';
+$product->onsale = 'no';
+$product->discount_persentage = 0;
+
+$product->save();
+
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Apple';
+$product->model = 'Apple iPhone 11 Pro';
+$product->price = 749890;
+$product->colour = 'зеленый';
+$product->ram = '4GB';
+$product->capacity = '512GB';
+$product->diagonal = '5.8';
+$product->screen = 'OLED';
+$product->resolution = '1125x2436';
+$product->os = 'iOS 13';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/0/f/0f91c5d8733224b9a5fc1a3b00ff3b79ffb125d5_16493064945694.jpg';
+$product->description = 'Портретный режим, Оптический зум 2x, Пятилинзовый объектив, Цифровой зум 10x, Шестилинзовый объектив, Тач-фокус, Ночной режим, Эффект боке, Панорама, HDR, Геотегинг, Режим серийной съемки, Контроль экспозиции, Режим таймера, Режим замедленной съёмки';
+$product->onsale = 'no';
+$product->discount_persentage = 0;
+
+$product->save();*/
+
+
+/*$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Huawei';
+$product->model = 'P30 Pro';
+$product->price = 349990;
+$product->colour = 'Aurora';
+$product->ram = '8GB';
+$product->capacity = '256GB';
+$product->diagonal = '6.5';
+$product->screen = 'OLED';
+$product->resolution = '1125x2436';
+$product->os = 'Android-9.0Pie';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/a/9/a94eb885b21298b9b8178fb06a88984a1e15b676_15274383212574.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/b/4/b4a1c4a9b3efea1eb634bd9eabb4aca46ccdd901_15274388062238.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/4/1/41c04fee94b49c1874e6f7bd568bda9d032500eb_15274429284382.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/d/8/d8ba51fc9944bf5d6035098869403d7810f31525_15274442850334.jpg';
+$product->description = 'Обнаружение лица, Гибридный зум 10x, Master AI, AI HDR+, Геотегинг, Цифровой зум 50x, Панорама, Режим таймера, Режим замедленной съёмки, Тач-фокус, HUAWEI AIS, Режим серийной съемки, Оптический зум 3x, HDR';
+$product->onsale = 'no';
+$product->discount_persentage = 0;
+
+$product->save();
+
+
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Huawei';
+$product->model = 'Mate 10';
+$product->price = 219890;
+$product->colour = 'Черный';
+$product->ram = '6GB';
+$product->capacity = '256GB';
+$product->diagonal = '6';
+$product->screen = 'OLED';
+$product->resolution = '1080x2160';
+$product->os = 'Android-8.0 Oreo';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/5/5/55a414119474ab8ef45c0b0ec483ead9bad98254_15499876007966.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/c/c/cc723014cc2149eeae1130ff9ca9ccdea0fbd65c_15499876532254.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/6/a/6a7cd348e8129176d4fe3c55817cdd9cfe70326a_15499878629406.jpg';
+$product->description = 'Барометр, Считывание отпечатка пальца, Акселерометр, Освещенности, Компас, Гироскоп, Датчик приближения. Безрамочный, Смартфон с двумя SIM-картами, Лучшая камера, NFC, Смартфон с 4G';
+$product->onsale = 'no';
+$product->discount_persentage = 0;
+
+$product->save();
+
+
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Meizu';
+$product->model = '15 Lite';
+$product->price = 87990;
+$product->colour = 'Черный';
+$product->ram = '4GB';
+$product->capacity = '64GB';
+$product->diagonal = '5.5';
+$product->screen = 'OLED';
+$product->resolution = '1920x1080';
+$product->os = 'Android-7.1-Nougat';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/a/2/a2ab3000669fde09add6f5161008d6c8135914ba_15497754968094.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/a/d/add4462fa3c31a5b73455c722ef7df324c89be31_15497755492382.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/0/1/01d58be2a61455f1013eabc93763f49fb1828c9b_15497757065246.jpg';
+$product->description = 'Face Unlock, Считывание отпечатка пальца, Акселерометр, Гироскоп, Гироскоп, Смартфон с двумя SIM-картами, Смартфон с 4G';
+$product->onsale = 'no';
+$product->discount_persentage = 0;
+
+$product->save();
+
+
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Samsung';
+$product->model = 'GalaxyS10+';
+$product->price = 479990;
+$product->colour = 'CeramicBlack';
+$product->ram = '12GB';
+$product->capacity = '1000GB';
+$product->diagonal = '6.3';
+$product->screen = 'OLED';
+$product->resolution = 'дисплея1440x3040';
+$product->os = 'Android-9.0-(Pie)';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/8/1/81cc51789df1855cf3ca0bf44f7b0e3104be4c03_15275549229086.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/c/d/cdc2efa938f03761005befc960397d34258fdb33_15275549753374.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/4/7/47e6d3e4c8fae1c3686c9d1efcfd6d241c1dc21f_15275551326238.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/b/a/ba1cb30201a89cec6bee9ca61c92e286f7a39b8b_15275551916062.jpg';
+$product->description = 'Пыле- /влагозащита, NFC, Смартфон с двумя SIM-картами, Безрамочный, Двойная фронтальная камера, Тройная камера, Смартфон с большим аккумулятором, Гироскоп, Смартфон с 4G, SpO2, Компас, Датчик сердечного ритма, Считывание отпечатка пальца, Акселерометр, Барометр, Гироскоп';
+$product->onsale = 'no';
+$product->discount_persentage = 0;
+
 $product->save();*/

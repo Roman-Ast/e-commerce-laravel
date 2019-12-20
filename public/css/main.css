@@ -344,8 +344,34 @@ textarea:focus, input:focus{
 .accordion-comment{
   display: none;
 }
-  
-
+.comment-replies-show:hover{
+  cursor: pointer;
+}  
+.comment-reply-form-show:hover{
+  cursor: pointer;
+}
+.comment-menu-show:hover{
+  cursor: pointer;
+}
+.comment-menu{
+  position: absolute;
+  right: 15px;
+  width:120px;
+  height:70px;
+  display: flex;
+  align-items:center;
+  flex-direction: column;
+  display:none;
+  background-color: #F5F5dc;
+}
+.comment-title{
+  position: relative;
+  font-style:italic;
+  font-weight:600;
+  display:flex;
+  justify-content:space-between;
+  margin-top:5px;
+}
 
 
 

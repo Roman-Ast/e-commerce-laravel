@@ -92,6 +92,9 @@
         
     @endforeach
 </div>
+<div class="links container">
+    {{ $articles->links() }}
+</div>
 @endsection
 
 @section('submain-header')@endsection

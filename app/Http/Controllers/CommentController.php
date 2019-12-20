@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\SubComment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -102,6 +103,18 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $commentForDelete = Comment::findOrFail($comment->id);
+        $subComments = $commentForDelete->subcomments;
+        
+        $subCommentsId = [];
+        foreach ($subComments as $subComment) {
+            $subCommentsId[] = $subComment['id'];
+        }
+
+        $subCommentsObjects = SubComment::whereIn('id', $subCommentsId);
+        foreach ($subCommentsObjects as $subCommentsObject) {
+            $subCommentsObject->delete();
+        }
+        
         $comment->delete();
 
         return back()
