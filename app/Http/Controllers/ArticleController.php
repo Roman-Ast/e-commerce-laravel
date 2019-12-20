@@ -13,7 +13,7 @@ use Session;
 
 class ArticleController extends Controller
 {
-    public function getTimeStamps($articles)
+    public static function getTimeStamps($articles)
     {
         $carbonTimeStamps = [];
         foreach ($articles as $article) {

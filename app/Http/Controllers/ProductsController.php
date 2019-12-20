@@ -12,9 +12,8 @@ class ProductsController extends Controller
     public function show(string $productType)
     {
         $input = Request::all();
-        
         $products = Product::where('category', $productType)->paginate(8);
-
+        
         $options = DB::select(
             "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='products'"
         );
@@ -31,7 +30,7 @@ class ProductsController extends Controller
             $reviewsCount[$id] = Review::where('product_id', $id)->count();
             $averageRating[$id] = round(Review::where('product_id', $id)->avg('rating'), 2);
         }
-        
+        var_dump($averageRating);
         foreach ($options as $option) {
             foreach (get_object_vars($option) as $var) {
                 if (
@@ -116,7 +115,7 @@ class ProductsController extends Controller
                 $checkedCheckboxes[] = $key;
             }
         }
-        var_dump($arrForRequestFromDb);
+        
         $products = Product::where(function ($query) use ($arrForRequestFromDb) {
             foreach ($arrForRequestFromDb as $key => $value) {
                 if ($key !== 'productType') {

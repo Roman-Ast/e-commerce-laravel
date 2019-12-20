@@ -84,9 +84,18 @@
                         {{ strtoupper($product["brand"]) }}
                         {{ $product["model"] }}
                     </h3>
-                    <h2 class="card-title" style="color:#9f07a9;">
-                        {{ $product["price"] }}
-                    </h2>
+                    <div class="card-title">
+                        @if ($product['new_price'] > 0)
+                            <div class="card-price" style="display:flex;justify-content:flex-start;width:100%">
+                                <h5 class="old-price text-muted">{{ $product['price'] }}</h5>
+                                <h2 style="color:#9f07a9;margin-left:10px;"><b>{{ $product['new_price'] }}</b></h2>
+                            </div>
+                        @else
+                            <div class="card-price" style="display:flex;justify-content:center;width:100%">
+                                <h3 style="color:#9f07a9;font-family:'Roboto'"><b>{{ $product['price'] }}</b></h3>
+                            </div>
+                        @endif
+                        </div>
                     <ul class="short-techs">
                         @foreach($productOptions as $option => $value)
                         <li>{{ $option }}: {{ $value }}</li>
@@ -96,9 +105,16 @@
                         <div class="rating" style="margin-bottom:5px;">
                             Средняя оценка: -/5
                         </div>
-                    @endif @if ($rating > 0)
+                    @else
                         <div class="rating" style="margin-bottom:5px;">
-                            Средняя оценка: {{ $rating }}/5
+                            <div class="star-rating-nonDynamic">
+                                @for ($i = 0; $i < round($rating); $i+=1)
+                                    <img src="{{ asset('/images/star-12.png') }}">
+                                @endfor
+                                @for ($i = 0; $i < (5 - round($rating)); $i+=1)
+                                    <img src="{{ asset('/images/star-12-inactive.png') }}">
+                                @endfor
+                            </div>
                         </div>
                     @endif
                     @if ($errors->any())
@@ -264,7 +280,7 @@
                 @foreach($reviews as $review)
                     <div class="card" style="border-right:1px solid #fff;border-left:1px solid #fff;border-bottom:1px solid #fff;border-top:1px solid #fff;">
                         <div class="card-header" style="display:flex;justify-content:space-between;">
-                            
+                        <div style="width:30%;display:flex;justify-content:flex-start;">  
                             @if (Auth::user())
 
                                 @if (Auth::user()->name === $review['author_name'])
@@ -282,8 +298,13 @@
                             @endif
                             
                             <div class="star-rating-nonDynamic">
-                                <input type="hidden" class="hidden-review-rating" value="{{ $review['rating'] }}">
-                                
+                                @for ($i = 0; $i < round($review['rating']); $i+=1)
+                                    <img src="{{ asset('/images/star-12.png') }}">
+                                @endfor
+                                @for ($i = 0; $i < (5 - round($review['rating'])); $i+=1)
+                                    <img src="{{ asset('/images/star-12-inactive.png') }}">
+                                @endfor
+                            </div>
                             </div>
                             <small style="font-size:11px;">Добавлено: {{ $review['created_at'] }}</small>
                         </div>

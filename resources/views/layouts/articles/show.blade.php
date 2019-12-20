@@ -41,8 +41,8 @@
                 </p>
             </div>
             @if (isset($article->image))
-                <div class="" style="width:100%;">
-                    <img src="{{ asset("/storage/{$article->image}") }}" style="width:100%;">
+                <div class="" style="width:100%;max-height:400px;display:flex;justify-content:center;">
+                    <img src="{{ asset("/storage/{$article->image}") }}">
                 </div>
             @endif
             <div class="article-title">

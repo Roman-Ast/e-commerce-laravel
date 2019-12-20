@@ -220,3 +220,124 @@ $product->onsale = 'no';
 $product->discount_persentage = 0;
 
 $product->save();*/
+
+//products on sale
+/*$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Oppo';
+$product->model = 'RX17 Pro';
+$product->price = 199990;
+$product->colour = 'Radiant Mist';
+$product->ram = '6GB';
+$product->capacity = '128GB';
+$product->diagonal = '6.4';
+$product->screen = 'OLED';
+$product->resolution = '1080x2340';
+$product->os = 'Android 8.1 Oreo';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/b/3/b372855f7ef3f12feb89acf36028bac0b0cff465_15338466344990.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/1/c/1c216e74c82c6d7e8115c71d458d3fb6301e2a93_15338466869278.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/8/d/8d84582ab59181ff3711596fd2b30863ef10d9dd_15338468048926.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/a/9/a9b6a0c59cf6e57ad7a553d05cf33748e74f0203_15338468573214.jpg';
+$product->description = 'Режим таймера, Обнаружение лица, Панорама, HDR, Тач-фокус, Геотегинг';
+$product->onsale = 'yes';
+$product->new_price = 159990;
+
+$product->save();
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Xiaomi';
+$product->model = 'Black Shark';
+$product->price = 188990;
+$product->colour = 'Серый';
+$product->ram = '4GB';
+$product->capacity = '128GB';
+$product->diagonal = '6.4';
+$product->screen = 'OLED';
+$product->resolution = '1080x2340';
+$product->os = 'Android 8.1 Oreo';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/8/4/84a25ab66ade5d34c5f355e02ba98576c25e9927_15451879800862.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/5/3/53c12f3631e774740a3700ada2cd7cb39b87316c_15451880325150.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/0/5/05fb083b8c36a7c65075af1f2635bd7fbb5951c8_15451880849438.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/e/e/eef7dd19f75cc726a43456825e7ba7033e24bff0_15451881373726.jpg';
+$product->description = 'Режим таймера, Обнаружение лица, Панорама, HDR, Тач-фокус, Геотегинг';
+$product->onsale = 'yes';
+$product->new_price = 109990;
+
+$product->save();
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Xiaomi';
+$product->model = 'MI A3';
+$product->price = 89990;
+$product->colour = 'Серый';
+$product->ram = '4GB';
+$product->capacity = '128GB';
+$product->diagonal = '6';
+$product->screen = 'OLED';
+$product->resolution = '720x1560';
+$product->os = 'Android 9.0 Pie';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/9/d/9d81ef1f6c41418eeab8a6acdd075ad0fca3b55e_16271642427422.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/4/0/40872c0c64f17db868a480167e685fa20bd846e8_16271642951710.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/a/b/ab6099b8ee4d5422d189e5069b4721bbaf18a3f8_16271644000286.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/8/6/86555c2185c9cead2da4fa55d825f6e675217fdb_16271645048862.jpg';
+$product->description = 'Акселерометр, Гироскоп, Считывание отпечатка пальца, Лазерный датчик, Освещенности, Компас, Датчик приближения';
+$product->onsale = 'yes';
+$product->new_price = 79990;
+
+$product->save();
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Sony';
+$product->model = 'Xperia 1 DS';
+$product->price = 399890;
+$product->colour = 'Серый';
+$product->ram = '6GB';
+$product->capacity = '128GB';
+$product->diagonal = '6.5';
+$product->screen = 'OLED';
+$product->resolution = '1644x3840';
+$product->os = 'Android 9.0 Pie';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/c/0/c0ad8690dba3474dc1609067cd804632927a0b43_15154759106590.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/0/5/0511f785d94401201cd32870c2c2493a9a7ba1da_15154763563038.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/e/8/e81dc20663fbf7c1d00c355c5c9c7482c2846e6e_15154768281630.jpg';
+$product->description = 'Панорама, Оптический зум 2x, Режим таймера, Режим серийной съемки, HDR';
+$product->onsale = 'yes';
+$product->new_price = 359990;
+
+$product->save();
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Sony';
+$product->model = 'Xperia XZ Premium DS';
+$product->price = 179990;
+$product->colour = 'Розовый';
+$product->ram = '4GB';
+$product->capacity = '64GB';
+$product->diagonal = '5.5';
+$product->screen = 'OLED';
+$product->resolution = '2160x3840(UHD4K))';
+$product->os = 'Android 7.1 Nougat';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/4/c/4cb912c9be9bcaf7ef565e11e5b02ff5747db552_15500223643678.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/1/7/179a1984d6a79b4824280ebe408c61cd30958c49_15500224167966.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/f/2/f2c876a4798a21dbf5eaee3033722ce5f92544ce_15500224692254.jpg';
+$product->description = 'Смартфон с 4G, NFC, Смартфон с двумя SIM-картами, Лучшая камера';
+$product->onsale = 'yes';
+$product->new_price = 109890;
+
+$product->save();
+
+$product = new Product();
+
+$product->category = 'tvs';
+$product->brand = 'Samsung';
+$product->model = 'QE75Q90RAUXCE';
+$product->price = 2399990;
+$product->colour = 'Черный';
+$product->ram = '';
+$product->capacity = '';
+$product->diagonal = '190см';
+$product->screen = 'QLED';
+$product->resolution = '3840x2160 Ultra HD';
+$product->os = 'Tizen';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/4/b/4b1d05d8afbfca515486978de0bb7cf1effc97e1_13049715228702.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/d/a/dacc4230d77fb24b5cf9365e1150b7cda81ddfc4_13049716277278.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/b/2/b2f2c98b6b0ee57d83f484e5bf3365c8d9223e2c_13049717325854.jpg';
+$product->description = 'Игровой режим, Bluetooth, Гид по программам, Функция Time Shift, Телетекст, Голосовое управление';
+$product->onsale = 'yes';
+$product->new_price = 1699990;
+
+$product->save();*/

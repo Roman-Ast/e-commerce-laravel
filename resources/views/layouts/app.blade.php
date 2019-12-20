@@ -31,7 +31,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ url('/showProducts/smartphones') }}">Смартфоны</a>
-                    <a class="dropdown-item" href="{{ url('/showProducts/t_v_s') }}">Телевизоры</a>
+                    <a class="dropdown-item" href="{{ url('/showProducts/tvs') }}">Телевизоры</a>
                     <a class="dropdown-item" href="{{ url('/showProducts/forPlayers') }}">Все для геймеров</a>
                     <a class="dropdown-item" href="{{ url('/showProducts/LHA') }}">Крупная бытовая техника</a>
                     <a class="dropdown-item" href="{{ url('/showProducts/SHA') }}">Мелкая бытовая техника</a>
@@ -207,149 +207,113 @@
         
         @section('sales')
         <main role="main">
-
+            
+                
             <div class="album py-5 bg-light">
                 <div class="container">
-
                     <div class="row">
+                            @if (isset($productsOnSale))
+                            @foreach ($productsOnSale as $productOnSale)
                         <div class="col-md-3">
                             <div class="card mb-3 shadow-sm card-scale">
-                            <img style="max-height:250px;" src="https://dailydeals.com.ua/wp-content/uploads/thumbs_dir/utyug-philips-gc380330-1-nfg11w4cp0mxbhtblhodlllwzbbjowid4m7wn4vluq.jpg">
+                            <img style="max-height:250px;" src="{{ explode(',', $productOnSale->image)[0] }}">
                                 <div class="card-body">
-                                    <div class="">утюг <h4>Phillips</h4></div>
-                                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum consequatur quae voluptas in impedit.</p>
-                                    <div class="card-price"><div class="old-price">29000</div><h3 style="color:#9f07a9;">25990</h3></div>
+                                    <div class="">{{ $productOnSale->category }}<h4>{{ $productOnSale->brand }}</h4></div>
+                                    <p class="card-text">{{ Str::limit($productOnSale->description, 55) }}</p>
+                                    <div class="card-price" >
+                                        <div class="old-price" style="color:#222;">{{ $productOnSale->price }}</div>
+                                        <h3 style="color:#9f07a9;">{{ $productOnSale->new_price }}</h3>
+                                    </div>
+                                    <div>
+                                        <small><i>Вы экономите</i></small>
+                                        <b>{{ $productOnSale->price - $productOnSale->new_price  }}!</b>
+                                    </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-primary">подробнее</button>
-                                        <button type="button" class="btn btn-sm btn-outline-success">Купить</button>
+                                        {!! Form::open(['url' => route('products.show', $productOnSale), 'method' => 'GET']) !!}
+                                            {!! Form::submit('Подробнее', ['class' => 'btn btn-sm btn-outline-primary']) !!}
+                                        {!! Form::close() !!}
+                                        
+                                        {!! Form::open(['url' => route('cart.store')]) !!}
+                                            {!! Form::hidden('id', $productOnSale['id']) !!}
+                                            {!! Form::hidden('name', $productOnSale['model']) !!}
+                                            {!! Form::hidden('quantity', 1) !!}
+                                            {!! Form::hidden('price', $productOnSale['price']) !!}
+                                            {!! Form::submit('В корзину', ['class' => 'btn btn-sm btn-outline-success']) !!}
+                                        {!! Form::close() !!}
                                     </div>
-                                    <small class="text-muted">9 mins</small>
+                                    
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    <div class="col-md-3">
-                        <div class="card mb-3 shadow-sm card-scale">
-                        <img style="max-height:250px;" src="https://img.mvideo.ru/Pdb/20038035b.jpg">
-                        <div class="card-body">
-                            <div class="">блэндер <h4>Braun</h4></div>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum consequatur quae voluptas in impedit.</p>
-                            <div class="card-price"><div class="old-price">31000</div><h3 style="color:#9f07a9;">25990</h3></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-primary">подробнее</button>
-                                <button type="button" class="btn btn-sm btn-outline-success">Купить</button>
-                            </div>
-                            <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card mb-3 shadow-sm card-scale">
-                        <img src="https://dailydeals.com.ua/wp-content/uploads/thumbs_dir/fen-philips-thermoprotect-hp823000-1-nf7ehvz0gk1y05e6yvf2ou2log4yv8o2oqfxmhkxnm.jpg" style="max-height:250px;">
-                        <div class="card-body">
-                            <div class="">фен <h4>Phillips</h4></div>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum consequatur quae voluptas in impedit.</p>
-                            <div class="card-price"><div class="old-price">19000</div><h3 style="color:#9f07a9;">15990</h3></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-primary">подробнее</button>
-                                <button type="button" class="btn btn-sm btn-outline-success">Купить</button>
-                            </div>
-                            <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
-                    
+                        @endforeach
+                        @endif
                 </div> 
-                <div class="col-md-3">
-                        <div class="card mb-3 shadow-sm card-scale">
-                        <img src="https://img.bigsale.com.ua/2017/10/03/aktsiya-na-maslyanyy-obogrevatel-aftron-r9500_59d365306a532_org.jpg" style="max-height:250px;">
-                        <div class="card-body">
-                            <div class="">Обогреватель <h4>Beko</h4></div>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum consequatur quae voluptas in impedit.</p>
-                            <div class="card-price"><div class="old-price">19000</div><h3 style="color:#9f07a9;">15990</h3></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-primary">подробнее</button>
-                                <button type="button" class="btn btn-sm btn-outline-success">Купить</button>
-                            </div>
-                            <small class="text-muted">9 mins</small>
-                            </div>
-                        </div>
-                    </div>
             </div>
 
-            </main>
+            
+        </main>
         @show
 
         @section('news-header')
         <div class="news-header header">
             <img src="/images/news.png">
-            <h4>Новости</h4>
+            <h4>Блог</h4>
         </div>
         @show
 
         @section('news')
         <section class="news container">
-            <div class="card mb-3 card-scale" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1173659480.jpg?crop=0.299xw:0.454xh;0.379xw,0.286xh&resize=480:*" class="card-img" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">Новость</a></h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 card-scale" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1173659480.jpg?crop=0.299xw:0.454xh;0.379xw,0.286xh&resize=480:*" class="card-img" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">Новость</a></h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 card-scale" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1173659480.jpg?crop=0.299xw:0.454xh;0.379xw,0.286xh&resize=480:*" class="card-img" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">Новость</a></h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 card-scale" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1173659480.jpg?crop=0.299xw:0.454xh;0.379xw,0.286xh&resize=480:*" class="card-img" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">Новость</a></h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
+            @if (isset($articles))
+            @foreach ($articles as $article)
+                <div class="card mb-3 card-scale" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                        <img src="{{ asset("/storage/{$article->image}") }}" class="w-100">
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $article->title }}</h5>
+                            <p class="card-text">
+                                {{ Str::limit($article->body, 120) }}
+                                <a href="/articles/{{ $article->id }}">далее</a>
+                            </p>
+                            
+                            <div style="font-family:'Roboto';display:flex;justify-content:space-between;">
+                            @if (!empty($comments))
+                                @if (array_key_exists($article->id, $comments))
+                                    Комментарии: {{ $comments[$article->id] }}
+                                @else
+                                    Комментарии:  -
+                                @endif
+                            @endif
+                            
+                            @if (array_key_exists($article->id, $likes))
+                                <div style="font-family:'Roboto';"><img src="/images/like.png"> {{ $likes[$article->id]}}</div>
+                            @endif
+                                
+                            </div>
+                            
+                            <p>
+                                @if (isset($timeExpired[$article->id]))
+                                    @foreach ($timeExpired[$article->id] as $key => $value)
+                                        <small class="text-muted">
+                                            Обновлено {{ $value }} {{ $key }}
+                                        </small>
+                                    @endforeach
+                                 @else
+                                    <small class="text-muted">
+                                            Обновлено только что
+                                    </small>
+                                @endif
+                            </p>
+                        </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
+            @endif
         </section>
         @show
 

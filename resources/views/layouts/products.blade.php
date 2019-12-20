@@ -129,15 +129,31 @@
                                 {{ $product["model"] }}
                             </div>
                         </div>
-                        <div class="card-model" style="text-align:center;color:#9f07a9;">
-                            <h4>
-                                <b>{{ $product["price"] }}</b>
-                            </h4>
+                        <div class="card-model" style="text-align:center;">
+
+                            @if ($product['new_price'] > 0)
+                                <div class="card-price" style="display:flex;justify-content:center;width:100%">
+                                    <div class="old-price text-muted">{{ $product['price'] }}</div>
+                                    <h3 style="color:#9f07a9;font-family:'Roboto'"><b>{{ $product['new_price'] }}</b></h3>
+                                </div>
+                            @else
+                                <div class="card-price" style="display:flex;justify-content:center;width:100%">
+                                    <h3 style="color:#9f07a9;font-family:'Roboto'"><b>{{ $product['price'] }}</b></h3>
+                                </div>
+                            @endif
+                            
                         </div>
                         <div class="reviews" style="display:flex;flex-wrap:nowrap;justify-content:space-between;">
                             @if (array_key_exists($product['id'], $reviewsCount) && array_key_exists($product['id'], $averageRating))
                                 <small>Отзывы: {{ $reviewsCount[$product['id']] }}</small>
-                                <small>Рэйтинг: {{ $averageRating[$product['id']] }}/5</small>
+                                <small>
+                                    @for ($i = 0; $i < round($averageRating[$product['id']]); $i+=1)
+                                        <img src="{{ asset('/images/star-12.png') }}">
+                                    @endfor
+                                    @for ($i = 0; $i < 5 - $averageRating[$product['id']]; $i+=1)
+                                        <img src="{{ asset('/images/star-12-inactive.png') }}">
+                                    @endfor
+                                </small>
                             @endif
 
                             @if (!array_key_exists($product['id'], $reviewsCount) && !array_key_exists($product['id'], $averageRating))
