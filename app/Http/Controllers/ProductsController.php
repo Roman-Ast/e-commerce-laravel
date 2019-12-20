@@ -71,7 +71,7 @@ class ProductsController extends Controller
     public function filter(string $productType)
     {
         $input = Request::all();
-
+        
         $sortOptionsMethods = [
             'byDefault' => "orderBy",
             'byIncreasePrise' => "orderBy",
@@ -83,7 +83,6 @@ class ProductsController extends Controller
             'byDescPrise' => "price"
         ];
 
-        $input = Request::all();
         $arrForRequestFromDb = [];
         $optionsItems = [];
         $checkedCheckboxes = [];
@@ -117,7 +116,7 @@ class ProductsController extends Controller
                 $checkedCheckboxes[] = $key;
             }
         }
-        
+        var_dump($arrForRequestFromDb);
         $products = Product::where(function ($query) use ($arrForRequestFromDb) {
             foreach ($arrForRequestFromDb as $key => $value) {
                 if ($key !== 'productType') {

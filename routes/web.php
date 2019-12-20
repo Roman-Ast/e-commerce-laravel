@@ -31,7 +31,8 @@ Route::get('/cartclear', 'CartController@clear')->name('cart.clear');
 Route::post('/cart/switchToSaveForLater/{id}', 'CartController@switchToSaveForLater')
     ->name('cart.switchToSaveForLater');
 
-Route::post('/showProducts/{productType}', 'ProductsController@filter');
+Route::get('/showProducts/filter/{productType}', 'ProductsController@filter');
+Route::post('/showProducts/{productType}', 'ProductsController@filter')->name('products.filter');
 
 Auth::routes();
 Route::get('/', 'HomeController@main');

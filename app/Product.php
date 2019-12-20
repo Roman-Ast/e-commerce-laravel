@@ -69,10 +69,10 @@ $product->description = 'Портретный режим, Оптический �
 $product->onsale = 'no';
 $product->discount_persentage = 0;
 
-$product->save();*/
+$product->save();
 
 
-/*$product = new Product();
+$product = new Product();
 
 $product->category = 'smartphones';
 $product->brand = 'Huawei';
@@ -153,6 +153,69 @@ $product->resolution = 'дисплея1440x3040';
 $product->os = 'Android-9.0-(Pie)';
 $product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/8/1/81cc51789df1855cf3ca0bf44f7b0e3104be4c03_15275549229086.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/c/d/cdc2efa938f03761005befc960397d34258fdb33_15275549753374.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/4/7/47e6d3e4c8fae1c3686c9d1efcfd6d241c1dc21f_15275551326238.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/b/a/ba1cb30201a89cec6bee9ca61c92e286f7a39b8b_15275551916062.jpg';
 $product->description = 'Пыле- /влагозащита, NFC, Смартфон с двумя SIM-картами, Безрамочный, Двойная фронтальная камера, Тройная камера, Смартфон с большим аккумулятором, Гироскоп, Смартфон с 4G, SpO2, Компас, Датчик сердечного ритма, Считывание отпечатка пальца, Акселерометр, Барометр, Гироскоп';
+$product->onsale = 'no';
+$product->discount_persentage = 0;
+
+$product->save();
+
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Samsung';
+$product->model = 'Galaxy S10e';
+$product->price = 279990;
+$product->colour = 'Зеленый';
+$product->ram = '6GB';
+$product->capacity = '128GB';
+$product->diagonal = '5.8';
+$product->screen = 'OLED';
+$product->resolution = '1080x2280';
+$product->os = 'Android 9.0 Pie';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/f/5/f54f04aaeccc187eb9c8e38848464e9a0fb25263_15275545559070.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/c/5/c5ac486936a4d41bad800f4a7f3487a8cf98ec17_15275546083358.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/5/8/585faad4e1c7831494389c88c81acbdbf470ac1d_15275547656222.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/a/4/a49c690300a0de567aa4386742ab09ed943f5653_15275548704798.jpg';
+$product->description = 'Режим таймера, Обнаружение лица, Панорама, Геотегинг, Режим серийной съемки, HDR, Режим замедленной съёмки';
+$product->onsale = 'no';
+$product->discount_persentage = 0;
+
+$product->save();
+
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Samsung';
+$product->model = 'Galaxy Note 9';
+$product->price = 254890;
+$product->colour = 'Черный';
+$product->ram = '6GB';
+$product->capacity = '128GB';
+$product->diagonal = '6.4';
+$product->screen = 'OLED';
+$product->resolution = '1440x2960';
+$product->os = 'Android 9.0 Pie';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/5/9/594df7be03fb46fb9441dc77188ac1c523a5256c_11890842599454.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/f/5/f5c1e3830230b3b4a0b74f77b65dfeb1bdd10897_11890843582494.jpg,https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/f/9/f9a34d95dd1aabf3273935124655362795856904_11890844958750.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/9/f/9f9aea429347d0688ec2e92cb0667f432f32c958_11890845679646.jpg';
+$product->description = 'Режим серийной съемки, Геотегинг, Обнаружение улыбки, Тач-фокус, Панорама, Двухкратное увеличение, Режим замедленной съёмки';
+$product->onsale = 'no';
+$product->discount_persentage = 0;
+
+$product->save();
+
+
+$product = new Product();
+
+$product->category = 'smartphones';
+$product->brand = 'Oppo';
+$product->model = 'Reno 10X Zoom';
+$product->price = 349990;
+$product->colour = 'Jet Black';
+$product->ram = '6GB';
+$product->capacity = '256GB';
+$product->diagonal = '6.6';
+$product->screen = 'OLED';
+$product->resolution = '1080x2340';
+$product->os = 'Android 9.0 Pie';
+$product->image = 'https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/8/c/8caa50f3813226c6e95d6a916cabfb1dc6f85b92_15276461948958.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/4/1/41f735aa7e70a195a0bb7e21a4e4d08ad8ba210f_15276466929694.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/a/4/a41a89de7f54c5114b51850fad7c956346a1b7d3_15276481806366.jpg, https://www.technodom.kz/media/catalog/product/cache/1366e688ed42c99cd6439df4031862c6/a/5/a54bc4fd3671988d095548dd4dc22b25305fde96_15276486852638.jpg';
+$product->description = 'Десятикратное увеличение, HDR, Панорама, Быстрый макияж, Режим замедленной съёмки, Двухтоновая вспышка';
 $product->onsale = 'no';
 $product->discount_persentage = 0;
 

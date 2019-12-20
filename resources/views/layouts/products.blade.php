@@ -36,7 +36,7 @@
             <span name="{{ $checkedCheckbox }}"></span>
             @endforeach @endif
         </div>
-        {!! Form::Open(['url' => "showProducts/$productType", 'id' =>'accordion', 'class' => 'filter-accordion']) !!}
+        {!! Form::model($products, ['url' => route('products.filter', $productType), 'id' =>'accordion', 'class' => 'filter-accordion']) !!}
         <div class="card filter-item">
             <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
