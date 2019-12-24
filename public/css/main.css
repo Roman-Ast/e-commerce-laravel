@@ -41,7 +41,6 @@ a:hover {
 }
 .products{
   width: 78%; 
-  justify-content: space-between;
 }
 .news{
   display: flex;
@@ -93,7 +92,6 @@ a:hover {
   position: fixed;
   width: 150px;
   padding-bottom:10px;
-  background-color: #ccc;
   border-radius:5px;
   display: flex;
   flex-direction: column;
@@ -102,7 +100,6 @@ a:hover {
   z-index: 10;
   left: 6.5%;
   bottom: 5%;
-  background-color: #ffbe00;
   display: none;
 }
 .collapseCardWraper{
@@ -163,6 +160,10 @@ a:hover {
   flex-wrap: nowrap;
   align-items: baseline;
   margin-bottom: 10px;
+  width: 35%;
+}
+.spacer{
+  height: 50px;;
 }
 #priceFromValue{
   font-size: 18px;
@@ -183,7 +184,7 @@ a:hover {
 }
 .register-form{
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   width: 100%;
 }
 .user-session{
@@ -306,7 +307,7 @@ input[type="number"] {
 .goToCheckout{
   margin: 0 auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 60%;
 }
 
@@ -372,6 +373,17 @@ textarea:focus, input:focus{
   justify-content:space-between;
   margin-top:5px;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -15,6 +15,7 @@ Route::post('/saveAsDraft', 'ArticleController@saveAsDraft')->name('articles.sav
 Route::patch('/updateDraft', 'ArticleController@updateDraft')->name('articles.updateDraft');
 Route::patch('/article/like', 'ArticleController@like')->name('article.like');
 Route::get('/myarticles', 'ArticleController@myArticles')->name('articles.myarticles');
+Route::resource('/products', 'ProductController');
 Route::resource('/articles', 'ArticleController');
 Route::resource('/comments', 'CommentController');
 Route::resource('/subcomments', 'SubCommentController');
@@ -31,10 +32,10 @@ Route::get('/cartclear', 'CartController@clear')->name('cart.clear');
 Route::post('/cart/switchToSaveForLater/{id}', 'CartController@switchToSaveForLater')
     ->name('cart.switchToSaveForLater');
 
-Route::get('/showProducts/filter/{productType}', 'ProductsController@filter');
-Route::post('/showProducts/{productType}', 'ProductsController@filter')->name('products.filter');
+Route::get('/filter', 'ProductController@filter');
+Route::post('/products', 'ProductController@filter')->name('products.filter');
 
 Auth::routes();
-Route::get('/', 'HomeController@main');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'MainPageController@index')->name('main');
+Route::get('/home', 'MainPageController@index')->name('home');
 

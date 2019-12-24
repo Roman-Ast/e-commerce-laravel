@@ -18,6 +18,7 @@ class CartController extends Controller
     public function index(Request $request)
     {
         if (\Auth::user()) {
+            $refererUrl = $request->server('HTTP_REFERER');
             $userId = \Auth::user()->id;
             $cartContent = \Cart::session($userId)->getContent();
             
@@ -29,7 +30,7 @@ class CartController extends Controller
 
             if (!Session::has('wishList')) {
 
-                return view('layouts.cart',[
+                return view('cart',[
                     'itemsInCart' => $sorteditemsInCart,
                     'cartContent' => $cartContent,
                     'wishList' => null,
@@ -44,11 +45,12 @@ class CartController extends Controller
                 $wishListForDisplay[] = $object['item']->toArray();
             }
             
-            return view('layouts.cart',[
+            return view('cart',[
                 'itemsInCart' => $sorteditemsInCart,
                 'cartContent' => $cartContent,
                 'wishList' => $wishListForDisplay,
-                'cartTotalPrice' => \Cart::session($userId)->getTotal()
+                'cartTotalPrice' => \Cart::session($userId)->getTotal(),
+                'refererUrl' => $refererUrl
             ]);
         } else {
             /*$cart = Session::get('cart');

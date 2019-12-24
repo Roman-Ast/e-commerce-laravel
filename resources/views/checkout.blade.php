@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @if (Session::has('error_message'))
 
   <div class="alert alert-danger" style="align-text:center;">
@@ -9,7 +10,11 @@
     </div>
             
   @endif 
-@section('main')
+
+@section('content')
+
+@include('partials.navbar')
+
         <div class="container" style="display:flex;flex-direction:row-reverse;justify-content:space-between;">
             
           <div class="col-md-5">
@@ -130,23 +135,6 @@
               {!! Form::close() !!}
           </div>
         </div>
-         
+        <div class="spacer"></div>
+        @include('partials.footer')
 @endsection
-
-@section('submain-header')@endsection
-
-@section('submain')@endsection
-
-@section('sales-header')@endsection
-
-@section('sales')@endsection
-
-@section('news-header')@endsection
-
-@section('news')@endsection
-
-@section('about-header')@endsection
-
-@section('about')@endsection
-
-@section('about-header')@endsection

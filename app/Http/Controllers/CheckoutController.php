@@ -24,7 +24,7 @@ class CheckoutController extends Controller
         }
         $sorteditemsInCart = collect($itemsInCart)->sortBy('brand')->all();
 
-        return view('layouts.checkout', [
+        return view('checkout', [
             'itemsInCart' => $sorteditemsInCart,
             'cartContent' => $cartContent,
             'cartTotalPrice' => \Cart::session($userId)->getTotal()

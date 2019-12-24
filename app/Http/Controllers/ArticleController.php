@@ -97,7 +97,7 @@ class ArticleController extends Controller
 
         $timeExpired = $this->getTimeStamps($articles);
 
-        return view('layouts.articles.index', [
+        return view('articles.index', [
             'articles' => $articles,
             'timeExpired' => $timeExpired,
             'likes' => array()
@@ -178,7 +178,7 @@ class ArticleController extends Controller
             }
         }
         
-        return view('layouts.articles.index', [
+        return view('articles.index', [
             'articles' => $articles,
             'timeExpired' => $timeExpired,
             'likes' => $likes,
@@ -193,7 +193,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('layouts.articles.create');
+        return view('articles.create');
     }
 
     /**
@@ -252,7 +252,7 @@ class ArticleController extends Controller
             }
         }
         
-        return view('layouts.articles.show', [
+        return view('articles.show', [
             'likedByMe' => $likedByMe,
             'article' => $article,
             'likes' => $likes,
@@ -272,7 +272,7 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $article = Article::findOrFail($article->id);
-        return view('layouts.articles.edit', ['article' => $article]);
+        return view('articles.edit', ['article' => $article]);
     }
 
     /**

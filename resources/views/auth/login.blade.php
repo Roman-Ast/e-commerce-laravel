@@ -1,14 +1,12 @@
 @extends('layouts.app')
 
-@yield('navbar')
+@include('partials.navbar')
 
-@section('content')
 <div class="register-form">
     <div class="row" style="width:100%">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header login-header">
-                    <div class="form-register-close" style="display:flex;justify-content:flex-end;">&times;</div>
                     <div style="display:flex;justify-content:center;width:100%;">{{ __('Войти') }}</div>
                 </div>
 
@@ -75,4 +73,3 @@
         </div>
     </div>
 </div>
-@endsection

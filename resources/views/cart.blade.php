@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
 
+@section('content')
 
-@section('main')
-@if (Session::has('message'))
+    @include('partials.navbar')
 
-<div class="alert {{ Session::get('class') }}" style="align-text:center;">
-    <div style="display:flex;justify-content:flex-end;" class="close-flash">
-        &times;
+    @if (Session::has('message'))
+
+    <div class="alert {{ Session::get('class') }}" style="align-text:center;">
+        <div style="display:flex;justify-content:flex-end;" class="close-flash">
+            &times;
+        </div>
+        {{ Session::get('message') }}
     </div>
-    {{ Session::get('message') }}
-</div>
 
-@endif 
-<div style="font-style:italic;margin-bottom:10px;width:60%;margin:0 auto;">
+    @endif 
+    <div style="font-style:italic;margin-bottom:10px;width:60%;margin:0 auto;">
         <strong>
         @if (count($itemsInCart) === 1)
             {{ count($itemsInCart) }} позиция в корзине
@@ -152,7 +154,15 @@
         @endif
     </div>
     <div class="goToCheckout">
-        
+        @if (\Cart::session(Auth::user()->id)->getTotalQuantity() > 0)
+            <div>
+                <a class="btn btn-outline-secondary" href="{{ $refererUrl }}">Продолжить покупки</a>
+            </div>
+        @else
+            <div>
+                <a class="btn btn-outline-secondary" href="{{ route('products.index') }}">Продолжить покупки</a>
+            </div>
+        @endif
         @if (Auth::user())
             @if (\Cart::session(Auth::user()->id)->getTotalQuantity() > 0)
             {!! Form::open(['url' => route('checkout.index'), 'method' => 'GET']) !!}
@@ -166,27 +176,9 @@
         @endif
         
     </div>
-@endsection
 
-@section('submain-header')
-    
-@endsection
+    <div class="spacer"></div>
 
-@section('submain')
-    
-@endsection
+    @include('partials.footer')
 
-@section('news-header')
-    
-@endsection
-
-@section('news')
-    
-@endsection
-
-@section('about-header')
-    
-@endsection
-@section('about')
-    
 @endsection

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('content')
+@include('partials.navbar')
+
 <div class="register-form">
     <div class="row" style="width:100%">
         <div class="col-md-8">

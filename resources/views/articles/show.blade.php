@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('main')
+@section('content')
+
+    @include('partials.navbar')
 
     <div class="container">
         @if (Session::has('success_message'))
@@ -41,7 +43,7 @@
                 </p>
             </div>
             @if (isset($article->image))
-                <div class="" style="width:100%;max-height:400px;display:flex;justify-content:center;">
+                <div class="" style="border:1px solid #ccc;border-radius:5px;width:100%;max-height:400px;display:flex;justify-content:center;">
                     <img src="{{ asset("/storage/{$article->image}") }}">
                 </div>
             @endif
@@ -296,22 +298,6 @@
             
         </div>
     </div>
+
+    @include('partials.footer')
 @endsection
-
-@section('submain-header')@endsection
-
-@section('submain')@endsection
-
-@section('sales-header')@endsection
-
-@section('sales')@endsection
-
-@section('news-header')@endsection
-
-@section('news')@endsection
-
-@section('about-header')@endsection
-
-@section('about')@endsection
-
-@section('about-header')@endsection

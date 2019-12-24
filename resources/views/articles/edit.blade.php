@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('main')
+@section('content')
+ @include('partials.navbar')
     <div class="container">
     {!! Form::model($article, ['url' => route('articles.update', $article->id), 'method' => 'PATCH', 'enctype' => 'multipart/form-data']) !!}
         {!! Form::hidden('author_id', Auth::user()->id, ['id' => 'author_id']) !!}
@@ -19,23 +20,6 @@
     {!! Form::close() !!}
     
     </div>
+
+    @include('partials.footer')
 @endsection
-
-
-@section('submain-header')@endsection
-
-@section('submain')@endsection
-
-@section('sales-header')@endsection
-
-@section('sales')@endsection
-
-@section('news-header')@endsection
-
-@section('news')@endsection
-
-@section('about-header')@endsection
-
-@section('about')@endsection
-
-@section('about-header')@endsection

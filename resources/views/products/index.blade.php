@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
-<!-- Секция, содержимое которой обычный текст. -->
-@section('title', 'Салон бытовой техники') @section('cart') @show
+@section('title', 'Магазин')
+
+@include('partials.navbar')
+
 @if ($errors->any())
     <div>
         <ul>
@@ -12,7 +14,7 @@
     </div>
 @endif
 
-@section('main')
+@section('content')
 @if (Session::has('message'))
 
 <div class="alert {{ Session::get('class') }}" style="align-text:center;margin-top:-15px;">
@@ -31,12 +33,13 @@
             <h5>Фильтр</h5>
         </div>
         <div class="checkedCheckboxes" style="display:none;">
-            @if (isset($checkedCheckboxes)) @foreach($checkedCheckboxes as
-            $checkedCheckbox)
-            <span name="{{ $checkedCheckbox }}"></span>
-            @endforeach @endif
+            @if (isset($checkedCheckboxes))
+                @foreach($checkedCheckboxes as $checkedCheckbox)
+                    <span name="{{ $checkedCheckbox }}"></span>
+                @endforeach
+            @endif
         </div>
-        {!! Form::model($products, ['url' => route('products.filter', $productType), 'id' =>'accordion', 'class' => 'filter-accordion']) !!}
+        {!! Form::open(['url' => route('products.filter'), 'id' =>'accordion', 'class' => 'filter-accordion']) !!}
         <div class="card filter-item">
             <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
@@ -47,17 +50,21 @@
                 </h5>
             </div>
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div >
                 <div class="collapseCardWraper">
                     <div class="card-body">
                         {!! Form::label('customRange1', 'От') !!} 
                         {!! Form::range('', $from, ['class' => 'custom-range', 'id' => 'priceFromRange', 'min' => '0', 'max' => $to]) !!}
-                        {!! Form::text('from', $from, ['class' => 'form-control', 'id' => 'priceFromValue', 'value' => $from, 'size' => '20']) !!}
+                        {!! Form::text('from', $from, ['class' => 'form-control', 'id' => 'priceFromValue', 'value' => $from, 'size' => '25']) !!}
                     </div>
                     <div class="card-body">
                         {!! Form::label('customRange1', 'До') !!} 
+                        @if (isset($maxInSelectedCategories))
+                        {!! Form::range('', $to, ['class' => 'custom-range', 'id' => 'priceToRange', 'min' => $from, 'max' => $maxInSelectedCategories]) !!}
+                        @else
                         {!! Form::range('', $to, ['class' => 'custom-range', 'id' => 'priceToRange', 'min' => $from, 'max' => $to]) !!}
-                        {!! Form::text('to', $to,['class' => 'form-control', 'id' => 'priceToValue','size' => '30']) !!}
+                        @endif
+                        {!! Form::text('to', $to,['class' => 'form-control', 'id' => 'priceToValue','size' => '35']) !!}
                     </div>
                 </div>
             </div>
@@ -90,31 +97,30 @@
             <button type="button" class="close" data-dismiss="useFilterBtnContainer" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            {!! Form::submit('Показать', ['class' => 'btn btn-light useFiltera', 'style' => 'color:#fff;align-self:center;background-color:#9f07a9;'])!!}
+            {!! Form::submit('Применить', ['class' => 'btn btn-success', 'style' => 'color:#fff;align-self:center;'])!!}
         </div>
     </div>
 
     <div class="products">
-        <div class="sortContainer">
-            <div style="width:3000px;text-decoration:underline;">
-                {{ strtoupper($productType[0]).substr($productType, 1) }}
-            </div>
-            @if (isset($inputSort)) 
-            {!! Form::label('selectSort', 'Сортировать') !!} 
-            {!! Form::select('sort', array(
-                'byDefault' => 'по умолчанию',
-                'byIncreasePrise' => 'по возрастанию цены', 
-                'byDescPrise' => 'по убыванию цены'), 
-                $inputSort, ['class' => 'form-control selectSort'])
-            !!} 
-            @else
-            {!! Form::label('selectSort','Сортировать ') !!} 
-            {!! Form::select('sort', array(
-                'byDefault' => 'по умолчанию',
-                'byIncreasePrise' => 'по возрастанию цены',
-                'byDescPrise' => 'по убыванию цены'), 
-                'byDefault', ['class' =>'form-control selectSort']) !!} 
-            @endif
+        <div style="display:flex;justify-content:flex-end;">
+                <div class="sortContainer"> 
+                        @if (isset($inputSort)) 
+                        {!! Form::label('selectSort', 'Сортировать:', ['style' => 'margin-right:10px;']) !!} 
+                        {!! Form::select('sort', array(
+                            'byDefault' => 'по умолчанию',
+                            'byIncreasePrise' => 'по возрастанию цены', 
+                            'byDescPrise' => 'по убыванию цены'), 
+                            $inputSort, ['class' => 'form-control selectSort'])
+                        !!} 
+                        @else
+                        {!! Form::label('selectSort','Сортировать ') !!} 
+                        {!! Form::select('sort', array(
+                            'byDefault' => 'по умолчанию',
+                            'byIncreasePrise' => 'по возрастанию цены',
+                            'byDescPrise' => 'по убыванию цены'), 
+                            'byDefault', ['class' =>'form-control selectSort']) !!} 
+                        @endif
+                    </div>
         </div>
         <div class="row">
             {!! Form::Close() !!} 
@@ -184,5 +190,6 @@
         </div>
     </div>
 </div>
-@endsection @section('submain-header') @endsection @section('submain')
+
+@include('partials.footer')
 @endsection
