@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $article->title )
+
 @section('content')
 
     @include('partials.navbar')
@@ -44,7 +46,7 @@
             </div>
             @if (isset($article->image))
                 <div class="" style="border:1px solid #ccc;border-radius:5px;width:100%;max-height:400px;display:flex;justify-content:center;">
-                    <img src="{{ asset("/storage/{$article->image}") }}">
+                    <img src="{{ asset("/storage/{$article->image}") }}" class="w-100">
                 </div>
             @endif
             <div class="article-title">
@@ -152,7 +154,7 @@
                         {{ $comment->author_name }}
                         <small class="text-muted" style="margin-left:5px;">{{ $comment->updated_at }}</small>
                     </div>
-                    
+                @if (Auth::user())    
                     @if (Auth::user()->name === $comment->author_name)
                         <div class="comment-menu-show">
                             <img src="/images/dots-menu.png">
@@ -187,6 +189,7 @@
                             </div>
                         </div>
                     @endif
+                @endif
                 
                 </div>
                 <div style="min-height:30px;width:100%;display:flex;align-items:flex-end;">
@@ -240,6 +243,8 @@
                                             <b><i>{{ $subComment['author_name'] }}</i></b>
                                             <small class="text-muted">{{ $subComment['updated_at'] }}</small>
                                         </div>
+                                        @if ( Auth::user())
+                                            
                                         @if ($subComment['author_name'] === Auth::user()->name)
                                         <div class="comment-menu-show">
                                             <img src="/images/dots-menu.png">
@@ -275,6 +280,7 @@
                                                     </div>
                                                 </div>
                                         </div>
+                                        @endif
                                         @endif
                                     </div>
                                     <div style="font-family:'Roboto'">{{ $subComment['body'] }}</div>

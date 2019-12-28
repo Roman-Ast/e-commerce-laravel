@@ -97,7 +97,7 @@
             <button type="button" class="close" data-dismiss="useFilterBtnContainer" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            {!! Form::submit('Применить', ['class' => 'btn btn-success', 'style' => 'color:#fff;align-self:center;'])!!}
+            {!! Form::submit('Применить', ['class' => 'btn btn-warning text-dark', 'style' => 'color:#fff;align-self:center;'])!!}
         </div>
     </div>
 

@@ -8,6 +8,11 @@ use App\Comment;
 
 class MainPageController extends Controller
 {
+    public function about()
+    {
+        return view('about');
+    }
+    
     public function index()
     {
         $productsOnSale = Product::where('onsale', 'yes')

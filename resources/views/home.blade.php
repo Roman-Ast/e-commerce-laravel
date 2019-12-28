@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Ваш брэнд')
+
 @include('partials.navbar')
 
 @section('content')
@@ -38,8 +40,7 @@
 
     @include('partials.blog')
 
-    @include('partials.about')
-
     @include('partials.footer')
+    
 @endsection
 

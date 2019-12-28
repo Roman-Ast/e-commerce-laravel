@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="display:flex;justify-content:space-between;">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="display:flex;justify-content:space-between;background-color: #9F07A9;">
     <div style="display:flex;">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img src="{{ asset('/images/home-page.png') }}">
@@ -10,6 +10,7 @@
                     <a class="p-2 text-light" href="{{ route('products.index')}}">Магазин</a>
                     <a class="p-2 text-light" href="{{ route('articles.index')}}">Блог</a>
                     <a class="p-2 text-light" href="#">Новости</a>
+                    <a class="p-2 text-light" href="{{ route('about')}}">О нас</a>
                 </nav>
             </div>
         </div>

@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
+@section('title', 'Добавить статью')
+
 @section('content')
 
-    @include('partials.navbar')
+@include('partials.navbar')
+
 <div class="container">
     {!! Form::open(['url' => route('articles.store'), 'enctype' => 'multipart/form-data']) !!}
         {!! Form::hidden('author_id', Auth::user()->id, ['id' => 'author_id']) !!}
@@ -21,6 +24,6 @@
     
 </div>
 
-@include('partials.navbar')
+@include('partials.footer')
 
 @endsection

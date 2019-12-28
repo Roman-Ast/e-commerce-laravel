@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Редактировать статью')
+
 @section('content')
  @include('partials.navbar')
     <div class="container">

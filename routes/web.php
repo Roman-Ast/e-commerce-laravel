@@ -26,6 +26,7 @@ Route::resource('/cart', 'CartController');
 Route::resource('/wishlist', 'WishListController');
 Route::get('/showProducts/{productType}', 'ProductsController@show');
 
+Route::get('/about', 'MainPageController@about')->name('about');
 Route::get('/thankyou', 'PaymentConfirmationController@index')->name('paymentconfirmation.index');
 Route::get('/wishlistclear', 'WishListController@clear')->name('wishlist.clear');
 Route::get('/cartclear', 'CartController@clear')->name('cart.clear');
