@@ -75,7 +75,7 @@
                 <h5 class="mb-0">
                     <div class="btn" data-toggle="collapse" data-target="#collapse{{ $option }}" aria-expanded="true"
                         aria-controls="collapse{{ $option }}">
-                        {{ $option }}
+                        {{ $optionsRussian[$option] }}
                     </div>
                 </h5>
             </div>

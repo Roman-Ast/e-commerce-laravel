@@ -1,5 +1,5 @@
 <?php
-
+use App\Articles\ArticlesRepository;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,4 +39,12 @@ Route::post('/products', 'ProductController@filter')->name('products.filter');
 Auth::routes();
 Route::get('/', 'MainPageController@index')->name('main');
 Route::get('/home', 'MainPageController@index')->name('home');
+
+Route::get('/search', function (ArticlesRepository $repository) {
+    $articles = $repository->search((string) request('search'));
+
+    return view('search_results', [
+        'articles' => $articles,
+    ]);
+})->name('search');
 

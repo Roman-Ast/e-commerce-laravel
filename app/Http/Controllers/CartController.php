@@ -53,20 +53,42 @@ class CartController extends Controller
                 'refererUrl' => $refererUrl
             ]);
         } else {
-            /*$cart = Session::get('cart');
+            $cart = Session::get('cart');
             $itemsInCart = [];
-    
+            $refererUrl = $request->server('HTTP_REFERER');
+            
             if ($cart) {
                 $cartContent = $cart::getContent();
                 foreach ($cartContent as $cartItem) {
                     $itemsInCart[] = Product::findOrFail($cartItem['id'])->toArray(8);
                 }
             }
-    
-            return view('layouts.cart',[
-                'itemsInCart' => $itemsInCart
+            $sorteditemsInCart = collect($itemsInCart)->sortBy('brand')->all();
+            if (!Session::has('wishList')) {
+
+                return view('cart',[
+                    'itemsInCart' => $sorteditemsInCart,
+                    'cartContent' => $cartContent,
+                    'wishList' => null,
+                    'cartTotalPrice' => $cart::getTotal()
+                ]);
+            }
+            $oldWishlist = Session::get('wishList');
+            $wishList = new WishList($oldWishlist);
+            
+            $wishListForDisplay = [];
+            foreach ($wishList->getContent() as $object) {
+                $wishListForDisplay[] = $object['item']->toArray();
+            }
+
+            return view('cart',[
+                'itemsInCart' => $sorteditemsInCart,
+                'cartContent' => $cartContent,
+                'wishList' => $wishListForDisplay,
+                'cartTotalPrice' => $cart::getTotal(),
+                'refererUrl' => $refererUrl
             ]);
-            */}
+        }
     }
 
     /**
@@ -96,7 +118,6 @@ class CartController extends Controller
             
             $duplicates = \Cart::session($userId)->get($request['id']);
             
-            //dd($duplicates);
             if ($duplicates) {
                 return back()
                 ->with('message', 'Товар уже у Вас в корзине, если Вы хотите добавить еще один, то перейдите в корзину!')
@@ -115,7 +136,7 @@ class CartController extends Controller
             return redirect()->back()
                 ->with('message', 'Товар добавлен в корзину!')
                 ->with('class', 'alert-success');
-        } else {/*
+        } else {
             $product = Product::findOrFail($request['id']);
 
             if (Session::has('cart')) {
@@ -144,7 +165,7 @@ class CartController extends Controller
 
             return redirect()->back()
                     ->with('message', 'Товар добавлен в корзину!')
-                    ->with('class', 'alert-success');*/
+                    ->with('class', 'alert-success');
         }
     }
 
@@ -179,7 +200,6 @@ class CartController extends Controller
      */
     public function update(Request $request, $cart)
     {
-        //return $request;
         if (Auth::user()) {
             $userId = \Auth::user()->id;
             \Cart::session($userId)
@@ -224,10 +244,10 @@ class CartController extends Controller
             $cart->clear();
         } else {
             $cart = Session::get('cart');
-            $cart::clear($id);
+            $cart::clear();
         }
         return redirect()->route('cart.index')
-                ->with('message', 'Товар успешно удален из корзины!')
+                ->with('message', 'Корзина очищена!')
                 ->with('class', 'alert-success');
     }
 }

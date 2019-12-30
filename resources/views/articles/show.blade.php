@@ -196,11 +196,13 @@
                     {{ $comment->body }}
                 </div>
                 <div style="display:flex;margin-top:10px;">
-                    <div class="comment-like" style="display:flex;">
+                    <!--<div class="comment-like" style="display:flex;">
                         <img src="/images/thums-up-inactive.png" class="thumbsUp">
                         <div class="text-muted" style="justify-content:center;display:flex;width:20px;"></div>
-                    </div>
-                    <div class="comment-reply-form-show" style="font-family:'Roboto'">ответить</div>
+                    </div>-->
+                    @if (Auth::user())
+                        <div class="comment-reply-form-show" style="font-family:'Roboto'">ответить</div>
+                    @endif
                 </div>
                 
                 @if (Auth::user())

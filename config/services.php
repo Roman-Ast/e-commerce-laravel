@@ -34,6 +34,11 @@ return [
         'model' => App\User::class,
         'key' => env('STRIPE_PUBLISHED'),
         'secret' => env('STRIPE_SECRET')
+    ],
+
+    'search' => [
+        'enabled' => env('ELASTICSEARCH_ENABLED', false),
+        'hosts' => explode(',', env('ELASTICSEARCH_HOSTS')),
     ]
 
 ];

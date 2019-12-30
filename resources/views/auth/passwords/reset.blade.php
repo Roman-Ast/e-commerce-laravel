@@ -61,24 +61,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-<ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Каталог товаров
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ url('/showProducts/smartphones') }}">Смартфоны</a>
-            <a class="dropdown-item" href="{{ url('/showProducts/tvs') }}">Телевизоры</a>
-            <a class="dropdown-item" href="{{ url('/showProducts/forPlayers') }}">Все для геймеров</a>
-            <a class="dropdown-item" href="{{ url('/showProducts/LHA') }}">Крупная бытовая техника</a>
-            <a class="dropdown-item" href="{{ url('/showProducts/SHA') }}">Мелкая бытовая техника</a>
-            <a class="dropdown-item" href="{{ url('/showProducts/electricTransport') }}">Электротранспорт</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Не нашли? Есть поиск...</a>
-            </div>
-        </li>
-    </ul>

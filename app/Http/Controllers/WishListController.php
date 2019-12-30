@@ -41,18 +41,21 @@ class WishListController extends Controller
             $userId = \Auth::user()->id;
             $cart = \Cart::session($userId);
             $cart->remove($request['id']);
-            
-            $product = Product::findOrFail($request['id']);
-            $oldWishList = Session::has('wishList') ? Session::get('wishList') : null;
-            $wishList = new WishList($oldWishList);
-            $wishList->add($product, $product->id);
-
-            $request->session()->put('wishList', $wishList);
-    
-            return redirect()->route('cart.index')
-                ->with('message', 'Товар перемещен в список желаемых!')
-                ->with('class', 'alert-success');
+        } else {
+            $cart = \Session::get('cart');
+            $cart::remove($request['id']);
         }
+
+        $product = Product::findOrFail($request['id']);
+        $oldWishList = Session::has('wishList') ? Session::get('wishList') : null;
+        $wishList = new WishList($oldWishList);
+        $wishList->add($product, $product->id);
+
+        $request->session()->put('wishList', $wishList);
+
+        return redirect()->route('cart.index')
+            ->with('message', 'Товар перемещен в список желаемых!')
+            ->with('class', 'alert-success');    
     }
 
     /**
@@ -97,15 +100,12 @@ class WishListController extends Controller
      */
     public function destroy(string $id)
     {
-        if (\Auth::user()) {
-            $wishList = Session::get('wishList');
+        $wishList = Session::get('wishList'); 
+        $wishList->remove($id);
             
-            $wishList->remove($id);
-            
-            return redirect()->route('cart.index')
-                ->with('message', 'Товар удален из списка желаемых!')
-                ->with('class', 'alert-success');
-        }
+        return redirect()->route('cart.index')
+            ->with('message', 'Товар удален из списка желаемых!')
+            ->with('class', 'alert-success');
     }
 
     public function clear()

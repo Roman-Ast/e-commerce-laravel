@@ -9,18 +9,20 @@
                 <nav class="my-2 my-md-0 mr-md-3">
                     <a class="p-2 text-light" href="{{ route('products.index')}}">Магазин</a>
                     <a class="p-2 text-light" href="{{ route('articles.index')}}">Блог</a>
-                    <a class="p-2 text-light" href="#">Новости</a>
                     <a class="p-2 text-light" href="{{ route('about')}}">О нас</a>
                 </nav>
             </div>
         </div>
     </div>
     
-
-    <form class="form-inline my-2 my-lg-0">
-        <button class="btn  my-2 my-sm-0" type="submit"><img src="{{ asset('/images/search-icon.png') }}"></button>
+    {!! Form::open(['url' => route('search'), 'class' => 'form-inline my-2 my-lg-0', 'method' => 'GET']) !!}
+    {!! Form::submit("найти", ['class' => 'btn btn-primary']) !!}
+    {!! Form::search('search', null, ['class' => 'form-control mr-sm-2', 'placeholder' => 'поиск...', 'aria-label' => 'Search']) !!}
+    {!! Form::close() !!}
+    <!--<form class="form-inline my-2 my-lg-0">
+        <button class="btn  my-2 my-sm-0" type="submit"></button>
         <input class="form-control mr-sm-2" type="search" placeholder="поиск..." aria-label="Search">
-    </form>
+    </form>-->
 
     <div class="d-flex flex-column flex-md-row align-items-center font-weight-normal">
 
@@ -31,10 +33,18 @@
                             <img src="/images/cart24.png">
                         </a>
                             
-                        @if (count(Cart::getContent()) > 0)
-                            <div style="height:22px;color:#fff;text-align:center;width:20px;border-radius:50%;background-color:#ffa500">
-                                {{ \Cart::session(Auth::user()->id)->getTotalQuantity() }}
-                            </div>
+                        @if (Auth::user())
+                            @if (count(Cart::getContent()) > 0)
+                                <div style="height:22px;color:#fff;text-align:center;width:20px;border-radius:50%;background-color:#ffa500">
+                                    {{ \Cart::session(Auth::user()->id)->getTotalQuantity() }}
+                                </div>
+                            @endif
+                        @else
+                            @if (count(Cart::getContent()) > 0)
+                                <div style="height:22px;color:#fff;text-align:center;width:20px;border-radius:50%;background-color:#ffa500">
+                                    {{ Session::get('cart')::getTotalQuantity() }}
+                                </div>
+                            @endif
                         @endif
                             
                 </div>

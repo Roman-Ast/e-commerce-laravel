@@ -16,7 +16,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        
         $products = Product::paginate(8);
         
         $options = DB::select(
@@ -59,11 +58,18 @@ class ProductController extends Controller
                 return $a <=> $b;
             });
         }
-        $productsOnSale = Product::where('onsale', 'yes')
-            ->inRandomOrder()
-            ->limit(4)
-            ->get();
-
+        $optionsRussian = [
+            'category' => 'тип товара',
+            'brand' => 'брэнд',
+            'colour' => 'цвет',
+            'ram' => 'оперативная память',
+            'capacity' => 'встроенная память',
+            'diagonal' => 'диагональ',
+            'screen' => 'тип экрана',
+            'resolution' => 'разрешение экрана'
+        ];
+        
+        //return $optionsForDisplayRussian;
         return view('products.index', [
             'reviewsCount' => $reviewsCount,
             'averageRating' => $averageRating,
@@ -71,7 +77,8 @@ class ProductController extends Controller
             'to' => $max,
             'products' => $products,
             'options' => $optionsForDisplay,
-            'optionsItems' => $optionsItems
+            'optionsItems' => $optionsItems,
+            'optionsRussian' => $optionsRussian
         ]);
     }
 
@@ -284,7 +291,16 @@ class ProductController extends Controller
         foreach ($optionsForDisplay as $option) {
             $optionsItems[$option] = Product::select($option)->distinct()->pluck($option)->toArray();
         }
-
+        $optionsRussian = [
+            'category' => 'тип товара',
+            'brand' => 'брэнд',
+            'colour' => 'цвет',
+            'ram' => 'оперативная память',
+            'capacity' => 'встроенная память',
+            'diagonal' => 'диагональ',
+            'screen' => 'тип экрана',
+            'resolution' => 'разрешение экрана'
+        ];
         $finalArr = [
             'reviewsCount' => $reviewsCount,
             'averageRating' => $averageRating,
@@ -295,7 +311,8 @@ class ProductController extends Controller
             'options' => $optionsForDisplay,
             'optionsItems' => $optionsItems,
             'checkedCheckboxes' => $checkedCheckboxes,
-            'inputSort' => $input["sort"]
+            'inputSort' => $input["sort"],
+            'optionsRussian' => $optionsRussian
         ];
 
         if (!in_array('filter', explode('/', url()->current()))) {

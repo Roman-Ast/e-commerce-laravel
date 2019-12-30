@@ -154,14 +154,26 @@
         @endif
     </div>
     <div class="goToCheckout">
-        @if (\Cart::session(Auth::user()->id)->getTotalQuantity() > 0)
-            <div>
-                <a class="btn btn-outline-secondary" href="{{ $refererUrl }}">Продолжить покупки</a>
-            </div>
+        @if (Auth::user())
+            @if (\Cart::session(Auth::user()->id)->getTotalQuantity() > 0)
+                <div>
+                    <a class="btn btn-outline-secondary" href="{{ $refererUrl ?? '/products' }}">Продолжить покупки</a>
+                </div>
+            @else
+                <div>
+                    <a class="btn btn-outline-secondary" href="{{ route('products.index') }}">Продолжить покупки</a>
+                </div>
+            @endif
         @else
-            <div>
-                <a class="btn btn-outline-secondary" href="{{ route('products.index') }}">Продолжить покупки</a>
-            </div>
+            @if (\Session('cart')::getTotalQuantity() > 0)
+                <div>
+                    <a class="btn btn-outline-secondary" href="{{ $refererUrl ?? '/products' }}">Продолжить покупки</a>
+                </div>
+            @else
+                <div>
+                    <a class="btn btn-outline-secondary" href="{{ route('products.index') }}">Продолжить покупки</a>
+                </div>
+            @endif
         @endif
         @if (Auth::user())
             @if (\Cart::session(Auth::user()->id)->getTotalQuantity() > 0)

@@ -1,7 +1,7 @@
 
 <div class="news-header header">
     <img src="/images/news.png">
-    <h4>Блог</h4>
+    <h4><a href="{{ route('articles.index') }}" class="text-dark">Блог</a></h4>
 </div>
 
 <div class="news container">
