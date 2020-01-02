@@ -204,6 +204,9 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpeg, png, jpg, gif|max:1024'
+        ]);
         $path = $request->file('image')->store('uploads', 'public');
         
         $article = new Article();

@@ -15,7 +15,7 @@
         </div>
     </div>
     
-    {!! Form::open(['url' => route('search'), 'class' => 'form-inline my-2 my-lg-0', 'method' => 'GET']) !!}
+    {!! Form::open(['url' => '', 'class' => 'form-inline my-2 my-lg-0', 'method' => 'GET']) !!}
     {!! Form::submit("найти", ['class' => 'btn btn-primary']) !!}
     {!! Form::search('search', null, ['class' => 'form-control mr-sm-2', 'placeholder' => 'поиск...', 'aria-label' => 'Search']) !!}
     {!! Form::close() !!}
