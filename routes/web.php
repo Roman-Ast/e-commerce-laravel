@@ -40,3 +40,8 @@ Auth::routes();
 Route::get('/', 'MainPageController@index')->name('main');
 Route::get('/home', 'MainPageController@index')->name('home');
 
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

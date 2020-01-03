@@ -4,7 +4,7 @@
 
 @section('content')
  @include('partials.navbar')
-    <div class="container">
+    <div class="container" style="min-height:calc(100vh - 155px);">
     {!! Form::model($article, ['url' => route('articles.update', $article->id), 'method' => 'PATCH', 'enctype' => 'multipart/form-data']) !!}
         {!! Form::hidden('author_id', Auth::user()->id, ['id' => 'author_id']) !!}
         {!! Form::hidden('article_id', $article->id, ['id' => 'article_id']) !!}

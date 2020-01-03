@@ -6,7 +6,7 @@
 
 @include('partials.navbar')
 
-<div class="container">
+<div class="container" style="min-height:calc(100vh - 155px);">
     {!! Form::open(['url' => route('articles.store'), 'enctype' => 'multipart/form-data']) !!}
         {!! Form::hidden('author_id', Auth::user()->id, ['id' => 'author_id']) !!}
         {!! Form::hidden('author_name', Auth::user()->name, ['id' => 'author_name']) !!}

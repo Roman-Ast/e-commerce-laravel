@@ -306,6 +306,7 @@
             
         </div>
     </div>
-
+    </div>
+    <div style="height:100px;"></div>
     @include('partials.footer')
 @endsection

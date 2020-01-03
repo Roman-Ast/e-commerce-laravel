@@ -1,22 +1,17 @@
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="display:flex;justify-content:space-between;background-color: #9F07A9;">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="display:flex;justify-content:space-between;background-color:#333;">
     <div style="display:flex;">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{ asset('/images/home-page.png') }}">
+            <i class="fa fa-home"></i>
         </a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="my-0 mr-md-auto font-weight-normal">
-                <nav class="my-2 my-md-0 mr-md-3">
-                    <a class="p-2 text-light" href="{{ route('products.index')}}">Магазин</a>
-                    <a class="p-2 text-light" href="{{ route('articles.index')}}">Блог</a>
-                    <a class="p-2 text-light" href="{{ route('about')}}">О нас</a>
-                </nav>
+                {{ menu('main', 'partials.menus.main') }}
             </div>
         </div>
     </div>
-    
     {!! Form::open(['url' => '', 'class' => 'form-inline my-2 my-lg-0', 'method' => 'GET']) !!}
-    {!! Form::submit("найти", ['class' => 'btn btn-primary']) !!}
+    {!! Form::submit("найти", ['class' => 'btn btn-outline-warning']) !!}
     {!! Form::search('search', null, ['class' => 'form-control mr-sm-2', 'placeholder' => 'поиск...', 'aria-label' => 'Search']) !!}
     {!! Form::close() !!}
     <!--<form class="form-inline my-2 my-lg-0">

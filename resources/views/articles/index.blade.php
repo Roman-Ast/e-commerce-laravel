@@ -26,7 +26,7 @@
 
     <div style="width: 100%;display:flex;justify-content:flex-end;margin-bottom:10px;" >
         @if (Auth::user())
-            <a href="{{ route('articles.create') }}" class="btn btn-outline-primary">Добавить статью в блог</a>
+            <a href="{{ route('articles.create') }}" class="btn btn-outline-secondary">Добавить статью в блог</a>
         @else
             <button type="button" class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Чтобы написать в блог, войдите или зарегестрируйтесь.">
                     Добавить статью в блог

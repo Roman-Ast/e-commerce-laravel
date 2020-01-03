@@ -24,7 +24,7 @@ class MainPageController extends Controller
             ->where('status', 'опубликованная статья')
             ->where('image', '!=', null)
             ->inRandomOrder()
-            ->limit(4)
+            ->limit(3)
             ->get();
         
         $timeExpired = ArticleController::getTimeStamps($articles);
