@@ -7,7 +7,7 @@
     <div class="carousel-inner">
         @foreach ($items as $menu_item)
             <div class="carousel-item " data-interval="5000">
-                <img src="{{ $menu_item->link() }}" class="d-block w-100" height="500">
+                <img src="{{ $menu_item->link() }}" class="d-block w-100" height="600">
             </div>
         @endforeach
     </div>
@@ -20,9 +20,3 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-
-{{--@foreach ($items as $menu_item)
-    <div class="carousel-item " data-interval="5000">
-        <img src="{{ $menu_item->link() }}" class="d-block w-100" height="500">
-    </div>
-@endforeach--}}

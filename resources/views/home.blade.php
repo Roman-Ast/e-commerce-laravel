@@ -12,7 +12,7 @@
     
     @include('partials.sale')
 
-    @include('partials.product_of_the_week')
+    @include('partials.reviews')
 
     @include('partials.blog')
 

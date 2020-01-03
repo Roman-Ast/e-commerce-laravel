@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Review;
 use DB;
 use App\Comment;
 
@@ -15,6 +16,9 @@ class MainPageController extends Controller
     
     public function index()
     {
+        $products = Product::all()
+        ->toArray();
+
         $productsOnSale = Product::where('onsale', 'yes')
             ->inRandomOrder()
             ->limit(4)
@@ -49,12 +53,16 @@ class MainPageController extends Controller
             }
         }
 
+        $reviews = Review::where('rating', '>=', '3')->get()->toArray();
+        
         return view('home', [
+            'products' => $products,
             'articles' => $articles,
             'timeExpired' => $timeExpired,
             'likes' => $likes,
             'comments' => $comments,
-            'productsOnSale' => $productsOnSale
+            'productsOnSale' => $productsOnSale,
+            'reviews' => $reviews
         ]);
     }
 }

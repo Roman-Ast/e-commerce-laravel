@@ -1,7 +1,7 @@
 <div style="border-top: 1px solid #ddd;width:100%;background-color:#F8F9FA;margin-top:100px;">
     <div class="from-blog">
         <div class="from-blog-title">
-            <div style="width:70%;margin-bottom:20px;margin-top:20px;">
+            <div style="width:70%;margin-top:20px;">
                 <h3 style="margin-bottom:40px;;display:flex;justify-content:center;">
                     <a href="{{ route('articles.index') }}" class="text-dark" style="font-weight:600;">Наш Блог</a>
                 </h3>

@@ -1,5 +1,3 @@
-
-
 <div class="submain-header header">
     <img src="/images/star.png">
     <h4>Товар недели</h4>
