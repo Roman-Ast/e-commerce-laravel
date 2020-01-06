@@ -1,9 +1,13 @@
-
-<div class="sales-header header">
-    <img src="/images/sales.png">
-    <h4>Акции</h4>
+<div class="from-blog-title" style="background:#f8f9fa">
+    <div style="width:70%;margin-top:20px;">
+        <h3 style="margin-bottom:40px;;display:flex;justify-content:center;">
+            <a href="{{ route('articles.index') }}" class="text-dark" style="font-weight:600;">Скидки</a>
+        </h3>
+        <p style="text-align:center">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab ipsum cumque dicta debitis suscipit? Fugiat rem quae totam saepe placeat unde magnam praesentium ex eveniet, inventore ducimus ad at odit!
+        </p>
+    </div>
 </div>
-
 <div role="main">
     <div class="album py-5 bg-light">
         <div class="container">
@@ -25,14 +29,14 @@
                                 <div class="old-price" style="color:#222;margin-right:10px">{{ $productOnSale->price }}</div>
                                 <h4 style="font-weight:600;">{{ $productOnSale->new_price }}</h4>
                             </div>
-                            <div>
+                            {{--<div>
                                 <small><i>Вы экономите</i></small>
                                 <b>{{ $productOnSale->price - $productOnSale->new_price  }}!</b>
-                            </div>
+                            </div>--}}
                             <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group" style="margin-top:10px;">
                                 {!! Form::open(['url' => route('products.show', $productOnSale), 'method' => 'GET']) !!}
-                                    {!! Form::submit('Подробнее', ['class' => 'btn btn-sm btn-outline-secondary']) !!}
+                                    {!! Form::submit('Подробнее', ['class' => 'btn btn-sm btn-outline-primary']) !!}
                                 {!! Form::close() !!}
                                 
                                 {!! Form::open(['url' => route('cart.store')]) !!}
@@ -40,7 +44,7 @@
                                     {!! Form::hidden('name', $productOnSale['model']) !!}
                                     {!! Form::hidden('quantity', 1) !!}
                                     {!! Form::hidden('price', $productOnSale['price']) !!}
-                                    {!! Form::submit('В корзину', ['class' => 'btn btn-sm btn-outline-secondary']) !!}
+                                    {!! Form::submit('В корзину', ['class' => 'btn btn-sm btn-outline-success']) !!}
                                 {!! Form::close() !!}
                             </div>
                             

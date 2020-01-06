@@ -17,10 +17,12 @@ a:hover {
     display: flex;
     justify-content: flex-start;
     align-items: baseline;
-    width: 50%;
-    margin:50px;
-    text-align: left;
-    border-bottom: 2px solid #bbb;
+    text-decoration: underline;
+    font-family: "Roboto";
+}
+.spacer{
+  width: 100%;
+  height: 100px;
 }
 .container{
     margin-top: 20px;
@@ -460,6 +462,64 @@ textarea:focus, input:focus{
 .product-section-thumbnail:hover{
   border: 1px solid #979797;
 }
+.reviews-container{
+  display: flex;
+  justify-content: space-evenly;
+}
+.reviews-top-side{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  min-height: 150px;
+  padding:30px;
+}
+.reviews-user-avatar{
+  max-height: 100px;
+  max-width: 100px;
+}
+.reviews-user-data{
+  width: 100%;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.show-whole-review{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left:0;
+  display: flex;
+  justify-content: center;
+}
+.review-card{
+  max-height: calc(100vh / 2);
+}
+.mightAlsoLike-container{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 80px;
+}
+.mightAlsoLike-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  padding-top: 10px;
+  max-height: 130px;
+}
+.rating{
+  display: flex;
+  justify-content:center;
+}
+
+
+
+
+
+
+
+
+
 
 
 

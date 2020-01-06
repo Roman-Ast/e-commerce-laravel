@@ -130,7 +130,7 @@ class ProductController extends Controller
         $productsOnSale = Product::where('onsale', 'yes')
             ->where('id', '!=', $product['id'])
             ->inRandomOrder()
-            ->limit(4)
+            ->limit(6)
             ->get();
         $reviews = Review::where('product_id', '=', $product['id'])->latest()->get();
         $rating = Review::where('product_id', '=', $product['id'])->avg('rating');

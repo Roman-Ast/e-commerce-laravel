@@ -5,9 +5,8 @@
                 <h3 style="margin-bottom:40px;;display:flex;justify-content:center;">
                     <a href="{{ route('articles.index') }}" class="text-dark" style="font-weight:600;">Наш Блог</a>
                 </h3>
-                <p>
-                    Равным образом укрепление и развитие структуры играет важную роль в формировании форм 
-                    развития. Значимость этих проблем настолько очевидна, что рамки и место обучения кадров
+                <p style="text-align:center">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, accusantium eius laudantium qui repellendus placeat dolores ipsum ad id modi recusandae necessitatibus aliquid quis numquam non velit. Alias, nobis qui.
                 </p>
             </div>
         </div>

@@ -88,12 +88,12 @@
                                 </ul>
                             </div>
                         @endif
-                        {!! Form::open(['url' => route('cart.store')]) !!}
+                        {!! Form::open(['url' => route('cart.store'), 'style' => 'display:flex;justify-content:center']) !!}
                             {!! Form::hidden('id', $product['id']) !!}
                             {!! Form::hidden('name', $product['model']) !!}
                             {!! Form::hidden('quantity', 1) !!}
                             {!! Form::hidden('price', $product['price']) !!}
-                            {!! Form::submit('Добавить в корзину', ['class' => 'btn btn-outline-success']) !!}
+                            {!! Form::submit('Добавить в корзину', ['class' => 'btn btn-success']) !!}
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -360,7 +360,9 @@
         </div>
     </div>
 
-    @include('partials.sale')
+    @include('partials.might_also_like')
+
+    <div class="spacer"></div>
 
     @include('partials.footer')
 @endsection

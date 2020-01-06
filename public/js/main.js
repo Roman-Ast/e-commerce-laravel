@@ -47,8 +47,9 @@ $('.dropdown-toggle').on('click', function() {
 $('.card-scale').on('mouseover', function (params) {
     $(this).css({'transition': '0.2s'});
     $(this).css({'box-shadow': '2px 2px 20px 0px #bbb'});
-    $(this).css({'transform': 'scale(1.1)'});
+    $(this).css({'transform': 'scale(1.05)'});
     $(this).css({'z-index': '5'});
+    
 });
 
 $('.card-scale').on('mouseleave', function (params) {

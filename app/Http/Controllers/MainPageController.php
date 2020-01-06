@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Product;
 use App\Review;
 use DB;
@@ -54,10 +55,16 @@ class MainPageController extends Controller
             }
         }
 
-        $reviews = Review::where('rating', '>=', '3')->get()->toArray();
         $mainBannerImages = MainBannerImage::all();
+        $reviews = Review::where('rating', '>=', '3')->get()->toArray();
 
+        $userData = [];
+        foreach ($reviews as $review) {
+            $userData[] = User::where('id', $review['author_id']);
+        }
+       
         return view('home', [
+            'userData' => $userData,
             'products' => $products,
             'articles' => $articles,
             'timeExpired' => $timeExpired,
