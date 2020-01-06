@@ -6,6 +6,7 @@ use App\Product;
 use App\Review;
 use DB;
 use App\Comment;
+use App\MainBannerImage;
 
 class MainPageController extends Controller
 {
@@ -54,7 +55,8 @@ class MainPageController extends Controller
         }
 
         $reviews = Review::where('rating', '>=', '3')->get()->toArray();
-        
+        $mainBannerImages = MainBannerImage::all();
+
         return view('home', [
             'products' => $products,
             'articles' => $articles,
@@ -62,7 +64,8 @@ class MainPageController extends Controller
             'likes' => $likes,
             'comments' => $comments,
             'productsOnSale' => $productsOnSale,
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'mainBannerImages' => $mainBannerImages
         ]);
     }
 }

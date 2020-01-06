@@ -74,7 +74,10 @@
                                         {{ Auth::user()->name }}
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    {!! Form::open(['url' => route('logout'), 'style' => 'display:flex;justify-content:center;']) !!}
+                                    @if (Auth::user() && Auth::user()->email === 'roman_planeta@mail.ru')
+                                        <a href="/admin" class="p-2 text-dark">Администратор</a>
+                                    @endif
+                                    {!! Form::open(['url' => route('logout')]) !!}
                                         {!! Form::submit('Выйти', ['class' => 'btn btn-link text-dark']) !!}
                                     {!! Form::close() !!}
                                 </div>
