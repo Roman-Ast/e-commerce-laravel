@@ -112,7 +112,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product = Product::findOrFail($product['id'])->toArray();
-
+        
         $productOptions = [];
         foreach ($product as $option => $value) {
            if (
@@ -121,7 +121,8 @@ class ProductController extends Controller
                 $option != 'image' && $option != 'id' &&
                 $option != 'onsale' && $option != 'created_at' && 
                 $option != 'updated_at' && $option != 'discount_persentage' &&
-                $option != 'reviews_count' && $option != 'rating'
+                $option != 'reviews_count' && $option != 'rating' &&
+                $option != 'images' && $option != 'new_price'
             ) {
                $productOptions[$option] = $value;
            }
@@ -133,7 +134,7 @@ class ProductController extends Controller
             ->get();
         $reviews = Review::where('product_id', '=', $product['id'])->latest()->get();
         $rating = Review::where('product_id', '=', $product['id'])->avg('rating');
-        
+
         return view('products.show', [
             'rating' => round($rating, 1),
             'reviews' => $reviews,
@@ -199,7 +200,7 @@ class ProductController extends Controller
         $optionsForDisplay = [];
         $sortOptionsMethod = $sortOptionsMethods[$input['sort']];
         $sortOptionsValue = $sortOptionsValues[$input['sort']];
-        
+        $max = Product::max('price');
 
         $options = DB::select(
             "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='products'"
@@ -239,16 +240,8 @@ class ProductController extends Controller
                 
             }
         }
-        if (isset($arrForRequestFromDb['category'])) {
-            $max = $input['to'] < Product::whereIn('category', $arrForRequestFromDb['category'])->max('price') ?
-            $input['to'] : Product::whereIn('category', $arrForRequestFromDb['category'])->max('price');
-            $maxInSelectedCategories = Product::whereIn('category', $arrForRequestFromDb['category'])->max('price');
-        } else {
-            $max = $input['to'];
-        }
+        
        
-        
-        
         $products = Product::where(function ($query) use ($arrForRequestFromDb) {
             foreach ($arrForRequestFromDb as $key => $value) {
                 if ($key !== 'productType') {

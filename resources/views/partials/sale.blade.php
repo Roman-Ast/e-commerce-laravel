@@ -12,7 +12,7 @@
                 @foreach ($productsOnSale as $productOnSale)
                 <div class="col-md-3">
                     <div class="card mb-3 shadow-sm card-scale">
-                    <img style="max-height:150px;width:60%;align-self:center" src="{{ explode(',', $productOnSale->image)[0] }}">
+                    <img style="max-height:150px;width:60%;align-self:center" src="{{ asset('/storage/' . $productOnSale->image) }}">
                         <div class="card-body">
                             <div class="" >
                                 <div>

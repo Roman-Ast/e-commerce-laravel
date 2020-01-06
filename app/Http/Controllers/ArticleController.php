@@ -207,7 +207,7 @@ class ArticleController extends Controller
         $this->validate($request, [
             'image' => 'required|image|mimes:jpeg, png, jpg, gif|max:1024'
         ]);
-        $path = $request->file('image')->store('uploads', 'public');
+        $path = $request->file('image')->store('articles', 'public');
         
         $article = new Article();
         $article->author_id = $request['author_id'];
@@ -290,7 +290,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($article->id);
 
         if ($path = $request->file('image')) {
-            $path = $request->file('image')->store('uploads', 'public');
+            $path = $request->file('image')->store('articles', 'public');
             $article->image = $path;
         }
         

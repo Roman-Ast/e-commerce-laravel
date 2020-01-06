@@ -20,63 +20,24 @@
         <div class="card mb-3 productCard">
             <div class="row no-gutters">
                 <div class="col-md-6">
-                    <div
-                        id="carouselExampleIndicators"
-                        class="carousel slide"
-                        data-ride="carousel"
-                        data-interval="false"
-                    >
-                        <ol class="carousel-indicators">
-                            <li
-                                data-target="#carouselExampleIndicators"
-                                data-slide-to="0"
-                                class="active"
-                            ></li>
-                            <li
-                                data-target="#carouselExampleIndicators"
-                                data-slide-to="1"
-                            ></li>
-                            <li
-                                data-target="#carouselExampleIndicators"
-                                data-slide-to="2"
-                            ></li>
-                        </ol>
+                    <div id="carouselExampleIndicators">
                         <div class="carousel-inner">
-                            @foreach(explode(',', $product['image']) as $image)
                             <div class="carousel-item">
-                                <img
-                                    src="{{ $image }}"
-                                    class="d-block w-100"
-                                    style="max-height:490px;max-width:400px;"
-                                    alt=""
-                                />
+                                <img src="{{ asset('/storage/' . $product['image']) }}" id="currentImage" class="d-block w-100" style="max-height:490px;max-width:400px;">
                             </div>
-                            @endforeach
                         </div>
-                        <a
-                            class="carousel-control-prev"
-                            href="#carouselExampleIndicators"
-                            role="button"
-                            data-slide="prev"
-                        >
-                            <span
-                                class="carousel-control-prev-icon"
-                                aria-hidden="false"
-                            ></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a
-                            class="carousel-control-next"
-                            href="#carouselExampleIndicators"
-                            role="button"
-                            data-slide="next"
-                        >
-                            <span
-                                class="carousel-control-next-icon"
-                                aria-hidden="false"
-                            ></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                    </div>
+                    @if ($product['images'])
+                    <div class="product-section-images">
+                            <div class="product-section-thumbnail">
+                                <img src="{{ asset('storage/' . $product['image']) }}" class="w-100">
+                            </div>
+                        @foreach (json_decode($product['images'], true) as $image)
+                            <div class="product-section-thumbnail">
+                                <img src="{{ asset('storage/' . $image) }}" class="w-100">
+                            </div>
+                        @endforeach
+                    @endif
                     </div>
                 </div>
                 <div class="col-md-6">

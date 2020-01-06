@@ -149,6 +149,13 @@
                 });
               });
             });
+
+            $('.product-section-thumbnail').first().addClass('product-selected');
+            $('.product-section-thumbnail').on('click', function (e) {
+                $('#currentImage').attr('src', $(this).children().first().attr('src'));
+                $('.product-section-thumbnail').removeClass('product-selected');
+                $(this).addClass('product-selected');
+            });
         </script>
     </body>
 </html>

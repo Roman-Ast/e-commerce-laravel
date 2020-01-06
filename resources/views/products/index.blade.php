@@ -75,7 +75,9 @@
                 <h5 class="mb-0">
                     <div class="btn" data-toggle="collapse" data-target="#collapse{{ $option }}" aria-expanded="true"
                         aria-controls="collapse{{ $option }}">
-                        {{ $optionsRussian[$option] }}
+                        @if (array_key_exists($option, $optionsRussian))
+                            {{ $optionsRussian[$option] }}
+                        @endif
                     </div>
                 </h5>
             </div>
@@ -127,7 +129,7 @@
             @foreach($products as $product)
             <div class="col-md-3">
                 <div class="card mb-3 shadow-sm card-scale">
-                    <img src="{{ explode(',', $product['image'])[0] }} "style="max-height:150px;max-width:250px;align-self:center;" class="d-block" />
+                    <img src="{{ asset('/storage/' . $product['image'])}} "style="max-height:150px;max-width:250px;align-self:center;" class="d-block" />
                     <div class="card-body">
                         <div class="card-brand" style="text-align:center;">
                             <h5>{{ strtoupper($product["brand"]) }}</h5>

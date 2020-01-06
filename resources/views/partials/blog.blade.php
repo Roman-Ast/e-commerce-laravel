@@ -22,10 +22,10 @@
                     
                     <div class="card-body">
                         <h5 class="card-title" style="font-family:'Roboto';font-weight:600;">{{ $article->title }}</h5>
-                        <p class="card-text">
+                        
                             {{ Str::limit($article->body, 40) }}
                             <a href="/articles/{{ $article->id }}">далее</a>
-                        </p>
+                        
                         <div style="font-family:'Roboto';display:flex;justify-content:flex-end;flex-wrap:nowrap;">
                                 
                             @if (isset($timeExpired[$article->id]))

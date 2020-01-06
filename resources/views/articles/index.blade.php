@@ -66,7 +66,8 @@
                             </p>
                         </div>
                         <h5 class="card-title">{{ $article->title }}</h5>
-                        <p class="card-text">{{ Str::limit($article->body, 200) }}
+                        <p class="card-text">
+                            {{ Str::limit($article->body, 200) }}
                             <a href="{{ route('articles.show', $article->id) }}">далее</a>
                         </p>
                         <div style="display:flex;flex-direction:row;justify-content:space-between;">

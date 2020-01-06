@@ -441,8 +441,25 @@ textarea:focus, input:focus{
   background-color: rgba(001, 001, 001, 0.8);
   z-index: -1;
 }
-
-
+.product-section-images{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+.product-section-thumbnail{
+  display: flex;
+  align-items: center;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+.product-selected{
+  border: 1px solid #979797;
+}
+.product-section-thumbnail:hover{
+  border: 1px solid #979797;
+}
 
 
 
