@@ -92,9 +92,6 @@ a:hover {
 .old-price{
   text-decoration: line-through;
 }
-.filter{
-  background-color: #eee;
-}
 .filter-item{
   display: flex !important;
   justify-content: flex-start !important;
@@ -246,9 +243,9 @@ a:hover {
   min-height: 100px;
   width:60%;
   margin:20px auto;
-  border-top:2px solid #ddd;
-  border-bottom:2px solid #ddd;
 }
+/*border-top:2px solid #ddd;
+  border-bottom:2px solid #ddd;*/
 .cartItemContainer{
   display: flex;
   flex-direction: row;
@@ -472,6 +469,8 @@ textarea:focus, input:focus{
   flex-direction: row;
   min-height: 150px;
   padding:30px;
+  background: #333;
+  color: #fff;
 }
 .reviews-user-avatar{
   max-height: 100px;
@@ -501,24 +500,49 @@ textarea:focus, input:focus{
 }
 .mightAlsoLike-item{
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border: 1px solid #ccc;
   padding-top: 10px;
-  max-height: 130px;
+  height: 150px;
 }
 .rating{
   display: flex;
   justify-content:center;
 }
-
-
-
-
-
-
-
-
+.triangle{
+  background: #333;
+  border-radius: 0px;
+  position: relative;
+  color: #fff;
+}
+.triangle::after {
+  content: ''; 
+  position: absolute; /* Абсолютное позиционирование */
+  right: 20px; bottom: -20px; /* Положение треугольника */
+  border: 10px solid transparent; /* Прозрачные границы */
+  border-top: 10px solid #333; /* Добавляем треугольник */
+ }
+ .breadcrumbs .breadcrumb-separator {
+  font-size: 14px;
+  color: #545454;
+}
+.search-results-container{
+  min-height: 70vh;
+}
+.filter-item{
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  font-family: "Roboto";
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.rotate90{
+  transform: rotate(90deg);
+  transition: transform 0.3s;
+}
 
 
 

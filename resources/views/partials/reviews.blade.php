@@ -4,9 +4,7 @@
                 Отзывы
             </h3>
             <p style="text-align:center">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, sed harum.
-                Architecto rem a adipisci voluptates modi. Quaerat, minima odio?
-                Distinctio culpa ut dolorum iusto nobis labore nisi sequi sapiente.
+                
             </p>
         </div>
     </div>
@@ -40,7 +38,9 @@
                     </div>
                 </div>
             </div>
+            <div class="triangle"></div>
             <div class="card-body" style="overflow:hidden;">
+                <div><img src="{{ asset('/images/quote-left-20.png') }}"></div>
                 <p class="card-text" style="font-style:italic;font-family:Georgia, 'Times New Roman', Times, serif">
                     {{ Str::limit($review['body'], 200) }} 
                     <a href="{{ route("products.show", $review['product_id']) }}">далее</a>

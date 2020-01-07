@@ -32,7 +32,7 @@ class ProductsDimmer extends AbstractWidget
             'text'   => __("You have {$count} {$string} in database. Click on button below to view all {$string}"),
             'button' => [
                 'text' => __("Veiw all {$string}"),
-                'link' => route('voyager.articles.index'),
+                'link' => route('voyager.products.index'),
             ],
             'image' => asset('storage/dashboard-products-bg/products-bg.jpg'),
         ]));

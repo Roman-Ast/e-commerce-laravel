@@ -6,6 +6,7 @@ use DB;
 use App\Product;
 use App\Review;
 use Request;
+use Illuminate\Http\Request as IlluminateRequest;
 
 class ProductController extends Controller
 {
@@ -41,10 +42,9 @@ class ProductController extends Controller
                     $var != 'id' && $var != 'os' &&
                     $var != 'model' && $var != 'price' &&
                     $var != 'image' && $var != 'description' &&
-                    $var != 'onsale' && $var != 'created_at' &&
+                    $var != 'created_at' && $var != 'images' &&
                     $var != 'reviews_count' && $var != 'rating' &&
-                    $var != 'updated_at' && $var != 'discount_percentage' &&
-                    $var != 'new_price'
+                    $var != 'updated_at' && $var != 'new_price'
                 ) {
                     $optionsForDisplay[] = $var;
                 }
@@ -53,11 +53,15 @@ class ProductController extends Controller
         
         $optionsItems = [];
         foreach ($optionsForDisplay as $option) {
-            $optionsItems[$option] = Product::select($option)->distinct()->pluck($option)->toArray();
+            $optionsItems[$option] = Product::select($option)
+                ->where($option, '!=', null)
+                ->distinct()->pluck($option)
+                ->toArray();
             uasort($optionsItems[$option], function($a, $b) {
                 return $a <=> $b;
             });
         }
+        //return $optionsItems;
         $optionsRussian = [
             'category' => 'тип товара',
             'brand' => 'брэнд',
@@ -66,10 +70,11 @@ class ProductController extends Controller
             'capacity' => 'встроенная память',
             'diagonal' => 'диагональ',
             'screen' => 'тип экрана',
-            'resolution' => 'разрешение экрана'
+            'resolution' => 'разрешение экрана',
+            'onsale' => 'товар по акции',
+            'cpu' => 'процессор'
         ];
         
-        //return $optionsForDisplayRussian;
         return view('products.index', [
             'reviewsCount' => $reviewsCount,
             'averageRating' => $averageRating,
@@ -124,14 +129,17 @@ class ProductController extends Controller
                 $option != 'reviews_count' && $option != 'rating' &&
                 $option != 'images' && $option != 'new_price'
             ) {
-               $productOptions[$option] = $value;
+                if ($value) {
+                    $productOptions[$option] = $value;
+                }
            }
         }
-        $productsOnSale = Product::where('onsale', 'yes')
-            ->where('id', '!=', $product['id'])
+        
+        $mightAlsoLike = Product::where('id', '!=', $product['id'])
             ->inRandomOrder()
             ->limit(6)
             ->get();
+        
         $reviews = Review::where('product_id', '=', $product['id'])->latest()->get();
         $rating = Review::where('product_id', '=', $product['id'])->avg('rating');
 
@@ -140,7 +148,7 @@ class ProductController extends Controller
             'reviews' => $reviews,
             'product' => $product,
             'productOptions' => $productOptions,
-            'productsOnSale' => $productsOnSale
+            'mightAlsoLike' => $mightAlsoLike
         ]);
     }
 
@@ -200,6 +208,10 @@ class ProductController extends Controller
         $optionsForDisplay = [];
         $sortOptionsMethod = $sortOptionsMethods[$input['sort']];
         $sortOptionsValue = $sortOptionsValues[$input['sort']];
+        $productsCategories = DB::table('products')
+            ->distinct()
+            ->pluck('category');
+        
         $max = Product::max('price');
 
         $options = DB::select(
@@ -256,7 +268,10 @@ class ProductController extends Controller
             }
         })->$sortOptionsMethod($sortOptionsValue)->paginate(8);
         
-        $productsID = Review::select('product_id')->distinct()->pluck('product_id')->toArray();
+        $productsID = Review::select('product_id')
+            ->distinct()
+            ->pluck('product_id')
+            ->toArray();
         
         $reviewsCount = [];
         $averageRating = [];
@@ -273,17 +288,24 @@ class ProductController extends Controller
                     $var != 'image' && $var != 'description' &&
                     $var != 'onsale' && $var != 'created_at' && 
                     $var != 'updated_at' && $var != 'reviews_count' &&
-                    $var != 'rating' && $var != 'discount_percentage' &&
-                    $var != 'new_price'
+                    $var != 'rating' && $var != 'new_price'
                 ) {
                     $optionsForDisplay[] = $var;
                 }
             }
         }
-        
+        /*$categoriesOfProducts = Product::whereIn('category', $arrForRequestFromDb['category'] ?? $productsCategories)
+            ->get()
+            ->toArray();*/
+
         foreach ($optionsForDisplay as $option) {
-            $optionsItems[$option] = Product::select($option)->distinct()->pluck($option)->toArray();
+            $optionsItems[$option] = Product::select($option)
+                ->where($option, '!=', null)
+                ->distinct()
+                ->pluck($option)
+                ->toArray();
         }
+        
         $optionsRussian = [
             'category' => 'тип товара',
             'brand' => 'брэнд',
@@ -292,7 +314,8 @@ class ProductController extends Controller
             'capacity' => 'встроенная память',
             'diagonal' => 'диагональ',
             'screen' => 'тип экрана',
-            'resolution' => 'разрешение экрана'
+            'resolution' => 'разрешение экрана',
+            'cpu' => 'процессор'
         ];
         $finalArr = [
             'reviewsCount' => $reviewsCount,
@@ -314,5 +337,20 @@ class ProductController extends Controller
         $products->appends($input);
 
         return view('products.index', $finalArr);
+    }
+
+    public function search(IlluminateRequest $request)
+    {
+        $query = $request->input('query');
+        
+        $request->validate([
+            'query' => 'required|min:3'
+        ]);
+        
+        $products = Product::search($query, null, true)->paginate(8);
+        
+        return view('search_results', [
+            'products' => $products
+        ]);
     }
 }

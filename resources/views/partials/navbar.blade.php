@@ -10,14 +10,10 @@
             </div>
         </div>
     </div>
-    {!! Form::open(['url' => '', 'class' => 'form-inline my-2 my-lg-0', 'method' => 'GET']) !!}
+    {!! Form::open(['url' => route('search'), 'class' => 'form-inline my-2 my-lg-0', 'method' => 'GET']) !!}
     {!! Form::submit("найти", ['class' => 'btn btn-outline-warning']) !!}
-    {!! Form::search('search', null, ['class' => 'form-control mr-sm-2', 'placeholder' => 'поиск...', 'aria-label' => 'Search']) !!}
+    {!! Form::search('query', null, ['class' => 'form-control mr-sm-2', 'placeholder' => 'поиск...', 'aria-label' => 'Search']) !!}
     {!! Form::close() !!}
-    <!--<form class="form-inline my-2 my-lg-0">
-        <button class="btn  my-2 my-sm-0" type="submit"></button>
-        <input class="form-control mr-sm-2" type="search" placeholder="поиск..." aria-label="Search">
-    </form>-->
 
     <div class="d-flex flex-column flex-md-row align-items-center font-weight-normal">
 
@@ -25,7 +21,7 @@
                 
                 <div class="user-cart" style="display:flex;flex-direction:row;flex-wrap:nowrap;width:50px;justify-content:space-between;align-items:flex-end;">
                         <a href="{{ route('cart.index') }}">
-                            <img src="/images/cart24.png">
+                            <i class="fa fa-shopping-cart" style="color:#fff;font-size:24px;margin-right:10px"></i>
                         </a>
                             
                         @if (Auth::user())
@@ -44,7 +40,6 @@
                             
                 </div>
                 
-
                 <a class="p-2 text-light" href="{{ route('login') }}">{{ __('Войти') }}</a>
                 
                 @if (Route::has('register'))
@@ -58,7 +53,7 @@
                     @else
                         <div class="user-cart" style="display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;align-items:center;">
                             <a href="{{ route('cart.index') }}">
-                                <img src="/images/cart24.png">
+                                <i class="fa fa-shopping-cart" style="color:#fff;font-size:24px;margin-right:10px"></i>
                             </a>
                             @if (Cart::session(Auth::user()->id)->getTotalQuantity() > 0)
                                 <div style="height:22px;color:#fff;text-align:center;width:20px;border-radius:50%;background-color:#ffa500">
@@ -78,7 +73,7 @@
                                         <a href="/admin" class="p-2 text-dark">Администратор</a>
                                     @endif
                                     {!! Form::open(['url' => route('logout')]) !!}
-                                        {!! Form::submit('Выйти', ['class' => 'btn btn-link text-dark']) !!}
+                                        {!! Form::submit('Выйти', ['class' => 'btn btn-link', 'style' => 'color: red']) !!}
                                     {!! Form::close() !!}
                                 </div>
                             </div>
@@ -89,5 +84,4 @@
                 @endguest
         </div>
 </nav>
-
 

@@ -4,6 +4,12 @@
 
 @include('partials.navbar')
 
+@component('components.breadcrumbs')
+    <a href="/" class="text-dark">Главная</a>
+    <i class="fa fa-chevron-right breadcrumb-separator"></i>
+    <span>Магазин</span>
+@endcomponent
+
 @if ($errors->any())
     <div>
         <ul>
@@ -40,14 +46,14 @@
             @endif
         </div>
         {!! Form::open(['url' => route('products.filter'), 'id' =>'accordion', 'class' => 'filter-accordion']) !!}
-        <div class="card filter-item">
+        <div class="card">
             <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                    <div class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                        aria-controls="collapseOne">
-                        Цена
-                    </div>
-                </h5>
+                
+                <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    aria-controls="collapseOne">
+                    Цена
+                </div>
+                
             </div>
 
             <div >
@@ -70,23 +76,29 @@
             </div>
         </div>
         @foreach($options as $option)
-        <div class="card">
-            <div class="card-header" id="heading{{ $option }}">
-                <h5 class="mb-0">
-                    <div class="btn" data-toggle="collapse" data-target="#collapse{{ $option }}" aria-expanded="true"
-                        aria-controls="collapse{{ $option }}">
-                        @if (array_key_exists($option, $optionsRussian))
-                            {{ $optionsRussian[$option] }}
-                        @endif
-                    </div>
-                </h5>
+        <div class="card" style="border:none">
+            <div class="filter-item" id="heading{{ $option }}">
+                
+                <div data-toggle="collapse" data-target="#collapse{{ $option }}" aria-expanded="true"
+                    aria-controls="collapse{{ $option }}" class="filter-item-option">
+                    @if (array_key_exists($option, $optionsRussian))
+                        {{ $optionsRussian[$option] }}
+                    @endif
+                </div>
+                    @if (array_key_exists($option, $optionsRussian))
+                        <div style="display:flex;align-self:center;justify-self:flex-end;">
+                            <img src="{{ asset('images/triangle-right-16.png') }}">
+                        </div>
+                    @endif
+                
+                
             </div>
 
             <div name="{{ $option }}" id="collapse{{ $option }}" class="collapse" aria-labelledby="heading{{ $option }}"
                 data-parent="#accordion">
                 <div class="card-body">
                     @foreach($optionsItems[$option] as $optionItem)
-                    <div class="form-check">
+                    <div class="form-check" style="border-left:1px solid #ccc;">
                         {!! Form::checkbox($option .':'. $optionItem, null,['class' => 'filterCheckbox']) !!}
                         {!! Form::label($optionItem, $optionItem) !!}
                     </div>
@@ -95,6 +107,7 @@
             </div>
         </div>
         @endforeach
+
         <div class="useFilterBtnContainer" tabindex="-1" role="dialog">
             <button type="button" class="close" data-dismiss="useFilterBtnContainer" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

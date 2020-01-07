@@ -6,6 +6,12 @@
 
 @include('partials.navbar')
 
+@component('components.breadcrumbs')
+    <a href="/" class="text-dark">Главная</a>
+    <i class="fa fa-chevron-right breadcrumb-separator"></i>
+    <span>Блог</span>
+@endcomponent
+
 <div class="container">
     @if (Session::has('success_message'))
 

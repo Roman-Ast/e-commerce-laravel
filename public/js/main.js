@@ -167,7 +167,9 @@ $('.subcomment-delete').on('click', function () {
 $('.form-subcomment-delete-close').on('click', function () {
     $(this).parent().parent().parent().parent().hide();
 });
-
+$('.filter-item-option').on('click', function () {
+    $(this).next().toggleClass('rotate90');
+});
 
 
 

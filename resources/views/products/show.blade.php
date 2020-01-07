@@ -6,6 +6,14 @@
 
     @include('partials.navbar')
 
+    @component('components.breadcrumbs')
+        <a href="/" class="text-dark">Главная</a>
+        <i class="fa fa-chevron-right breadcrumb-separator"></i>
+        <span><a href="{{ route('products.index') }}" class="text-dark">Магазин</a></span>
+        <i class="fa fa-chevron-right breadcrumb-separator"></i>
+        <span>{{ $product['model'] }}</span>
+    @endcomponent
+    
     @if (Session::has('message'))
 
     <div class="alert {{ Session::get('class') }}" style="align-text:center;">
@@ -37,8 +45,8 @@
                                 <img src="{{ asset('storage/' . $image) }}" class="w-100">
                             </div>
                         @endforeach
-                    @endif
                     </div>
+                    @endif
                 </div>
                 <div class="col-md-6">
                     <div class="card-body">
@@ -65,7 +73,7 @@
                         </ul>
                         @if ($rating == 0)
                             <div class="rating" style="margin-bottom:5px;">
-                                Средняя оценка: -/5
+                                Средняя оценка: -
                             </div>
                         @else
                             <div class="rating" style="margin-bottom:5px;">

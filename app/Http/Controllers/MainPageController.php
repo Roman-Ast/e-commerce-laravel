@@ -56,7 +56,11 @@ class MainPageController extends Controller
         }
 
         $mainBannerImages = MainBannerImage::all();
-        $reviews = Review::where('rating', '>=', '3')->get()->toArray();
+        $reviews = Review::where('rating', '>=', '3')
+            ->inRandomOrder()
+            ->limit(3)
+            ->get()
+            ->toArray();
 
         $userData = [];
         foreach ($reviews as $review) {

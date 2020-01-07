@@ -4,7 +4,13 @@
 @section('content')
 
     @include('partials.navbar')
-
+  
+    @component('components.breadcrumbs')
+        <a href="/" class="text-dark">Главная</a>
+        <i class="fa fa-chevron-right breadcrumb-separator"></i>
+        <span>Корзина</span>
+    @endcomponent
+        
     @if (Session::has('message'))
 
     <div class="alert {{ Session::get('class') }}" style="align-text:center;">
@@ -13,7 +19,7 @@
         </div>
         {{ Session::get('message') }}
     </div>
-
+    
     @endif 
     <div style="font-style:italic;margin-bottom:10px;width:60%;margin:0 auto;">
         <strong>
@@ -28,8 +34,9 @@
         @endif
         </strong>
     </div>
+    
     @if (count($itemsInCart) > 0)
-    <div class="cartItemsContainer" >
+    <div class="cartItemsContainer" style="">
         
         @foreach ($itemsInCart as $cartItem)
             
@@ -37,7 +44,7 @@
             <div class="" style="width:100%;padding-top:10px;">
                 <div class="cartItem">
                     <div class="col-md-2">
-                        <img src="{{ explode(',', $cartItem['image'])[0] }}" class="card-img" alt="{{ $cartItem['model'] }}" style="max-height:150px;">
+                        <img src="{{ asset('storage/' . $cartItem['image']) }}" class="card-img" alt="{{ $cartItem['model'] }}" style="max-height:150px;">
                     </div>
                     <div class="cart-item-description">
                         <h4 class="card-title"><a href="{{ route("products.show", $cartItem['id']) }}">{{ $cartItem['model'] }}</a></h4>
@@ -113,7 +120,7 @@
             <div class="" style="width:100%;padding-top:10px;">
                 <div class="cartItem">
                     <div class="col-md-2">
-                        <img src="{{ explode(',', $wishListItem['image'])[0] }}" class="card-img" alt="{{ $wishListItem['model'] }}" style="max-height:150px;">
+                        <img src="{{ asset('storage/' . $cartItem['image']) }}" class="card-img" alt="{{ $wishListItem['model'] }}" style="max-height:150px;">
                     </div>
                     <div class="cart-item-description">
                         <h4 class="card-title"><a href="{{ route("products.show", $wishListItem['id']) }}">{{ $wishListItem['model'] }}</a></h4>
@@ -153,6 +160,7 @@
         
         @endif
     </div>
+    
     <div class="goToCheckout">
         @if (Auth::user())
             @if (\Cart::session(Auth::user()->id)->getTotalQuantity() > 0)
@@ -190,7 +198,8 @@
     </div>
 
     <div class="spacer"></div>
-
+    <div class="spacer"></div>
+    <div class="spacer"></div>
     @include('partials.footer')
 
 @endsection

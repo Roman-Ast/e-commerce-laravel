@@ -29,8 +29,7 @@ Route::get('/about', 'MainPageController@about')->name('about');
 Route::get('/thankyou', 'PaymentConfirmationController@index')->name('paymentconfirmation.index');
 Route::get('/wishlistclear', 'WishListController@clear')->name('wishlist.clear');
 Route::get('/cartclear', 'CartController@clear')->name('cart.clear');
-Route::post('/cart/switchToSaveForLater/{id}', 'CartController@switchToSaveForLater')
-    ->name('cart.switchToSaveForLater');
+Route::post('/cart/switchToSaveForLater/{id}', 'CartController@switchToSaveForLater')->name('cart.switchToSaveForLater');
 
 Route::get('/filter', 'ProductController@filter');
 Route::post('/products', 'ProductController@filter')->name('products.filter');
@@ -38,7 +37,7 @@ Route::post('/products', 'ProductController@filter')->name('products.filter');
 Auth::routes();
 Route::get('/', 'MainPageController@index')->name('main');
 Route::get('/home', 'MainPageController@index')->name('home');
-
+Route::get('/search', 'ProductController@search')->name('search');
 
 
 Route::group(['prefix' => 'admin'], function () {

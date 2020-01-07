@@ -32,7 +32,7 @@ class ArticlesDimmer extends AbstractWidget
             'text'   => __("You have {$count} {$string} in database. Click on button below to view all {$string}"),
             'button' => [
                 'text' => __("Veiw all {$string}"),
-                'link' => route('voyager.posts.index'),
+                'link' => route('voyager.articles.index'),
             ],
             'image' => voyager_asset('images/widget-backgrounds/02.jpg'),
         ]));
