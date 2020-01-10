@@ -6,7 +6,7 @@
     @foreach ($mightAlsoLike as $mightAlsoLike_item)
         <div class="mightAlsoLike-item card-scale">
             <a href="{{ route('products.show', $mightAlsoLike_item->id)}}">
-                <img src="{{ asset('/storage/' . $mightAlsoLike_item->image) }}" class="w-100" alt=""/>
+                <img src="{{ asset('/storage/' . $mightAlsoLike_item->image) }}" width="100" alt=""/>
             </a>
             <small>{{ Str::limit($mightAlsoLike_item->model, 13) }}</small>
         </div>

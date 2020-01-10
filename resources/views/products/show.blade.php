@@ -38,11 +38,11 @@
                     @if ($product['images'])
                     <div class="product-section-images">
                             <div class="product-section-thumbnail">
-                                <img src="{{ asset('storage/' . $product['image']) }}" class="w-100">
+                                <img src="{{ asset('storage/' . $product['image']) }}" width="100">
                             </div>
                         @foreach (json_decode($product['images'], true) as $image)
                             <div class="product-section-thumbnail">
-                                <img src="{{ asset('storage/' . $image) }}" class="w-100">
+                                <img src="{{ asset('storage/' . $image) }}" width="100">
                             </div>
                         @endforeach
                     </div>

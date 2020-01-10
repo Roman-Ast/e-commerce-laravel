@@ -1,6 +1,6 @@
 <div class="from-blog-title" style="background:#f8f9fa">
     <div style="width:70%;margin-top:20px;">
-        <h3 style="margin-bottom:40px;;display:flex;justify-content:center;">
+        <h3 style="margin-bottom:40px;display:flex;justify-content:center;">
             <a href="{{ route('articles.index') }}" class="text-dark" style="font-weight:600;">Скидки</a>
         </h3>
         <p style="text-align:center">
@@ -8,7 +8,7 @@
         </p>
     </div>
 </div>
-<div role="main">
+<div>
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">

@@ -27,7 +27,7 @@
               @foreach ($itemsInCart as $cartItem)
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div style="display:flex;flex-direction:row;flex-wrap:nowrap;">
-                      <img style="width:30%" src="{{ explode(',', $cartItem['image'])[0] }}" class="card-img" alt="{{ $cartItem['model'] }}" style="max-height:150px;"> 
+                      <img style="width:30%" src="{{ asset('storage/' . $cartItem['image']) }}" class="card-img" alt="{{ $cartItem['model'] }}" style="max-height:150px;"> 
                       <div style="width:80%;">
                         <h6 class="my-0">{{ $cartItem['model'] }}</h6>
                         <small class="text-muted">{{ $cartItem['ram'] }}, {{ $cartItem['capacity'] }}, {{ $cartItem['colour'] }}</small>
@@ -51,10 +51,7 @@
                   <button type="submit" class="btn btn-secondary">Redeem</button>
                 </div>
               </div>
-            </form>
-          </div>
-          
-          <div class="col-md-6">
+./          <div class="col-md-6">
             <h4 class="mb-3">Платежные реквизиты</h4>
             {!! Form::open(['url' => route('checkout.store'), 'id' => 'payment-form']) !!}
               <div class="row">

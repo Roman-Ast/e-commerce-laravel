@@ -8,7 +8,7 @@
             </p>
         </div>
     </div>
-<div class="container reviews-container" style="">
+<div class="container reviews-container">
     
     @foreach ($reviews as $review)
         <div class="card card-scale" style="width: 22rem;">
