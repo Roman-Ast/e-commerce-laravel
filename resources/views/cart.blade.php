@@ -120,7 +120,7 @@
             <div class="" style="width:100%;padding-top:10px;">
                 <div class="cartItem">
                     <div class="col-md-2">
-                        <img src="{{ asset('storage/' . $cartItem['image']) }}" class="card-img" alt="{{ $wishListItem['model'] }}" style="max-height:150px;">
+                        <img src="{{ asset('storage/' . $wishListItem['image']) }}" class="card-img" alt="{{ $wishListItem['model'] }}" style="max-height:150px;">
                     </div>
                     <div class="cart-item-description">
                         <h4 class="card-title"><a href="{{ route("products.show", $wishListItem['id']) }}">{{ $wishListItem['model'] }}</a></h4>

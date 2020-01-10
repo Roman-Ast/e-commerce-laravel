@@ -68,6 +68,9 @@
                                 <button type="button" class="btn btn-link text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         {{ Auth::user()->name }}
                                 </button>
+                                <div class="user-avatar-container">
+                                    <img class="user-avatar" src="{{ asset('storage/' . Auth::user()->avatar) }}">
+                                </div>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     @if (Auth::user() && Auth::user()->email === 'roman_planeta@mail.ru')
                                         <a href="/admin" class="p-2 text-dark">Администратор</a>

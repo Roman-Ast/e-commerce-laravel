@@ -91,7 +91,6 @@
                         </div>
                     @endif
                 
-                
             </div>
 
             <div name="{{ $option }}" id="collapse{{ $option }}" class="collapse" aria-labelledby="heading{{ $option }}"

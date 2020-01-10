@@ -51,7 +51,8 @@
                   <button type="submit" class="btn btn-secondary">Redeem</button>
                 </div>
               </div>
-./          <div class="col-md-6">
+          </div>
+       <div class="col-md-6">
             <h4 class="mb-3">Платежные реквизиты</h4>
             {!! Form::open(['url' => route('checkout.store'), 'id' => 'payment-form']) !!}
               <div class="row">
@@ -131,6 +132,7 @@
               {!! Form::submit('Оплатить', ['class' => 'btn btn-outline-success btn-lg btn-block', 'id' => 'complete-order']) !!}
               {!! Form::close() !!}
           </div>
+        </div>
         </div>
         <div class="spacer"></div>
         @include('partials.footer')

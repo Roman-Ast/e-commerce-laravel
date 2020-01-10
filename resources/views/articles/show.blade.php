@@ -53,7 +53,7 @@
                 </p>
             </div>
             @if (isset($article->image))
-                <div class="" style="border:1px solid #ccc;border-radius:5px;width:100%;max-height:400px;display:flex;justify-content:center;">
+                <div class="" style="padding:20px;border:4px solid #ccc;border-radius:5px;width:100%;max-height:400px;display:flex;justify-content:center;">
                     <img src="{{ asset("/storage/{$article->image}") }}" class="w-100">
                 </div>
             @endif
@@ -61,7 +61,7 @@
                 <h1>{{ $article->title }}</h1>
             </div>
             <div class="article-body">
-                <p> {{ $article->body }}</p>
+                {{ strip_tags(htmlspecialchars_decode($article->body)) }}
             </div>
             @if (Auth::user())
                 <div class="like-article">

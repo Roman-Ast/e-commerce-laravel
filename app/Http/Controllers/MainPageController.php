@@ -62,13 +62,10 @@ class MainPageController extends Controller
             ->get()
             ->toArray();
 
-        $userData = [];
-        foreach ($reviews as $review) {
-            $userData[] = User::where('id', $review['author_id']);
-        }
+        $users = User::all();
        
         return view('home', [
-            'userData' => $userData,
+            'users' => $users,
             'products' => $products,
             'articles' => $articles,
             'timeExpired' => $timeExpired,

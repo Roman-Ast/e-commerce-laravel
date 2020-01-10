@@ -539,12 +539,23 @@ textarea:focus, input:focus{
   font-size: 1.2rem;
   cursor: pointer;
 }
+.filter-item-option{
+  border-bottom: 1px solid #ccc;
+}
 .rotate90{
   transform: rotate(90deg);
   transition: transform 0.3s;
 }
-
-
+.user-avatar-container{
+  border-radius: 50%;
+  width: 50px;
+}
+.user-avatar{
+  width: 100%;
+  height: auto;
+  border-radius: 50%; /* Радиус скругления */
+  box-shadow: 0 0 0 3px #333, 0 0 13px #333; /* Параметры теней */
+}
 
 
 

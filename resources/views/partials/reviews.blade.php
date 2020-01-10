@@ -14,7 +14,11 @@
         <div class="card card-scale" style="width: 22rem;">
             <div class="reviews-top-side">
                 <div class="reviews-user-avatar">
-                    <img src="{{ asset('/storage/users/default.png') }}" class="w-100">
+                    @foreach ($users as $user)
+                        @if ($review['author_id'] === $user->id)
+                            <img src="{{ asset('storage/' . $user->avatar) }}" class="w-100 user-avatar">
+                        @endif
+                    @endforeach
                 </div>
                 <div class="reviews-user-data">
                     <h5 style="font-weight:600">{{ $review['author_name'] }}</h5>

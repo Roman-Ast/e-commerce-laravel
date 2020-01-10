@@ -10,9 +10,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+        <link rel="shortcut icon" href="<?php echo asset('/favicon.png'); ?>">
         <link href="{{ URL::asset('css/main.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     </head>
     <body>
    

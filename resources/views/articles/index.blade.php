@@ -72,10 +72,10 @@
                             </p>
                         </div>
                         <h5 class="card-title">{{ $article->title }}</h5>
-                        <p class="card-text">
-                            {{ Str::limit($article->body, 200) }}
-                            <a href="{{ route('articles.show', $article->id) }}">далее</a>
-                        </p>
+                            <div class="card-body">
+                                {{ strip_tags(htmlspecialchars_decode(Str::limit($article->body, 155))) }}
+                                <a href="{{ route('articles.show', $article->id) }}">далее</a>
+                            </div>
                         <div style="display:flex;flex-direction:row;justify-content:space-between;">
                             <small style="font-style:italic;margin-right:10px;" class="text-muted">
                                 @if (!empty($comments))
